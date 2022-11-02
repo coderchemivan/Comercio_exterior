@@ -31,20 +31,22 @@ class Datos_comercio():
         archivo_categorias = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'files', self.archivo_))
         df = pd.read_csv(archivo_categorias, encoding='utf-8')
         codigos_productos = []
+        descripcion_productos = []
         for i in range(1,97): 
             if i != 77:
                 try:
                     l = df.iloc[:,i-1].dropna()
                     l=l.apply(lambda x: x[0:6].replace('.',"").strip())
+                    desc = l.apply(lambda x: x[6:].replace('.',"").strip())
                     codigos_productos.append(l.values.tolist())
                 except:
                     print('error en ', i)
         codigos_productos = [item for sublist in codigos_productos for item in sublist]
         '''2 PARA LA API NUEVA'''
         if self.api == 2:
-            self.extract_data(years=self.years,country_code=self.country_code,product_codes=codigos_productos[540:])
+            self.extract_data(years=self.years,country_code=self.country_code,product_codes=codigos_productos[0:])
         else:
-            self.extract_data(period=self.period,years=self.years,country_code=self.country_code,partner_code=self.partner_code,product_codes=codigos_productos[0:]) 
+            self.extract_data(period=self.period,years=self.years,country_code=self.country_code,partner_code=self.partner_code,product_codes=codigos_productos[0:1]) 
     
     def extract_data(self,years,country_code,product_codes,partner_code=None,period=None):
         lista_errores = []
@@ -55,7 +57,7 @@ class Datos_comercio():
                     url = "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode={}&period={}&cmdCode={}&flowCode=M,X&customsCode=C00&motCode=0".format(country_code,years,product_codes[index])
                 else:    
                     url = "http://comtrade.un.org/api/get?max=1000&type=C&freq={}&px=H0&ps={}&r={}&p={}&rg=all&cc={}".format(period,years,country_code,partner_code,product_codes[index])
-                print(url)
+                print(url) 
                 hdr ={
                 # Request headers
                 'Cache-Control': 'no-cache',
@@ -70,15 +72,17 @@ class Datos_comercio():
                 if self.api ==2:
                     df = pd.DataFrame(result['data'])
                     df = df.fillna(0)
-                    df = df[['refYear','flowCode','partnerCode','primaryValue','qty','qtyUnitCode','netWgt','grossWgt']]
+                    df = df[['refYear','flowCode','partnerCode','primaryValue','fobvalue','qty','qtyUnitCode','netWgt','grossWgt']]
                     df = df.sort_values(by=['refYear','flowCode','primaryValue'],ascending=[True,True,False])
-                    num_original = df.shape[0]/2
+                    num_original = df.shape[0]
+                    #eliminar duplicados
+                    df = df.drop_duplicates(subset=['refYear','flowCode','partnerCode','primaryValue'],keep='first')
                     #print(df.columns)
                         #eliminar a los países que participen con menos del 3% del total
-                    df = df.groupby(['refYear','flowCode','partnerCode']).sum().reset_index()
-                    df = df.sort_values(by=['refYear','flowCode','primaryValue'],ascending=[True,True,False])
-                    df['porcentaje'] = df.groupby(['refYear','flowCode'])['primaryValue'].apply(lambda x: x/(x.sum()/2))    
-                    df = df[df['porcentaje'] > 0.01]
+                    #df = df.groupby(['refYear','flowCode','partnerCode']).sum().reset_index()
+                    #df = df.sort_values(by=['refYear','flowCode','primaryValue'],ascending=[True,True,False])
+                    #df['porcentaje'] = df.groupby(['refYear','flowCode'])['primaryValue'].apply(lambda x: x/(x.sum()/2))    
+                    #df = df[df['porcentaje'] > 0.03]
                 else:
                     df = pd.DataFrame(result['dataset'])
                     df = df.replace({np.NAN:0})
@@ -113,6 +117,7 @@ class Datos_comercio():
                     data['imp_exp'] = row.flowCode.replace('X',str(2)).replace('M',str(1))
                     data['partner_code'] = row.partnerCode
                     data['tradevalue'] = row.primaryValue
+                    data['fobvalue'] = row.fobvalue
                     data['tradequantity'] = row.qty
                     data['quantity_unit'] = row.qtyUnitCode
                     data['netweight'] = row.netWgt
@@ -171,6 +176,7 @@ class Datos_comercio():
         
     
 
-c = Datos_comercio('A','2008,2007,2006,2005,2004,2003,2002,2001,2000','484','all','categorias.csv',2,'world_trade_')
+c = Datos_comercio('A','2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010','484','all','categorias.csv',2,'world_trade_')
 #d = Datos_comercio('A','2021,2020,2019,2018,2017,2016,2015,2014','484','all','categorias.csv',2,'world_trade_',True)
 #d.errores()
+#2009,2008,2007,2006,2005,2004,2003,2002,2001,2000
