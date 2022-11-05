@@ -1,6 +1,5 @@
 import mysql.connector
-
-
+import pandas as pd
 
 
 class MysqlDB():
@@ -28,19 +27,20 @@ class MysqlDB():
                                             ))
         else:
             
-            insertar_registro = "INSERT INTO world_trade (reporter_country,year,period,section,SA_4, imp_exp,partner_code,tradevalue,tradequantity,altquantity,netweight,grossweight) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            insertar_registro =  "INSERT INTO world_trade (reporter_country,year,section,SA_4, imp_exp,partner_code,tradevalue,fobvalue,tradequantity,quantity_unit,netweight) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            
             cur.execute(insertar_registro, (diccionario['reporter_country'],
                                             diccionario['year'],
-                                            diccionario['period'],
                                             diccionario['section'],
                                             diccionario['SA_4'],
                                             diccionario['imp_exp'],
                                             diccionario['partner_code'],
                                             diccionario['tradevalue'],
+                                            diccionario['fobvalue'],
                                             diccionario['tradequantity'],
-                                            diccionario['altquantity'],
+                                            diccionario['quantity_unit'],
                                             diccionario['netweight'],
-                                            diccionario['grossweight']))
+                                            ))
         self.conn.commit()
         cur.close()
         self.conn.close
@@ -87,7 +87,7 @@ class MysqlDB():
     
     def verificar_partner_code_in_countriesTable(self):
         cur = self.conn.cursor()
-        cur.execute("SELECT distinct(partner_code_)from world_trade_;")
+        cur.execute("SELECT distinct(partner_code)from world_trade_;")
         rows = cur.fetchall()
         rows,= list(zip(*rows))
         self.conn.commit()
@@ -101,10 +101,42 @@ class MysqlDB():
         cur.close()  
         return rows
     
+    def eliminar_registros_insignificantes(self):
+        #Eliminar registros con valores con porcentaje menor a 3
+        cur = self.conn.cursor()
+        cur.execute("SELECT FROM world_trade_")
+        rows = cur.fetchall()
+        world_tradeTable = pd.DataFrame(rows,columns=[x[0] for x in cur.description])['year']
+        print(world_tradeTable.shape[0])
+        world_tradeTable['section'] = world_tradeTable['section'].astype(int)
+        world_tradeTable = world_tradeTable[~(world_tradeTable['partner_code']=='0')] 
+        world_tradeTable['porcentaje'] = world_tradeTable.groupby(['year','imp_exp','SA_4'],group_keys=False)['tradevalue'].apply(lambda x: (x/(x.sum()))*100)
+        world_tradeTable['porcentaje'] = world_tradeTable['porcentaje'].round(2)
+        world_tradeTable = world_tradeTable[world_tradeTable['porcentaje'] > 3] 
+        print(world_tradeTable.shape[0])
+    
+    def anadir_region_countries(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT iso_3 FROM countries")
+        rows = cur.fetchall()
+        #rows a lista
+        rows,= list(zip(*rows))
+        print(len(rows))
 
-#probando
-# c = MysqlDB()
-# m = c.verificar_partner_code_in_countriesTable()
-# print(m)
+        for row in rows:
+            try:
+                cur.execute("SELECT region from countries_ WHERE iso_3 ='{}'".format(str(row)))
+                region = cur.fetchone()[0]
+                #update column region in countries table
+                cur.execute("UPDATE countries SET region = %s WHERE iso_3 = %s", (region,row))
+            except  Exception as e:
+                print(e)
+                continue
+        self.conn.commit()
+        cur.close()
+        self.conn.close()
 
-#c.insertar_registro({'bilateral_dos_num': 1, 'bilateral_cuatro_num': 1020, 'imp_exp': 2, 'country': 'United States of America', 'año_2017': '682613', 'año_2018': '756178', 'año_2019': '824127', 'año_2020': '883174', 'año_2021': '485121'})
+
+
+#c = MysqlDB().anadir_region_countries()
+# print(c)
