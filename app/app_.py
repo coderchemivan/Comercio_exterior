@@ -1,7 +1,7 @@
 import dash
 from dash import dcc
 from dash import html
-from dash import Dash, html, Input, Output, ctx
+from dash import Dash, html, Input, Output, State,ctx
 from dash.dependencies import Input, Output, ClientsideFunction
 import plotly.graph_objs as go
 import plotly.express as px
@@ -85,6 +85,11 @@ def generate_control_card():
                 id="export-btn-outer",
                 children=html.Button(id="export-btn", children="Exportaciones", n_clicks=0),
             ),
+            html.Br(),
+            html.Div(
+                id="filtro-btn-outer",
+                children=html.Button(id="filtro-btn", children="Crear visualización", n_clicks=0),
+            ),
         ],
     )
 df = Data('world_trade',reporting_country='484',year=[2019],imp_exp=1).read_data()
@@ -120,7 +125,7 @@ app.layout = html.Div(
                         html.B("Importado en 2020"),
                         html.Hr(),
                         html.B('Año', className = 'fix_label', style = {'text-align': 'left', 'color': 'black'}),
-                        dcc.RangeSlider(2010, 2022, value=[2021,2021], marks={
+                        dcc.RangeSlider(2010, 2022, value=[2020], marks={
                             str(yr): str(yr) for yr in range(2010, 2022, 1)
                         },id = 'year-slider',className = 'dcc_compon'),
                             
@@ -208,71 +213,62 @@ def paises_por_region(region_select):
 @app.callback(Output(component_id='origen-destino',component_property='figure'),
                 Output(component_id='treemap',component_property='figure'),
                 Output(component_id='indicator',component_property='figure'),
-                #Input('filtro_btn','n_clicks'),
-                Input('region_select','value'),
-                Input('country_select','value'),
-                Input('product-select','value'),
-                Input('year-slider','value'),
-                Input('import-btn','n_clicks'),
-                Input('export-btn','n_clicks'),)
-def filtro(region_selected,country_select,product_select,year_slider,import_btn,export_btn):
+                Input('filtro-btn','n_clicks'),
+                State('region_select','value'),
+                State('country_select','value'),
+                #State('product-select','value'),
+                State('year-slider','value'),
+                State('import-btn','n_clicks'),
+                State('export-btn','n_clicks'),
+                )
+def filtro(n_clicks,region_selected,product_select,year_slider,import_btn,export_btn):
     imp_exp = 1
-    if type(country_select) == list:
-        country_select = country_select[0]
-    else:
-        pass
-
+    # if type(country_select) == list:
+    #     country_select = country_select
+    # else:
+    #    pass
     if "import-btn" == ctx.triggered_id:
         imp_exp =1
     elif "export-btn" == ctx.triggered_id:
         imp_exp = 2
-    if bool(country_select):
-        pais = Data('world_trade').getCountryProperties(name=country_select)
-    else:
-        pais = None
-    c = Data('world_trade',reporting_country='484',year=year_slider,region=region_selected,partner_code=pais,imp_exp=imp_exp)
+    paises = []
+    # if bool(country_select):
+    #     for pais in country_select:
+    #         paises.append(Data('world_trade').getCountryProperties(name=country_select)) 
+    # else:
+    #     paises = None
+    print(paises)
+    c = Data('world_trade',reporting_country='484',year=[2015,2016,2017,2018,2019,2020,2021],region=region_selected,imp_exp=imp_exp)
     df = c.read_data()
-
-    fig1 = px.treemap(df,
+    df_treemap = df[df['year'].isin(year_slider)]
+    df_treemap = df_treemap.groupby(['iso_3','SA_4','description','year'])['tradevalue'].sum().reset_index()
+    print(df_treemap)
+    fig1 = px.treemap(df_treemap,
                     path=['description','SA_4'],
                     values='tradevalue',
                     height=800, width=900).update_layout(margin=dict(t=25, r=0, l=5, b=20))
 
-    #c = Data('world_trade_',reporting_country='484',year=year_slider,imp_exp=imp_exp,region=region_selected,partner_code=pais)
-    #df2 = c.cambio_porcentualImpExp()
-    df_ = df.groupby('iso_3',group_keys=False).sum().reset_index()
+    df_cpleth= df.groupby('iso_3',group_keys=False).sum().reset_index()
     imp_exp_ =0
     imp_exp_ = 'Orígenes' if imp_exp_ == 1 else 'Destinos'
-    fig2 = px.choropleth(df_, locations='iso_3', 
+    fig2 = px.choropleth(df_cpleth, locations='iso_3', 
                             color='tradevalue',
                             color_continuous_scale="viridis",
-                            range_color=(df.tradevalue.min(), df.tradevalue.max()),
+                            range_color=(df_cpleth.tradevalue.min(), df_cpleth.tradevalue.max()),
                             scope = region_selected.lower(),
                             #labels={'aumento_disminucion':'Aumento/disminucion'},
                             title='{imp_exp} ({año})'.format(imp_exp=imp_exp_,año=year_slider[0]),
                             projection='kavrayskiy7',
                             height = 400,
                         ).update_layout(margin={"r":0,"t":25,"l":0,"b":20}) 
-    fig3 = make_subplots(rows=2, cols=3,subplot_titles=(region_selected))
-    c = Data('world_trade',reporting_country='484',year=[2015,2016,2017,2018,2019,2020,2021],region=region_selected)
-    df = c.read_data()
-    df=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
-    df_imp= df[df['imp_exp']==1]
-    df_exp = df[df['imp_exp']==2]
+
+    df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
+    df_imp= df_line_plot[df_line_plot['imp_exp']==1]
+    df_exp = df_line_plot[df_line_plot['imp_exp']==2]
     fig4 = make_subplots(rows=1, cols=1,subplot_titles=(region_selected))
     fig4.add_trace(go.Scatter(x=df_imp['year'],y=df_imp['tradevalue'],name='Importaciones',line_color='blue'),row=1,col=1)
     fig4.add_trace(go.Scatter(x=df_exp['year'],y=df_exp['tradevalue'],name='Exportaciones',line_color='green'),row=1,col=1)
     fig4.update_layout(barmode='group',height=400,margin=dict(t=25, r=0, l=5, b=20))
-
-
-
-
-
-    # fig4=px.scatter(
-    #                     x=df_imp['year'],
-    #                     y=df_imp['tradevalue'],)
-                        
-
     return fig2,fig1,fig4
 # Run the server
 if __name__ == "__main__":

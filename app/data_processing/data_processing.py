@@ -6,7 +6,7 @@ import json
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 class Data():
-    def __init__(self,table_name=None,reporting_country=None,partner_code = None,year=None,period=None,section=None,SA_4=None,imp_exp=None):
+    def __init__(self,table_name=None,reporting_country=None,region=None,partner_code = None,year=None,period=None,section=None,SA_4=None,imp_exp=None):
         self.conn = mysql.connector.connect(user="root", password="123456",
                                        host="localhost",
                                        database="mexico_it",
@@ -14,6 +14,7 @@ class Data():
                                        )
         self.table_name = table_name
         self.reporting_country = reporting_country
+        self.region = region
         self.partner_code = partner_code
         self.year = year
         self.period = period
@@ -48,7 +49,8 @@ class Data():
         world_tradeTable['section'] = world_tradeTable['section'].astype(int)
         world_tradeTable = world_tradeTable[~(world_tradeTable['partner_code']=='0')] 
         world_tradeTable['porcentaje'] = world_tradeTable.groupby(['year','imp_exp','SA_4'],group_keys=False)['tradevalue'].apply(lambda x: (x/(x.sum()))*100)
-        world_tradeTable['porcentaje'] = world_tradeTable['porcentaje'].round(2)
+        world_tradeTable['porcentaje'] = world_tradeTable['porcentaje'].round(2) 
+        world_tradeTable['tradevalue'] = world_tradeTable['tradevalue'].apply(lambda x: x/1000)
         world_tradeTable = world_tradeTable[world_tradeTable['porcentaje'] > 3] 
 
         #procesando table sa4_description
@@ -71,11 +73,13 @@ class Data():
         df.drop(columns=['fobvalue','quantity_unit','netweight','reporter_country','tradequantity'],inplace=True)
         #dar formato a tradevalue en millones de dolares
         df['tradevalue'] = df['tradevalue'].astype(float)
-        df['tradevalue'] = df['tradevalue'].apply(lambda x:x/1000000)
+        #df['tradevalue'] = df['tradevalue'].apply(lambda x:x)
         #redondear a 2 decimales
         df['tradevalue'] = df['tradevalue'].round(2)
         #eliminar registros con tradevalue < 0
         df = df[df['tradevalue'] > 0]
+        
+        df = df[df['region'] == self.region]
         #print(df.shape)
         return df
 
@@ -97,7 +101,11 @@ class Data():
         else:
             zone_list = df['name'].values.tolist()
         return zone_list
-    
+    def getCountryProperties(self,name):
+        query = "SELECT partner_code_ FROM countries WHERE name = '{}'".format(name)
+        df = self.get_table(query)
+        pais = df['partner_code_'].values.tolist()[0]
+        return pais
     def obtainProductoDescription(self,detalle=2):
         if detalle == 2:
             query = "SELECT * FROM descripcion_sa2"
@@ -153,7 +161,7 @@ class Data():
                         )    
         fig.show()
     def cambio_porcentualImpExp(self):
-        df = self.read_data()[0]
+        df = self.read_data()
         df =df.groupby(['year','imp_exp','partner_code','iso_3'],group_keys=False)[['tradevalue']].sum().reset_index()
         #paises unicos
         paises = df['partner_code'].unique()
