@@ -245,8 +245,57 @@ def paises_por_region(region_select):
     return [{"label": i, "value": i} for i in countriesList]
 
 
+
+@app.callback(Output(component_id='treemap',component_property='figure'),
+                Input('store-df', 'data'),
+                State('store-imp_exp', 'data'),
+                Input('filtro-btn','n_clicks'),
+                Input('region_select','value'),
+                Input('country_select','value'),
+                Input('product-select','value'),
+                Input('year-slider','value'),
+                Input('import-btn','n_clicks'),
+                Input('export-btn','n_clicks'),
+                )
+def update_treemap(data_df,data_imp_exp,n_clicks,region_select,country_select,product_select,year_slider,import_btn,export_btn):
+    imp_exp = data_imp_exp
+    df_inicial = pd.read_json(data_df, orient='split')
+
+    df = df_inicial.copy()
+    try: #Si se selecciona un producto
+        if product_select != None and len(product_select) > 0:
+            df = df[df['description'].isin(product_select)]
+        else:
+            df = df_inicial.copy()
+    except:pass
+        
+
+    try: #Si hay algún país seleccionado
+        df = df[(df['name'].isin(country_select))]  if len(country_select) > 0 else df 
+    except:pass
+        #df = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
+ 
+    df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
+    df_treemap = df_aux.groupby(['description','SA_4','year','sa4_description'])['tradevalue','porcentaje'].sum().reset_index()
+    df_treemap['porcentaje'] = df_treemap['tradevalue'].apply(lambda x:(x/df_treemap['tradevalue'].sum())*100)
+    df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:round(x,2))
+    df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:str(x)+'%')
+    fig1 = px.treemap(df_treemap,
+                    path=['description','sa4_description'],
+                    values='tradevalue',
+                    height=800, width=900,
+                    hover_data=['porcentaje'],
+                    ).update_layout(margin=dict(t=25, r=0, l=5, b=20),
+                    )
+    return fig1
+
+
+
+
+
+
+
 @app.callback(Output(component_id='origen-destino',component_property='figure'),
-                Output(component_id='treemap',component_property='figure'),
                 Output(component_id='indicator',component_property='figure'),
                 Output('titulo', 'children'),
                 Input('store-df', 'data'),
@@ -285,19 +334,6 @@ def crear_graficas(data_df,data_imp_exp,clickData,n_clicks,selected_region,count
         pass
 
     df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
-    df_treemap = df_aux.groupby(['description','SA_4','year','sa4_description'])['tradevalue','porcentaje'].sum().reset_index()
-    df_treemap['porcentaje'] = df_treemap['tradevalue'].apply(lambda x:(x/df_treemap['tradevalue'].sum())*100)
-    df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:round(x,2))
-    df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:str(x)+'%')
-    fig1 = px.treemap(df_treemap,
-                    path=['description','sa4_description'],
-                    values='tradevalue',
-                    height=800, width=900,
-                    hover_data=['porcentaje'],
-                    ).update_layout(margin=dict(t=25, r=0, l=5, b=20),
-                    )
-
-    
     df_cpleth= df_aux.groupby('iso_3',group_keys=False).sum().reset_index()
     region = selected_region
     imp_exp_ = 'Orígenes de importación en {}'.format(region) if imp_exp == 1 else 'Destinos de exportación en {}'.format(region)
@@ -328,7 +364,7 @@ def crear_graficas(data_df,data_imp_exp,clickData,n_clicks,selected_region,count
 
 
  
-    return fig2,fig1,fig4,titulo
+    return fig2,fig4,titulo
 
 # Run the server
 if __name__ == "__main__":
