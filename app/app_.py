@@ -48,10 +48,10 @@ def generate_control_card():
     """
     
     regionsList = Data('world_trade').obtaincountriesProperties(nivel=2,region='America')
-    productsList = Data('world_trade').obtainProductoDescription()
+    productsList = Data('world_trade').obtainProductoDescription(detalle=4)
     
     regionsList = [region if len(region) < 20 else region[:10] + '...' for region in regionsList]
-    productsList = [product if len(product) < 15 else product[:10] + '...' for product in productsList]
+    #productsList = [product if len(product) < 15 else product[:10] + '...' for product in productsList]
 
     return html.Div(
         id="control-card",
@@ -77,7 +77,7 @@ def generate_control_card():
             dcc.Dropdown(
                 id="product-select",
                 options=[{"label": i, "value": i} for i in productsList],
-                #value='Animales vivos',
+                #value='Todos',
                 multi=True,
                 placeholder="Crudo",
             ),
@@ -224,25 +224,25 @@ def store_data(selected_region):
    
 
 @app.callback(Output(component_id='country_select',component_property='options'),
-            Output(component_id='country_select',component_property='value'),
+            #Output(component_id='country_select',component_property='value'),
               [Input('region_select','value')])
 def paises_por_region(region_select):
     countriesList = Data('world_trade').obtaincountriesProperties(nivel=1,region=region_select)
     #countriesList = [country if len(country) < 10 else country[:10] + '...' for country in countriesList]
-    placeholder = "United States of America"
-    if region_select == 'North America':
-        value = ['United States of America','Canada']
-    elif region_select == 'Asia':
-        value = ['China','Japan','South Korea','India']
-    elif region_select == 'Africa':
-        value = ['Nigeria']
-    elif region_select == 'Europe':
-        value = ['Germany','Spain','France']
-    elif region_select == 'Oceania':
-        value = 'Australia'
-    elif region_select == 'South America':
-        value = ['Brazil','Argentina','Chile','Colombia','Peru']
-    return [{"label": i, "value": i} for i in countriesList],value
+    #placeholder = "United States of America"
+    # if region_select == 'North America':
+    #     value = ['United States of America','Canada']
+    # elif region_select == 'Asia':
+    #     value = ['China','Japan','South Korea','India']
+    # elif region_select == 'Africa':
+    #     value = ['Nigeria']
+    # elif region_select == 'Europe':
+    #     value = ['Germany','Spain','France']
+    # elif region_select == 'Oceania':
+    #     value = 'Australia'
+    # elif region_select == 'South America':
+    #     value = ['Brazil','Argentina','Chile','Colombia','Peru']
+    return [{"label": i, "value": i} for i in countriesList]
 
 
 @app.callback(Output(component_id='origen-destino',component_property='figure'),
@@ -251,40 +251,56 @@ def paises_por_region(region_select):
                 Output('titulo', 'children'),
                 Input('store-df', 'data'),
                 State('store-imp_exp', 'data'),
-                State('treemap', 'clickData'),
+                Input('treemap', 'clickData'),
                 Input('filtro-btn','n_clicks'),
-                State('region_select','value'),
-                State('country_select','value'),
-                #State('product-select','value'),
-                State('year-slider','value'),
-                State('import-btn','n_clicks'),
-                State('export-btn','n_clicks'),
+                Input('region_select','value'),
+                Input('country_select','value'),
+                Input('product-select','value'),
+                Input('year-slider','value'),
+                Input('import-btn','n_clicks'),
+                Input('export-btn','n_clicks'),
                 )
-def crear_graficas(data_df,data_imp_exp,clickData,n_clicks,selected_region,country_select,year_slider,import_btn,export_btn):
+def crear_graficas(data_df,data_imp_exp,clickData,n_clicks,selected_region,country_select,product_select,year_slider,import_btn,export_btn):
     imp_exp = data_imp_exp
     df_inicial = pd.read_json(data_df, orient='split')
-    try:
-        df = df_inicial[(df_inicial['year'].isin(year_slider)) & (df_inicial['imp_exp'] == imp_exp) & (df_inicial['name'].isin(country_select))]
-        df_inicial = df_inicial[(df_inicial['name'].isin(country_select))]
-    except:
-        df = df_inicial[(df_inicial['year'].isin(year_slider)) & (df_inicial['imp_exp'] == imp_exp)]
-    df_treemap = df[df['year'].isin(year_slider)]
-    df_treemap = df_treemap.groupby(['description','SA_4','year'])['tradevalue','porcentaje'].sum().reset_index()
+
+    df = df_inicial.copy()
+    try: #Si se selecciona un producto
+        if product_select != None and len(product_select) > 0:
+            df = df[df['description'].isin(product_select)]
+        else:
+            df = df_inicial.copy()
+    except:pass
+        
+
+    try: #Si hay algún país seleccionado
+        df = df[(df['name'].isin(country_select))]  if len(country_select) > 0 else df 
+    except:pass
+        #df = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
+ 
+    if clickData is not None: #Si se selecciona un producto en el treemap
+        if clickData['points'][0]['id'] in df_inicial['description'].values:
+            df = df[df['description'] == clickData['points'][0]['id']]
+    else:
+        pass
+
+    df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
+    df_treemap = df_aux.groupby(['description','SA_4','year','sa4_description'])['tradevalue','porcentaje'].sum().reset_index()
     df_treemap['porcentaje'] = df_treemap['tradevalue'].apply(lambda x:(x/df_treemap['tradevalue'].sum())*100)
     df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:round(x,2))
     df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:str(x)+'%')
     fig1 = px.treemap(df_treemap,
-                    path=['description','SA_4'],
+                    path=['description','sa4_description'],
                     values='tradevalue',
                     height=800, width=900,
                     hover_data=['porcentaje'],
                     ).update_layout(margin=dict(t=25, r=0, l=5, b=20),
                     )
 
-    df_cpleth= df.groupby('iso_3',group_keys=False).sum().reset_index()
     
-    imp_exp_ =0
-    imp_exp_ = 'Orígenes de importación' if imp_exp_ == 1 else 'Destinos de exportación'
+    df_cpleth= df_aux.groupby('iso_3',group_keys=False).sum().reset_index()
+    region = selected_region
+    imp_exp_ = 'Orígenes de importación en {}'.format(region) if imp_exp == 1 else 'Destinos de exportación en {}'.format(region)
     fig2 = px.choropleth(df_cpleth, locations='iso_3', 
                             color='tradevalue',
                             color_continuous_scale="viridis",
@@ -296,10 +312,10 @@ def crear_graficas(data_df,data_imp_exp,clickData,n_clicks,selected_region,count
                             height = 400,
                         ).update_layout(margin={"r":0,"t":25,"l":0,"b":20}) 
 
-    df_line_plot=df_inicial.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
+    df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
     df_imp= df_line_plot[df_line_plot['imp_exp']==1]
     df_exp = df_line_plot[df_line_plot['imp_exp']==2]
-    fig4 = make_subplots(rows=1, cols=1,subplot_titles=(selected_region))
+    fig4 = make_subplots(rows=1, cols=1,subplot_titles=('Importación vs Exportación en {}'.format(region),))
     fig4.add_trace(go.Scatter(x=df_imp['year'],y=df_imp['tradevalue'],name='Importaciones',line_color='blue'),row=1,col=1)
     fig4.add_trace(go.Scatter(x=df_exp['year'],y=df_exp['tradevalue'],name='Exportaciones',line_color='green'),row=1,col=1)
     fig4.update_layout(barmode='group',height=400,margin=dict(t=25, r=0, l=5, b=20))
@@ -310,12 +326,7 @@ def crear_graficas(data_df,data_imp_exp,clickData,n_clicks,selected_region,count
     else:
         titulo = 'Exportaciones de México en el año {}'.format(year_slider[0])
 
-    if df_inicial.empty==False:
-        if clickData is not None: 
-            if clickData['points'][0]['id'] in df_treemap['description'].values:
-                print(clickData['points'][0]['id'])
-        else:
-            pass
+
  
     return fig2,fig1,fig4,titulo
 
