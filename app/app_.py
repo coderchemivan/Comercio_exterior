@@ -25,6 +25,22 @@ app.config.suppress_callback_exceptions = True
 BASE_PATH = pathlib.Path(__file__).parent.resolve()
 DATA_PATH = BASE_PATH.joinpath("data").resolve()
 
+def description_card():
+    """
+
+    :return: A Div containing dashboard title & descriptions.
+    """
+    return html.Div(
+        id="description-card",
+        children=[
+            html.H5("Comercio internacional"),
+            #html.H3("Welcome to the Clinical Analytics Dashboard"),
+            html.Div(
+                id="intro",
+                children="Explora el mercado internacional de México con el mundo",
+            ),
+        ],
+    )
 
 
 def generate_control_card():
@@ -65,15 +81,15 @@ def generate_control_card():
                 multi=True,
                 placeholder="Crudo",
             ),
-            html.Br(),
-            html.P("Indicator"),
-            dcc.Dropdown(
-                id="indicador-select",
-                options={'linea de tiempo': 'Linea de tiempo', 'crecimiento': 'Crecimiento'},
-                #value='Animales vivos',
-                multi=False,
-                placeholder="Crudo",
-            ),
+            # html.Br(),
+            # html.P("Indicator"),
+            # dcc.Dropdown(
+            #     id="indicador-select",
+            #     options={'linea de tiempo': 'Linea de tiempo', 'crecimiento': 'Crecimiento'},
+            #     #value='Animales vivos',
+            #     multi=False,
+            #     placeholder="Crudo",
+            # ),
             html.Br(),
             html.Div(
                 id="import-btn-outer",
@@ -105,7 +121,7 @@ app.layout = html.Div(
         html.Div(
             id="left-column",
             className="three columns",
-            children=[generate_control_card()]
+            children=[description_card(),generate_control_card()]
             + [
                 html.Div(
                     ["initial child"], id="output-clientside", style={"display": "none"}
@@ -121,9 +137,9 @@ app.layout = html.Div(
                 html.Div(
                     id="patient_volume_card",
                     children=[
-                        html.B("Importado en 2020"),
+                        html.B(id='titulo'),
                         html.Hr(),
-                        html.B('Año', className = 'fix_label', style = {'text-align': 'left', 'color': 'black'}),
+                        html.B('Selecciona un año', className = 'fix_label', style = {'text-align': 'left', 'color': 'black'}),
                         dcc.RangeSlider(2010, 2022, value=[2020], marks={
                             str(yr): str(yr) for yr in range(2010, 2022, 1)
                         },id = 'year-slider',className = 'dcc_compon'),
@@ -166,12 +182,26 @@ app.layout = html.Div(
                 ],),
             ],
         ),
-        dcc.Store(id='store-data', data=[], storage_type='memory') # 'local' or 'session'),
+        dcc.Store(id='store-df', data=[], storage_type='memory'),
+        dcc.Store(id='store-imp_exp', data=[], storage_type='memory') # 'local' or 'session'),
     ],
 )
 
 @app.callback(
-    Output('store-data', 'data'),
+    Output('store-imp_exp', 'data'),
+    [Input('import-btn', 'n_clicks'),
+    Input('export-btn', 'n_clicks')],)
+def define_imp_exp(n_clicks_imp,n_clicks_exp):
+    imp_exp=1
+    if "import-btn" == ctx.triggered_id:
+        imp_exp =1
+    elif "export-btn" == ctx.triggered_id:
+        imp_exp = 2
+    data = imp_exp
+    return data
+    
+@app.callback(
+    Output('store-df', 'data'),
     [Input('region_select', 'value')])
 def store_data(selected_region):
     c = Data('world_trade',reporting_country='484',year=[2015,2016,2017,2018,2019,2020,2021],region=selected_region)
@@ -205,7 +235,9 @@ def paises_por_region(region_select):
 @app.callback(Output(component_id='origen-destino',component_property='figure'),
                 Output(component_id='treemap',component_property='figure'),
                 Output(component_id='indicator',component_property='figure'),
-                Input('store-data', 'data'),
+                Output('titulo', 'children'),
+                Input('store-df', 'data'),
+                State('store-imp_exp', 'data'),
                 Input('filtro-btn','n_clicks'),
                 State('region_select','value'),
                 State('country_select','value'),
@@ -214,22 +246,26 @@ def paises_por_region(region_select):
                 State('import-btn','n_clicks'),
                 State('export-btn','n_clicks'),
                 )
-def crear_graficas(data,n_clicks,selected_region,country_select,year_slider,import_btn,export_btn):
-    imp_exp = 1
-
-    df_inicial = pd.read_json(data, orient='split')
-    
+def crear_graficas(data_df,data_imp_exp,n_clicks,selected_region,country_select,year_slider,import_btn,export_btn):
+    imp_exp = data_imp_exp
+    df_inicial = pd.read_json(data_df, orient='split')
     try:
         df = df_inicial[(df_inicial['year'].isin(year_slider)) & (df_inicial['imp_exp'] == imp_exp) & (df_inicial['name'].isin(country_select))]
         df_inicial = df_inicial[(df_inicial['name'].isin(country_select))]
     except:
         df = df_inicial[(df_inicial['year'].isin(year_slider)) & (df_inicial['imp_exp'] == imp_exp)]
     df_treemap = df[df['year'].isin(year_slider)]
-    df_treemap = df_treemap.groupby(['iso_3','SA_4','description','year'])['tradevalue'].sum().reset_index()
+    df_treemap = df_treemap.groupby(['description','SA_4','year'])['tradevalue','porcentaje'].sum().reset_index()
+    df_treemap['porcentaje'] = df_treemap['tradevalue'].apply(lambda x:(x/df_treemap['tradevalue'].sum())*100)
+    df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:round(x,2))
+    df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:str(x)+'%')
     fig1 = px.treemap(df_treemap,
                     path=['description','SA_4'],
                     values='tradevalue',
-                    height=800, width=900).update_layout(margin=dict(t=25, r=0, l=5, b=20))
+                    height=800, width=900,
+                    hover_data=['porcentaje'],
+                    ).update_layout(margin=dict(t=25, r=0, l=5, b=20),
+                    )
 
     df_cpleth= df.groupby('iso_3',group_keys=False).sum().reset_index()
     
@@ -253,7 +289,13 @@ def crear_graficas(data,n_clicks,selected_region,country_select,year_slider,impo
     fig4.add_trace(go.Scatter(x=df_imp['year'],y=df_imp['tradevalue'],name='Importaciones',line_color='blue'),row=1,col=1)
     fig4.add_trace(go.Scatter(x=df_exp['year'],y=df_exp['tradevalue'],name='Exportaciones',line_color='green'),row=1,col=1)
     fig4.update_layout(barmode='group',height=400,margin=dict(t=25, r=0, l=5, b=20))
-    return fig2,fig1,fig4
+    imp_exp_ = 1 if imp_exp == 1 else 2
+    if imp_exp_ == 1:
+        titulo = 'Importaciones a México en el año {}'.format(year_slider[0])
+         
+    else:
+        titulo = 'Exportaciones de México en el año {}'.format(year_slider[0])
+    return fig2,fig1,fig4,titulo
 # Run the server
 if __name__ == "__main__":
     app.run_server(debug=True)
