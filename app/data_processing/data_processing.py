@@ -52,10 +52,21 @@ class Data():
         world_tradeTable['porcentaje'] = world_tradeTable['porcentaje'].round(2) 
         world_tradeTable = world_tradeTable[world_tradeTable['porcentaje'] > 3] 
 
-        #procesando table sa4_description
-        query = "SELECT * FROM sections"
+        #procesando table sections_
+        query = "SELECT * FROM sections_"
         sectionsTable = self.get_table(query)
         sectionsTable = sectionsTable.rename(columns={'id':'section'})
+
+
+        #procesando table sa4
+        query = "SELECT * FROM sa4"
+        sa4Table = self.get_table(query)
+        sa4Table = sa4Table.rename(columns={'id':'SA_4'})
+
+        #procesando table sa2
+        query = "SELECT * FROM sa2"
+        sa2Table = self.get_table(query)
+        sa2Table = sa2Table.rename(columns={'id':'SA_2'})
 
         #PROCESANDO TABLA COUNTRIES_
         query = "SELECT * FROM countries_"
@@ -69,7 +80,14 @@ class Data():
         countriesTable['partner_code'] = countriesTable['partner_code'].astype(str)
         df = world_tradeTable.merge(sectionsTable,how='left',on='section')
         df = df.merge(countriesTable,how='left',on='partner_code')
+        df = df.merge(sa4Table,how='left',on='SA_4')
         df.drop(columns=['fobvalue','quantity_unit','netweight','reporter_country','tradequantity'],inplace=True)
+
+        #unir tabla sections_
+        
+        
+        #df = df.merge(sa2Table,how='left',on='id')
+
         #dar formato a tradevalue en millones de dolares
         df['tradevalue'] = df['tradevalue'].astype(float)
         df['tradevalue'] = df['tradevalue'].apply(lambda x:x/1000)
@@ -79,7 +97,6 @@ class Data():
         df = df[df['tradevalue'] > 0]
         
         df = df[df['region'] == self.region]
-        #print(df.shape)
         return df
 
     def get_table(self,query):
@@ -91,7 +108,7 @@ class Data():
         return table 
         
     def obtaincountriesProperties(self,nivel=1,region='Todos'):
-        query = "SELECT * FROM countries"
+        query = "select distinct(name),region from (select name,partner_code,region from countries inner join world_trade on countries.partner_code_ =  world_trade.partner_code) as tabla"
         df = self.get_table(query)
         if nivel == 1 and region != 'Todos':
             zone_list = df[df['region']==region]['name'].values.tolist()
@@ -112,15 +129,19 @@ class Data():
         df = self.get_table(query)
         pais = df['partner_code_'].values.tolist()[0]
         return pais
-    def obtainProductoDescription(self,detalle=2):
+    def obtainProductoDescription(self,detalle):
         if detalle == 2:
-            query = "SELECT * FROM descripcion_sa2"
+            query = "SELECT * FROM sa2"
+            product_list = self.get_table(query)
+            product_list = product_list['sa2_description']
         elif detalle == 4:
-            query = "SELECT * FROM descripcion_sa2"
+            query = "SELECT * FROM sa4"
+            product_list = self.get_table(query)
+            product_list = product_list['sa4_description']
         elif detalle == 1:
             query = "SELECT * FROM sections"
-        product_list = self.get_table(query)
-        product_list = product_list['description']
+            product_list = self.get_table(query)
+            product_list = product_list['description']
         return product_list
 
     def grafica_treemap_paises(self,df,periodo=None,imp_exp=None):

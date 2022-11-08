@@ -1,6 +1,6 @@
 import mysql.connector
 import pandas as pd
-
+import json
 
 class MysqlDB():
     def __init__(self):
@@ -136,7 +136,33 @@ class MysqlDB():
         cur.close()
         self.conn.close()
 
+    def createTablaSA2Description(self):
+        cur = self.conn.cursor()
+        #open i2020.json
+        with open(r'C:\Users\ivan_\OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO\Desktop\repositorios\Comercio_exterior\scrapers/i2016.json',encoding='utf-8') as json_file:
+            data = json.load(json_file)
+        
+        #cur.execute("CREATE TABLE if not EXISTS sections_ (id , description VARCHAR(250))")
+        for row in data:
+            #ssa4 son los último 4 dígitos de 'HS4 ID'
+            sect = str(row['Section ID'])
+            #print(row['Section'])
+            
+            #print(sa4,row['HS4 ID'])
+            try:
+                cur.execute("INSERT INTO sections_ (id,description) VALUES (%s,%s)", (sect,row['Section']))
+            except Exception as e:
+                print(e)
+                continue
+                
+        self.conn.commit()
+        cur.close()
+        self.conn.close()
 
 
-#c = MysqlDB().anadir_region_countries()
+
+
+
+
+c = MysqlDB().createTablaSA2Description()
 # print(c)
