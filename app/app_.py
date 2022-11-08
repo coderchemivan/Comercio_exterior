@@ -107,7 +107,7 @@ def generate_control_card():
             ),
         ],
     )
-df = Data('world_trade',reporting_country='484',year=[2019],imp_exp=1).read_data()
+#df = Data('world_trade',reporting_country='484',year=[2019],imp_exp=1).read_data()
 app.layout = html.Div(
     id="app-container",
     children=[
@@ -144,11 +144,11 @@ app.layout = html.Div(
                             str(yr): str(yr) for yr in range(2010, 2022, 1)
                         },id = 'year-slider',className = 'dcc_compon'),
                             
-                        dcc.Graph(id="treemap",config={'displayModeBar':True},style={'margin-top': '0px'},
-                                figure=px.treemap(df,
-                                path=['description','SA_4'],
-                                values='tradevalue',
-                                height=800, width=900))
+                        dcc.Graph(id="treemap",config={'displayModeBar':True},style={'margin-top': '0px'},)
+                                #figure=px.treemap(df,
+                                #path=['description','SA_4'],
+                                #values='tradevalue',
+                                #height=800, width=900))
                     ],
                 ),
                 # Patient Wait time by Department
@@ -180,6 +180,19 @@ app.layout = html.Div(
                     ),
 
                 ],),
+
+                html.Div(
+                    id="testing_graph",
+                    children=[
+                        html.Hr(),
+                        html.B('Selecciona un año', className = 'fix_label', style = {'text-align': 'left', 'color': 'black'}),                            
+                        dcc.Graph(id="treemap2",config={'displayModeBar':True},style={'margin-top': '0px'},)
+                    ],
+                ),
+
+
+
+
             ],
         ),
         dcc.Store(id='store-df', data=[], storage_type='memory'),
@@ -238,6 +251,7 @@ def paises_por_region(region_select):
                 Output('titulo', 'children'),
                 Input('store-df', 'data'),
                 State('store-imp_exp', 'data'),
+                State('treemap', 'clickData'),
                 Input('filtro-btn','n_clicks'),
                 State('region_select','value'),
                 State('country_select','value'),
@@ -246,7 +260,7 @@ def paises_por_region(region_select):
                 State('import-btn','n_clicks'),
                 State('export-btn','n_clicks'),
                 )
-def crear_graficas(data_df,data_imp_exp,n_clicks,selected_region,country_select,year_slider,import_btn,export_btn):
+def crear_graficas(data_df,data_imp_exp,clickData,n_clicks,selected_region,country_select,year_slider,import_btn,export_btn):
     imp_exp = data_imp_exp
     df_inicial = pd.read_json(data_df, orient='split')
     try:
@@ -295,7 +309,16 @@ def crear_graficas(data_df,data_imp_exp,n_clicks,selected_region,country_select,
          
     else:
         titulo = 'Exportaciones de México en el año {}'.format(year_slider[0])
+
+    if df_inicial.empty==False:
+        if clickData is not None: 
+            if clickData['points'][0]['id'] in df_treemap['description'].values:
+                print(clickData['points'][0]['id'])
+        else:
+            pass
+ 
     return fig2,fig1,fig4,titulo
+
 # Run the server
 if __name__ == "__main__":
     app.run_server(debug=True)
