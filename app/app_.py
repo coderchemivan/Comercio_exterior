@@ -1,17 +1,16 @@
 import dash
-from dash import dcc
-from dash import html
-from dash import Dash, html, Input, Output, State,ctx
+from dash import Dash, html, Input, Output, State,ctx,dcc,callback
 from dash.dependencies import Input, Output, ClientsideFunction
 import plotly.graph_objs as go
 import plotly.express as px
+from plotly.subplots import make_subplots
 import numpy as np
 import pandas as pd 
-import datetime
-from datetime import datetime as dt
+
+
 import pathlib
 from data_processing.data_processing import Data
-from plotly.subplots import make_subplots
+
 
 app = dash.Dash(
     __name__,
@@ -37,6 +36,7 @@ def generate_control_card():
     
     regionsList = [region if len(region) < 20 else region[:10] + '...' for region in regionsList]
     productsList = [product if len(product) < 15 else product[:10] + '...' for product in productsList]
+
     return html.Div(
         id="control-card",
         children=[
@@ -52,7 +52,7 @@ def generate_control_card():
             dcc.Dropdown(
                 id="country_select",
                 #options=[{"label": i, "value": i} for i in countriesList],
-                value="United States of America",
+                #value=["United States of America",'Canada'],
                 multi=True,
                 placeholder="United States of America",
             ),
@@ -74,7 +74,6 @@ def generate_control_card():
                 multi=False,
                 placeholder="Crudo",
             ),
-            html.Br(),
             html.Br(),
             html.Div(
                 id="import-btn-outer",
@@ -166,53 +165,47 @@ app.layout = html.Div(
 
                 ],),
             ],
-        )
+        ),
+        dcc.Store(id='store-data', data=[], storage_type='memory') # 'local' or 'session'),
     ],
 )
 
+@app.callback(
+    Output('store-data', 'data'),
+    [Input('region_select', 'value')])
+def store_data(selected_region):
+    c = Data('world_trade',reporting_country='484',year=[2015,2016,2017,2018,2019,2020,2021],region=selected_region)
+    df_inicial_ = c.read_data()
+    data = df_inicial_.to_json(orient='split')
+    return data
+   
+
 @app.callback(Output(component_id='country_select',component_property='options'),
-            Output(component_id='country_select',component_property='placeholder'),
+            Output(component_id='country_select',component_property='value'),
               [Input('region_select','value')])
 def paises_por_region(region_select):
     countriesList = Data('world_trade').obtaincountriesProperties(nivel=1,region=region_select)
     #countriesList = [country if len(country) < 10 else country[:10] + '...' for country in countriesList]
     placeholder = "United States of America"
     if region_select == 'North America':
-        placeholder = 'United States of America'
+        value = ['United States of America','Canada']
     elif region_select == 'Asia':
-        placeholder = 'China'
+        value = ['China','Japan','South Korea','India']
     elif region_select == 'Africa':
-        placeholder = 'Nigeria'
+        value = ['Nigeria']
     elif region_select == 'Europe':
-        placeholder = 'Germany'
+        value = ['Germany','Spain','France']
     elif region_select == 'Oceania':
-        placeholder = 'Australia'
-    return [{"label": i, "value": i} for i in countriesList], placeholder
+        value = 'Australia'
+    elif region_select == 'South America':
+        value = ['Brazil','Argentina','Chile','Colombia','Peru']
+    return [{"label": i, "value": i} for i in countriesList],value
 
-
-# @app.callback(Output(component_id='country_select',component_property='value'),
-#                 Input('country_select','options'),)
-# def set_country_select(country_select):
-#     try:
-#         return country_select[0]['value']
-#     except:
-#         return None
-
-
-# @app.callback(Output('product-select','value'),
-#                 Input('product-select','options'),
-#                 Input('filtro_btn','n_clicks'),)
-
-# def set_product_select(product_select,n_clicks):
-#     try:
-#         if n_clicks > 0:
-#             return product_select[0]['value']
-#     except:
-#         return None
 
 @app.callback(Output(component_id='origen-destino',component_property='figure'),
                 Output(component_id='treemap',component_property='figure'),
                 Output(component_id='indicator',component_property='figure'),
+                Input('store-data', 'data'),
                 Input('filtro-btn','n_clicks'),
                 State('region_select','value'),
                 State('country_select','value'),
@@ -221,51 +214,42 @@ def paises_por_region(region_select):
                 State('import-btn','n_clicks'),
                 State('export-btn','n_clicks'),
                 )
-def filtro(n_clicks,region_selected,product_select,year_slider,import_btn,export_btn):
+def crear_graficas(data,n_clicks,selected_region,country_select,year_slider,import_btn,export_btn):
     imp_exp = 1
-    # if type(country_select) == list:
-    #     country_select = country_select
-    # else:
-    #    pass
-    if "import-btn" == ctx.triggered_id:
-        imp_exp =1
-    elif "export-btn" == ctx.triggered_id:
-        imp_exp = 2
-    paises = []
-    # if bool(country_select):
-    #     for pais in country_select:
-    #         paises.append(Data('world_trade').getCountryProperties(name=country_select)) 
-    # else:
-    #     paises = None
-    print(paises)
-    c = Data('world_trade',reporting_country='484',year=[2015,2016,2017,2018,2019,2020,2021],region=region_selected,imp_exp=imp_exp)
-    df = c.read_data()
+
+    df_inicial = pd.read_json(data, orient='split')
+    
+    try:
+        df = df_inicial[(df_inicial['year'].isin(year_slider)) & (df_inicial['imp_exp'] == imp_exp) & (df_inicial['name'].isin(country_select))]
+        df_inicial = df_inicial[(df_inicial['name'].isin(country_select))]
+    except:
+        df = df_inicial[(df_inicial['year'].isin(year_slider)) & (df_inicial['imp_exp'] == imp_exp)]
     df_treemap = df[df['year'].isin(year_slider)]
     df_treemap = df_treemap.groupby(['iso_3','SA_4','description','year'])['tradevalue'].sum().reset_index()
-    print(df_treemap)
     fig1 = px.treemap(df_treemap,
                     path=['description','SA_4'],
                     values='tradevalue',
                     height=800, width=900).update_layout(margin=dict(t=25, r=0, l=5, b=20))
 
     df_cpleth= df.groupby('iso_3',group_keys=False).sum().reset_index()
+    
     imp_exp_ =0
-    imp_exp_ = 'Orígenes' if imp_exp_ == 1 else 'Destinos'
+    imp_exp_ = 'Orígenes de importación' if imp_exp_ == 1 else 'Destinos de exportación'
     fig2 = px.choropleth(df_cpleth, locations='iso_3', 
                             color='tradevalue',
                             color_continuous_scale="viridis",
                             range_color=(df_cpleth.tradevalue.min(), df_cpleth.tradevalue.max()),
-                            scope = region_selected.lower(),
+                            scope = selected_region.lower(),
                             #labels={'aumento_disminucion':'Aumento/disminucion'},
                             title='{imp_exp} ({año})'.format(imp_exp=imp_exp_,año=year_slider[0]),
                             projection='kavrayskiy7',
                             height = 400,
                         ).update_layout(margin={"r":0,"t":25,"l":0,"b":20}) 
 
-    df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
+    df_line_plot=df_inicial.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
     df_imp= df_line_plot[df_line_plot['imp_exp']==1]
     df_exp = df_line_plot[df_line_plot['imp_exp']==2]
-    fig4 = make_subplots(rows=1, cols=1,subplot_titles=(region_selected))
+    fig4 = make_subplots(rows=1, cols=1,subplot_titles=(selected_region))
     fig4.add_trace(go.Scatter(x=df_imp['year'],y=df_imp['tradevalue'],name='Importaciones',line_color='blue'),row=1,col=1)
     fig4.add_trace(go.Scatter(x=df_exp['year'],y=df_exp['tradevalue'],name='Exportaciones',line_color='green'),row=1,col=1)
     fig4.update_layout(barmode='group',height=400,margin=dict(t=25, r=0, l=5, b=20))
