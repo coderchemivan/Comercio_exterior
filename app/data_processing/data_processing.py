@@ -50,7 +50,6 @@ class Data():
         world_tradeTable = world_tradeTable[~(world_tradeTable['partner_code']=='0')] 
         world_tradeTable['porcentaje'] = world_tradeTable.groupby(['year','imp_exp','SA_4'],group_keys=False)['tradevalue'].apply(lambda x: (x/(x.sum()))*100)
         world_tradeTable['porcentaje'] = world_tradeTable['porcentaje'].round(2) 
-        world_tradeTable['tradevalue'] = world_tradeTable['tradevalue'].apply(lambda x: x/1000)
         world_tradeTable = world_tradeTable[world_tradeTable['porcentaje'] > 3] 
 
         #procesando table sa4_description
@@ -73,7 +72,7 @@ class Data():
         df.drop(columns=['fobvalue','quantity_unit','netweight','reporter_country','tradequantity'],inplace=True)
         #dar formato a tradevalue en millones de dolares
         df['tradevalue'] = df['tradevalue'].astype(float)
-        #df['tradevalue'] = df['tradevalue'].apply(lambda x:x)
+        df['tradevalue'] = df['tradevalue'].apply(lambda x:x/1000)
         #redondear a 2 decimales
         df['tradevalue'] = df['tradevalue'].round(2)
         #eliminar registros con tradevalue < 0
@@ -101,6 +100,13 @@ class Data():
         else:
             zone_list = df['name'].values.tolist()
         return zone_list
+
+    def obtainMostImportantPartner(self,df):
+        df = df.groupby(['partner_code','name'],as_index=False)['tradevalue'].sum()
+        df = df.sort_values(by='tradevalue',ascending=False)
+        df = df.head()
+        countries = df['name'].values.tolist()
+        return countries
     def getCountryProperties(self,name):
         query = "SELECT partner_code_ FROM countries WHERE name = '{}'".format(name)
         df = self.get_table(query)
