@@ -12,7 +12,7 @@ class MysqlDB():
     def insertar_registro(self,tabla,diccionario):
         cur = self.conn.cursor()
         if tabla =='world_trade_':
-            insertar_registro = "INSERT INTO world_trade_ (reporter_country,year,section,SA_4, imp_exp,partner_code,tradevalue,fobvalue,tradequantity,quantity_unit,netweight) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            insertar_registro = "INSERT INTO world_trade_ (reporter_country,year,section,SA_4, imp_exp,partner_code,tradevalue,tradequantity,netweight) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cur.execute(insertar_registro, (diccionario['reporter_country'],
                                             diccionario['year'],
                                             diccionario['section'],
@@ -20,14 +20,12 @@ class MysqlDB():
                                             diccionario['imp_exp'],
                                             diccionario['partner_code'],
                                             diccionario['tradevalue'],
-                                            diccionario['fobvalue'],
                                             diccionario['tradequantity'],
-                                            diccionario['quantity_unit'],
                                             diccionario['netweight'],
                                             ))
         else:
             
-            insertar_registro =  "INSERT INTO world_trade (reporter_country,year,section,SA_4, imp_exp,partner_code,tradevalue,fobvalue,tradequantity,quantity_unit,netweight) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            insertar_registro =  "INSERT INTO world_trade (reporter_country,year,section,SA_4, imp_exp,partner_code,tradevalue,tradequantity,netweight) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             
             cur.execute(insertar_registro, (diccionario['reporter_country'],
                                             diccionario['year'],
@@ -36,9 +34,7 @@ class MysqlDB():
                                             diccionario['imp_exp'],
                                             diccionario['partner_code'],
                                             diccionario['tradevalue'],
-                                            diccionario['fobvalue'],
                                             diccionario['tradequantity'],
-                                            diccionario['quantity_unit'],
                                             diccionario['netweight'],
                                             ))
         self.conn.commit()
@@ -164,5 +160,5 @@ class MysqlDB():
 
 
 
-c = MysqlDB().createTablaSA2Description()
+#c = MysqlDB().createTablaSA2Description()
 # print(c)
