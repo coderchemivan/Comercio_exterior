@@ -302,14 +302,14 @@ def update_treemap(data_df,data_imp_exp,region_select,country_select,product_sel
 
 @app.callback(Output(component_id='origen-destino',component_property='figure'),
                 Output(component_id='indicator',component_property='figure'),
-                
+                Output(component_id='ventaja-competitiva',component_property='figure'),
                 Output('titulo', 'children'),
                 Output('titulo-origen-destino', 'children'),
                 Output('imp-vs-exp', 'children'),
                 Input('store-df', 'data'),
                 Input('store-imp_exp', 'data'),
                 Input('treemap', 'clickData'),
-                
+                Input('origen-destino', 'clickData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
                 Input('product-select','value'),
@@ -317,7 +317,7 @@ def update_treemap(data_df,data_imp_exp,region_select,country_select,product_sel
                 Input('import-btn','n_clicks'),
                 Input('export-btn','n_clicks'),
                 )
-def crear_graficas(data_df,data_imp_exp,clickData1,selected_region,country_select,product_select,year_slider,import_btn,export_btn):
+def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,country_select,product_select,year_slider,import_btn,export_btn):
     imp_exp = data_imp_exp
     df_inicial = pd.read_json(data_df, orient='split')
 
@@ -335,8 +335,7 @@ def crear_graficas(data_df,data_imp_exp,clickData1,selected_region,country_selec
     except:pass
         #df = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
  
-    if clickData1 is not None:
-        print(clickData1)
+    if clickData1 is not None: #Si se ha dado click en algún caítulo del treemap
         try: #Si se selecciona un producto en el treemap
             if clickData1['points'][0]['id'] in df_inicial['description'].values:
                 df = df[df['description'] == clickData1['points'][0]['id']]
@@ -344,9 +343,15 @@ def crear_graficas(data_df,data_imp_exp,clickData1,selected_region,country_selec
     else:
         pass
 
-    df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
 
-    
+    # if clickData2 is not None: #Si se ha dado click en algún país de la choropleth
+    #     try:       
+    #         country = clickData2['points'][0]['location']
+    #         df = df_inicial[(df_inicial['iso_3']==country)]
+    #     except:pass
+
+    #Gráfica de origen-destino (chrolopleth)
+    df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
     df_cpleth= df_aux.groupby('iso_3',group_keys=False).sum().reset_index()
     region = selected_region
     scope_ = 'asia' if region == 'Asia' else 'africa' if region == 'Africa' else 'europe' if region == 'Europa' else 'north america' if region == 'América del Norte' else 'south america' if region == 'América del Sur' else 'oceania' if region == 'Oceanía' else 'world'
@@ -362,6 +367,8 @@ def crear_graficas(data_df,data_imp_exp,clickData1,selected_region,country_selec
                             height = 400,
                         ).update_layout(margin={"r":0,"t":25,"l":5,"b":20}) 
 
+
+    #Gráfica de histórico de importaciones y exportaciones (line plot)
     df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
     df_imp= df_line_plot[df_line_plot['imp_exp']==1]
     df_exp = df_line_plot[df_line_plot['imp_exp']==2]
@@ -374,35 +381,8 @@ def crear_graficas(data_df,data_imp_exp,clickData1,selected_region,country_selec
                         y=0.85,
                         xanchor="left",
                         x=0.02))
-    imp_exp_ = 1 if imp_exp == 1 else 2
-    if imp_exp_ == 1:
-        titulo = 'Importaciones a México desde {} ({})'.format(selected_region,year_slider[0])
-        titulo_origen_destino_graph = 'Orígenes de importación ({})'.format(year_slider[0])
-         
-    else:
-        titulo = 'Exportaciones de México hacia {} ({})'.format(selected_region,year_slider[0])
-        titulo_origen_destino_graph = 'Destinos de exportación ({})'.format(year_slider[0])
 
-    titulo_imp_exp = 'Importación vs Exportación (2015-2021)'.format(year_slider[0])
-
-
-    #fig5 = px.treemap(df, path=['description'], values='tradevalue',color='tradevalue',color_continuous_scale='viridis',height=400)
- 
-
-    return fig2,fig4,titulo,titulo_origen_destino_graph,titulo_imp_exp
-
-
-
-@app.callback(Output(component_id='ventaja-competitiva',component_property='figure'),
-                Input('store-df', 'data'),
-                Input('origen-destino', 'clickData'),
-                Input('year-slider','value'),
-                )
-
-
-def crear_grafica_ventaja_competitiva(data_df,clickData2,year_slider):
-    df_inicial = pd.read_json(data_df, orient='split')
-    print(df_inicial.columns)
+    #Gráfica relación importación-exportación de productos (bubble chart)
     df_bubble_chart = df_inicial.copy()
     if clickData2 is not None:
         try: #Si se selecciona un producto en el treemap
@@ -442,11 +422,38 @@ def crear_grafica_ventaja_competitiva(data_df,clickData2,year_slider):
         fig5.update_layout(xaxis_range=[min_export,max_export+0.3],yaxis_range=[min_import, max_import+0.3],height=400,width=900,margin=dict(t=25, r=0, l=5, b=20),showlegend=True)
         #agregar una pendiente de 45° que tome en cuente la escala logaritmica
         fig5.add_trace(go.Scatter(x=[min_export_, max_export_+1000], y=[min_import_, max_import_+1000],mode='lines',line=dict(color='black', width=1, dash='dash')))
-        return fig5
     except Exception as e:
-        print(e)
+        print(e)    
         fig5 = px.line(x=[1,2,3],y=[1,2,3])
-    return fig5
+
+    #Regresa el título de las gráficas
+    imp_exp_ = 1 if imp_exp == 1 else 2
+    if imp_exp_ == 1:
+        titulo = 'Importaciones a México desde {} ({})'.format(selected_region,year_slider[0])
+        titulo_origen_destino_graph = 'Orígenes de importación ({})'.format(year_slider[0])
+         
+    else:
+        titulo = 'Exportaciones de México hacia {} ({})'.format(selected_region,year_slider[0])
+        titulo_origen_destino_graph = 'Destinos de exportación ({})'.format(year_slider[0])
+
+    titulo_imp_exp = 'Importación vs Exportación (2015-2021)'.format(year_slider[0])
+
+    return fig2,fig4,fig5,titulo,titulo_origen_destino_graph,titulo_imp_exp
+
+
+
+# @app.callback(Output(component_id='ventaja-competitiva',component_property='figure'),
+#                 Input('store-df', 'data'),
+#                 Input('origen-destino', 'clickData'),
+#                 Input('year-slider','value'),
+#                 )
+
+
+# def crear_grafica_ventaja_competitiva(data_df,clickData2,year_slider):
+#     df_inicial = pd.read_json(data_df, orient='split')
+#     print(df_inicial.columns)
+
+#     return fig5
     
         
 # Run the server
