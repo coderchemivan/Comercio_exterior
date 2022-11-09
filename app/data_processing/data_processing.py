@@ -81,22 +81,22 @@ class Data():
         df = world_tradeTable.merge(sectionsTable,how='left',on='section')
         df = df.merge(countriesTable,how='left',on='partner_code')
         df = df.merge(sa4Table,how='left',on='SA_4')
-        df.drop(columns=['fobvalue','quantity_unit','netweight','reporter_country','tradequantity'],inplace=True)
+        df.drop(columns=['netweight','reporter_country','tradequantity'],inplace=True)
 
         #unir tabla sections_
         
         
         #df = df.merge(sa2Table,how='left',on='id')
 
-        #dar formato a tradevalue en millones de dolares
+        
         df['tradevalue'] = df['tradevalue'].astype(float)
         df['tradevalue'] = df['tradevalue'].apply(lambda x:x/1000)
         #redondear a 2 decimales
         df['tradevalue'] = df['tradevalue'].round(2)
         #eliminar registros con tradevalue < 0
         df = df[df['tradevalue'] > 0]
-        
-        df = df[df['region'] == self.region]
+        if self.region != 'Mundo':
+            df = df[df['region']==self.region]
         return df
 
     def get_table(self,query):
@@ -114,6 +114,8 @@ class Data():
             zone_list = df[df['region']==region]['name'].values.tolist()
         elif nivel==2 and region != 'Todos':
             zone_list = df['region'].unique()
+            #to list
+            zone_list = zone_list.tolist()
         else:
             zone_list = df['name'].values.tolist()
         return zone_list
@@ -139,7 +141,7 @@ class Data():
             product_list = self.get_table(query)
             product_list = product_list['sa4_description']
         elif detalle == 1:
-            query = "SELECT * FROM sections"
+            query = "SELECT * FROM sections_"
             product_list = self.get_table(query)
             product_list = product_list['description']
         return product_list
