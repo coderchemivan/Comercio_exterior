@@ -118,7 +118,6 @@ app.layout = html.Div(
             id="right-column",
             className="eight columns",
             children=[
-                # Patient Volume Heatmap
                 html.Div(
                     id="patient_volume_card",
                     children=[
@@ -162,7 +161,7 @@ app.layout = html.Div(
                         className="six columns",
                         children=[
                             html.Div(children=[
-                                html.P(id = 'imp-vs-exp',style={'text-align': 'center', 'color': 'white'}),
+                                html.P(id = 'titulo-imp-vs-exp',style={'text-align': 'center', 'color': 'white'}),
                             ],className = 'titulo-indicador'),
                             html.Div([
                                 dcc.Graph(id = 'indicator', config={'displayModeBar': False}, className='dcc_compon',
@@ -173,21 +172,22 @@ app.layout = html.Div(
                     ),
 
                 ],),
-
-                html.Div(
-                    id="ventaja-competitiva-container",
-                    className="twelve columns",
-                    children=[
-                        html.Div(children=[
-                            html.P(id = 'hola',style={'text-align': 'center', 'color': 'white'}),
-                        ],className = 'titulo-indicador'),
-                        html.Div([
-                            dcc.Graph(id = 'ventaja-competitiva', config={'displayModeBar': False}, className='dcc_compon',
-                                                style={'margin-top': '15px'})
-                                                
-                        ],)
-                    ],
-                ),
+                html.Div([
+                    html.Div(
+                        id="ventaja-competitiva-container",
+                        className="twelve columns",
+                        children=[
+                            html.Div(children=[
+                                html.P(id = 'titulo-ventaja-competitiva',style={'text-align': 'center', 'color': 'white'}),
+                            ],className = 'titulo-indicador'),
+                            html.Div([
+                                dcc.Graph(id = 'ventaja-competitiva', config={'displayModeBar': False}, className='dcc_compon',
+                                                    style={'margin-top': '15px'})
+                                                    
+                            ],)
+                        ],
+                    ),
+                ],),
 
 
 
@@ -260,7 +260,7 @@ def paises_por_region(region_select):
 @app.callback(Output(component_id='treemap',component_property='figure'),
                 Input('store-df', 'data'),
                 Input('store-imp_exp', 'data'),
-                #Input('filtro-btn','n_clicks'),
+                Input('origen-destino', 'hoverData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
                 Input('product-select','value'),
@@ -268,7 +268,7 @@ def paises_por_region(region_select):
                 Input('import-btn','n_clicks'),
                 Input('export-btn','n_clicks'),
                 )
-def update_treemap(data_df,data_imp_exp,region_select,country_select,product_select,year_slider,import_btn,export_btn):
+def update_treemap(data_df,data_imp_exp,hoverData1,region_select,country_select,product_select,year_slider,import_btn,export_btn):
     imp_exp = data_imp_exp
     df_inicial = pd.read_json(data_df, orient='split')
     df = df_inicial.copy()
@@ -281,10 +281,14 @@ def update_treemap(data_df,data_imp_exp,region_select,country_select,product_sel
     
     try: #Si hay algún país seleccionado
         df = df_inicial[(df_inicial['name'].isin(country_select))]  if len(country_select) > 0 else df 
-    except:pass
-        #df = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
- 
-    df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
+    except:pass 
+    if hoverData1 is not None: #"SI SE SELECCIONA UN PAIS EN EL MAPA"
+        country = hoverData1['points'][0]['location']
+        df_aux=df[(df['iso_3']==country)]
+        df_aux = df_aux[(df_aux['year'].isin(year_slider)) & (df_aux['imp_exp'] == imp_exp)]
+    else:
+        df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
+    print(df_aux)
     df_treemap = df_aux.groupby(['description','SA_4','year','sa4_description'])['tradevalue','porcentaje'].sum().reset_index()
     df_treemap['porcentaje'] = df_treemap['tradevalue'].apply(lambda x:(x/df_treemap['tradevalue'].sum())*100)
     df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:round(x,2))
@@ -292,7 +296,7 @@ def update_treemap(data_df,data_imp_exp,region_select,country_select,product_sel
     fig1 = px.treemap(df_treemap,
                     path=['description','sa4_description'],
                     values='tradevalue',
-                    height=500, width=900,
+                    height=500, width=950,
                     hover_data=['porcentaje'],
                     ).update_layout(margin=dict(t=25, r=0, l=5, b=20),
                     )
@@ -305,11 +309,12 @@ def update_treemap(data_df,data_imp_exp,region_select,country_select,product_sel
                 Output(component_id='ventaja-competitiva',component_property='figure'),
                 Output('titulo', 'children'),
                 Output('titulo-origen-destino', 'children'),
-                Output('imp-vs-exp', 'children'),
+                Output('titulo-imp-vs-exp', 'children'),
+                Output('titulo-ventaja-competitiva', 'children'),
                 Input('store-df', 'data'),
                 Input('store-imp_exp', 'data'),
                 Input('treemap', 'clickData'),
-                Input('origen-destino', 'clickData'),
+                Input('origen-destino', 'hoverData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
                 Input('product-select','value'),
@@ -329,28 +334,19 @@ def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,co
             pass
     except:pass
         
-
     try: #Si hay algún país seleccionado
         df = df[(df['name'].isin(country_select))]  if len(country_select) > 0 else df 
     except:pass
         #df = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
  
-    if clickData1 is not None: #Si se ha dado click en algún caítulo del treemap
-        try: #Si se selecciona un producto en el treemap
+    if clickData1 is not None: #Si se ha dado click en algún capítulo del treemap
+        try: 
             if clickData1['points'][0]['id'] in df_inicial['description'].values:
                 df = df[df['description'] == clickData1['points'][0]['id']]
         except:pass
     else:
         pass
 
-
-    # if clickData2 is not None: #Si se ha dado click en algún país de la choropleth
-    #     try:       
-    #         country = clickData2['points'][0]['location']
-    #         df = df_inicial[(df_inicial['iso_3']==country)]
-    #     except:pass
-
-    #Gráfica de origen-destino (chrolopleth)
     df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
     df_cpleth= df_aux.groupby('iso_3',group_keys=False).sum().reset_index()
     region = selected_region
@@ -370,6 +366,10 @@ def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,co
 
     #Gráfica de histórico de importaciones y exportaciones (line plot)
     df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
+    if clickData2 is not None:
+        df_line_plot=df.groupby(['year','imp_exp','iso_3'],group_keys=False)['tradevalue'].sum().reset_index()
+        country = clickData2['points'][0]['location']
+        df_line_plot = df_line_plot[(df_line_plot['iso_3']==country)]
     df_imp= df_line_plot[df_line_plot['imp_exp']==1]
     df_exp = df_line_plot[df_line_plot['imp_exp']==2]
     fig4 = make_subplots(rows=1, cols=1,) #subplot_titles=('Importación vs Exportación en {}'.format(region)
@@ -383,12 +383,11 @@ def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,co
                         x=0.02))
 
     #Gráfica relación importación-exportación de productos (bubble chart)
-    df_bubble_chart = df_inicial.copy()
     if clickData2 is not None:
         try: #Si se selecciona un producto en el treemap
             print(clickData2['points'][0]['location'])
             country = clickData2['points'][0]['location']
-            df_aux2 = df_inicial[(df_inicial['year'].isin(year_slider)) & (df_inicial['iso_3']==country)]
+            df_aux2 = df[(df['year'].isin(year_slider)) & (df['iso_3']==country)]
             df_bubble_chart = df_aux2.groupby(['year','imp_exp','description','SA_4'])['tradevalue'].sum().reset_index()
             df_imp = df_bubble_chart[df_bubble_chart['imp_exp'] == 1]
             df_imp.drop(columns=['imp_exp','year'],inplace=True)
@@ -422,9 +421,11 @@ def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,co
         fig5.update_layout(xaxis_range=[min_export,max_export+0.3],yaxis_range=[min_import, max_import+0.3],height=400,width=900,margin=dict(t=25, r=0, l=5, b=20),showlegend=True)
         #agregar una pendiente de 45° que tome en cuente la escala logaritmica
         fig5.add_trace(go.Scatter(x=[min_export_, max_export_+1000], y=[min_import_, max_import_+1000],mode='lines',line=dict(color='black', width=1, dash='dash')))
+        titulo_ventaja_competitiva = 'Exportaciones desde México vs importaciones de {} ({})'.format(country,year_slider[0])
     except Exception as e:
         print(e)    
         fig5 = px.line(x=[1,2,3],y=[1,2,3])
+        titulo_ventaja_competitiva = ""
 
     #Regresa el título de las gráficas
     imp_exp_ = 1 if imp_exp == 1 else 2
@@ -437,24 +438,9 @@ def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,co
         titulo_origen_destino_graph = 'Destinos de exportación ({})'.format(year_slider[0])
 
     titulo_imp_exp = 'Importación vs Exportación (2015-2021)'.format(year_slider[0])
+   
 
-    return fig2,fig4,fig5,titulo,titulo_origen_destino_graph,titulo_imp_exp
-
-
-
-# @app.callback(Output(component_id='ventaja-competitiva',component_property='figure'),
-#                 Input('store-df', 'data'),
-#                 Input('origen-destino', 'clickData'),
-#                 Input('year-slider','value'),
-#                 )
-
-
-# def crear_grafica_ventaja_competitiva(data_df,clickData2,year_slider):
-#     df_inicial = pd.read_json(data_df, orient='split')
-#     print(df_inicial.columns)
-
-#     return fig5
-    
+    return fig2,fig4,fig5,titulo,titulo_origen_destino_graph,titulo_imp_exp,titulo_ventaja_competitiva
         
 # Run the server
 if __name__ == "__main__":
