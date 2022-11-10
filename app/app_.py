@@ -195,7 +195,8 @@ app.layout = html.Div(
             ],
         ),
         dcc.Store(id='store-df', data=[], storage_type='memory'),
-        dcc.Store(id='store-graphs_selections', data={}, storage_type='memory') # 'local' or 'session'),
+        dcc.Store(id='store-graphs_selections', data={}, storage_type='memory'),
+        dcc.Store(id='hoverDataCP-status', data={}, storage_type='memory') # 'local' or 'session'),
     ],
 )
 
@@ -205,12 +206,23 @@ app.layout = html.Div(
 def input_triggers_spinner(value):
     return value
 
+@app.callback(Output("hoverDataCP-status", "data"), 
+                Input("region_select", "value"),
+                Input("country_select", "value"),
+                Input("product-select", "value"),
+                Input("import-btn", "n_clicks"),
+                Input("export-btn", "n_clicks"),
+                Input("year-slider", "value"),)
+def update_hoverDataCP_status(region, country, product, imp, exp, year):
+    return  False
+
+
 @app.callback(
     Output('store-graphs_selections', 'data'),
     [Input('import-btn', 'n_clicks'),
     Input('export-btn', 'n_clicks')],
-    Input('origen-destino', 'hoverData'),)
-def define_imp_exp(n_clicks_imp,n_clicks_exp,hoverCP):
+    Input('hoverDataCP-status', 'data'),)
+def define_imp_exp(n_clicks_imp,n_clicks_exp,hoverDataCP_status):
     if "import-btn" == ctx.triggered_id:
         imp_exp =1
     elif "export-btn" == ctx.triggered_id:
@@ -218,7 +230,7 @@ def define_imp_exp(n_clicks_imp,n_clicks_exp,hoverCP):
     else:
         imp_exp = 1
     data = {}
-    data['hoverDataCP']=True if hoverCP is not None else False
+    data['hoverDataCP']=False if hoverDataCP_status == True else True
     data['imp_exp'] = imp_exp 
     print(data['hoverDataCP'])
     return data
@@ -291,7 +303,6 @@ def update_treemap(data_df,data_graphs_settings,hoverData1,region_select,country
         country = hoverData1['points'][0]['location']
         df_aux=df[(df['iso_3']==country)]
         df_aux = df_aux[(df_aux['year'].isin(year_slider)) & (df_aux['imp_exp'] == imp_exp)]
-        data_graphs_settings['hoverDataCP'] == False
     else:
         df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
     print(df_aux)
@@ -447,8 +458,7 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
         titulo_origen_destino_graph = 'Destinos de exportación ({})'.format(year_slider[0])
 
     titulo_imp_exp = 'Importación vs Exportación (2015-2021)'.format(year_slider[0])
-   
-
+    
     return fig2,fig5,fig4,titulo,titulo_origen_destino_graph,titulo_imp_exp,titulo_ventaja_competitiva
         
 # Run the server
