@@ -195,7 +195,7 @@ app.layout = html.Div(
             ],
         ),
         dcc.Store(id='store-df', data=[], storage_type='memory'),
-        dcc.Store(id='store-imp_exp', data=[], storage_type='memory') # 'local' or 'session'),
+        dcc.Store(id='store-graphs_selections', data={}, storage_type='memory') # 'local' or 'session'),
     ],
 )
 
@@ -206,16 +206,21 @@ def input_triggers_spinner(value):
     return value
 
 @app.callback(
-    Output('store-imp_exp', 'data'),
+    Output('store-graphs_selections', 'data'),
     [Input('import-btn', 'n_clicks'),
-    Input('export-btn', 'n_clicks')],)
-def define_imp_exp(n_clicks_imp,n_clicks_exp):
-    imp_exp=1
+    Input('export-btn', 'n_clicks')],
+    Input('origen-destino', 'hoverData'),)
+def define_imp_exp(n_clicks_imp,n_clicks_exp,hoverCP):
     if "import-btn" == ctx.triggered_id:
         imp_exp =1
     elif "export-btn" == ctx.triggered_id:
         imp_exp = 2
-    data = imp_exp
+    else:
+        imp_exp = 1
+    data = {}
+    data['hoverDataCP']=True if hoverCP is not None else False
+    data['imp_exp'] = imp_exp 
+    print(data['hoverDataCP'])
     return data
     
 @app.callback(
@@ -259,7 +264,7 @@ def paises_por_region(region_select):
 
 @app.callback(Output(component_id='treemap',component_property='figure'),
                 Input('store-df', 'data'),
-                Input('store-imp_exp', 'data'),
+                Input('store-graphs_selections', 'data'),
                 Input('origen-destino', 'hoverData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
@@ -268,8 +273,8 @@ def paises_por_region(region_select):
                 Input('import-btn','n_clicks'),
                 Input('export-btn','n_clicks'),
                 )
-def update_treemap(data_df,data_imp_exp,hoverData1,region_select,country_select,product_select,year_slider,import_btn,export_btn):
-    imp_exp = data_imp_exp
+def update_treemap(data_df,data_graphs_settings,hoverData1,region_select,country_select,product_select,year_slider,import_btn,export_btn):
+    imp_exp = data_graphs_settings['imp_exp']
     df_inicial = pd.read_json(data_df, orient='split')
     df = df_inicial.copy()
     try: #Si se selecciona un producto
@@ -282,10 +287,11 @@ def update_treemap(data_df,data_imp_exp,hoverData1,region_select,country_select,
     try: #Si hay algún país seleccionado
         df = df_inicial[(df_inicial['name'].isin(country_select))]  if len(country_select) > 0 else df 
     except:pass 
-    if hoverData1 is not None: #"SI SE SELECCIONA UN PAIS EN EL MAPA"
+    if hoverData1 is not None and data_graphs_settings['hoverDataCP'] == True: #"SI SE SELECCIONA UN PAIS EN EL MAPA"
         country = hoverData1['points'][0]['location']
         df_aux=df[(df['iso_3']==country)]
         df_aux = df_aux[(df_aux['year'].isin(year_slider)) & (df_aux['imp_exp'] == imp_exp)]
+        data_graphs_settings['hoverDataCP'] == False
     else:
         df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
     print(df_aux)
@@ -305,14 +311,14 @@ def update_treemap(data_df,data_imp_exp,hoverData1,region_select,country_select,
 
 
 @app.callback(Output(component_id='origen-destino',component_property='figure'),
-                Output(component_id='indicator',component_property='figure'),
                 Output(component_id='ventaja-competitiva',component_property='figure'),
+                Output(component_id='indicator',component_property='figure'),
                 Output('titulo', 'children'),
                 Output('titulo-origen-destino', 'children'),
                 Output('titulo-imp-vs-exp', 'children'),
                 Output('titulo-ventaja-competitiva', 'children'),
                 Input('store-df', 'data'),
-                Input('store-imp_exp', 'data'),
+                Input('store-graphs_selections', 'data'),
                 Input('treemap', 'clickData'),
                 Input('origen-destino', 'hoverData'),
                 Input('region_select','value'),
@@ -322,8 +328,8 @@ def update_treemap(data_df,data_imp_exp,hoverData1,region_select,country_select,
                 Input('import-btn','n_clicks'),
                 Input('export-btn','n_clicks'),
                 )
-def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,country_select,product_select,year_slider,import_btn,export_btn):
-    imp_exp = data_imp_exp
+def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_region,country_select,product_select,year_slider,import_btn,export_btn):
+    imp_exp = data_graphs_settings['imp_exp']
     df_inicial = pd.read_json(data_df, orient='split')
 
     df = df_inicial.copy()
@@ -364,23 +370,7 @@ def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,co
                         ).update_layout(margin={"r":0,"t":25,"l":5,"b":20}) 
 
 
-    #Gráfica de histórico de importaciones y exportaciones (line plot)
-    df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
-    if clickData2 is not None:
-        df_line_plot=df.groupby(['year','imp_exp','iso_3'],group_keys=False)['tradevalue'].sum().reset_index()
-        country = clickData2['points'][0]['location']
-        df_line_plot = df_line_plot[(df_line_plot['iso_3']==country)]
-    df_imp= df_line_plot[df_line_plot['imp_exp']==1]
-    df_exp = df_line_plot[df_line_plot['imp_exp']==2]
-    fig4 = make_subplots(rows=1, cols=1,) #subplot_titles=('Importación vs Exportación en {}'.format(region)
-    fig4.add_trace(go.Scatter(x=df_imp['year'],y=df_imp['tradevalue'],name='Importaciones',line_color='blue'),row=1,col=1)
-    fig4.add_trace(go.Scatter(x=df_exp['year'],y=df_exp['tradevalue'],name='Exportaciones',line_color='green'),row=1,col=1)
-    fig4.update_layout(barmode='group',height=400,margin=dict(t=25, r=0, l=5, b=20),
-                        legend=dict(
-                        yanchor="bottom",
-                        y=0.85,
-                        xanchor="left",
-                        x=0.02))
+
 
     #Gráfica relación importación-exportación de productos (bubble chart)
     if clickData2 is not None:
@@ -400,7 +390,6 @@ def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,co
             df_bubble_chart['import'] = df_bubble_chart['import'].apply(lambda x:0 if np.isnan(x) else x)
             #crear una columna con el dato mayor 
             df_bubble_chart['max'] = df_bubble_chart[['export','import']].max(axis=1)
-
         except Exception as e:
             print(e)
             return dash.no_update
@@ -427,6 +416,26 @@ def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,co
         fig5 = px.line(x=[1,2,3],y=[1,2,3])
         titulo_ventaja_competitiva = ""
 
+    #Gráfica de histórico de importaciones y exportaciones (line plot)
+    df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
+    print(data_graphs_settings['hoverDataCP'])
+    if clickData2 is not None and data_graphs_settings['hoverDataCP'] == True: #"SI SE SELECCIONA UN PAIS EN EL MAPA"
+        df_line_plot=df.groupby(['year','imp_exp','iso_3'],group_keys=False)['tradevalue'].sum().reset_index()
+        country = clickData2['points'][0]['location']
+        df_line_plot = df_line_plot[(df_line_plot['iso_3']==country)]
+    df_imp= df_line_plot[df_line_plot['imp_exp']==1]
+    df_exp = df_line_plot[df_line_plot['imp_exp']==2]
+    fig4 = make_subplots(rows=1, cols=1,) #subplot_titles=('Importación vs Exportación en {}'.format(region)
+    fig4.add_trace(go.Scatter(x=df_imp['year'],y=df_imp['tradevalue'],name='Importaciones',line_color='blue'),row=1,col=1)
+    fig4.add_trace(go.Scatter(x=df_exp['year'],y=df_exp['tradevalue'],name='Exportaciones',line_color='green'),row=1,col=1)
+    fig4.update_layout(barmode='group',height=400,margin=dict(t=25, r=0, l=5, b=20),
+                        legend=dict(
+                        yanchor="bottom",
+                        y=0.85,
+                        xanchor="left",
+                        x=0.02))    
+
+
     #Regresa el título de las gráficas
     imp_exp_ = 1 if imp_exp == 1 else 2
     if imp_exp_ == 1:
@@ -440,7 +449,7 @@ def crear_graficas(data_df,data_imp_exp,clickData1,clickData2,selected_region,co
     titulo_imp_exp = 'Importación vs Exportación (2015-2021)'.format(year_slider[0])
    
 
-    return fig2,fig4,fig5,titulo,titulo_origen_destino_graph,titulo_imp_exp,titulo_ventaja_competitiva
+    return fig2,fig5,fig4,titulo,titulo_origen_destino_graph,titulo_imp_exp,titulo_ventaja_competitiva
         
 # Run the server
 if __name__ == "__main__":
