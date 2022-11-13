@@ -51,7 +51,7 @@ class Data():
         world_tradeTable['porcentaje'] = world_tradeTable.groupby(['year','imp_exp','SA_4'],group_keys=False)['tradevalue'].apply(lambda x: (x/(x.sum()))*100)
         world_tradeTable['porcentaje'] = world_tradeTable['porcentaje'].round(2) 
         world_tradeTable = world_tradeTable[world_tradeTable['porcentaje'] > 3] 
-
+        
         #procesando table sections_
         query = "SELECT * FROM sections_"
         sectionsTable = self.get_table(query)
@@ -67,11 +67,6 @@ class Data():
         query = "SELECT * FROM sa2"
         sa2Table = self.get_table(query)
         sa2Table = sa2Table.rename(columns={'id':'SA_2'})
-
-        #PROCESANDO TABLA COUNTRIES_
-        query = "SELECT * FROM countries_"
-        countriesTable_ = self.get_table(query)
-        countriesTable_ = countriesTable_.rename(columns={'id':'partner_code'})
         
         #procesando table countries
         query = "SELECT * FROM countries"
@@ -265,3 +260,4 @@ class Data():
         fig.add_trace(go.Scatter(x=df_exp.index, y=df_exp['CENTROAMERICA'],line_color='blue',name='Exportaciones',showlegend=False),row=2, col=3),
         fig.update_layout(height=600, width=800, title_text="Intercambio comercial con socios princiapales (2015-2021)")
         fig.show()
+
