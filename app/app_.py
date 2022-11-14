@@ -6,7 +6,7 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import numpy as np
 import pandas as pd 
-
+import sqlalchemy
 
 import pathlib
 from data_processing.data_processing import Data
@@ -49,11 +49,9 @@ def description_card():
 def generate_control_card():
     """:return: A Div containing controls for graphs.
     """
-    regionsList = ['Mundo']
-    regionsList_ = Data('world_trade').obtaincountriesProperties(nivel=2,region='America')
-    regionsList.extend(regionsList_)
+    regionsList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=2,region='America')
     regionsList.remove('SE')
-    productsList = Data('world_trade').obtainProductoDescription(detalle=1)
+    productsList = Data('world_trade',fuente_datos='csv').obtainProductoDescription(tabla='sections_')
     
     regionsList = [region if len(region) < 20 else region[:10] + '...' for region in regionsList]
     #productsList = [product if len(product) < 15 else product[:10] + '...' for product in productsList]
@@ -95,7 +93,6 @@ def generate_control_card():
             ),
         ],
     )
-#df = Data('world_trade',reporting_country='484',year=[2019],imp_exp=1).read_data()
 app.layout = html.Div(
     id="app-container",
     children=[
@@ -122,23 +119,28 @@ app.layout = html.Div(
             className="eight columns",
             children=[
                 html.Div(
-                    id="patient_volume_card",
+                    id="control-year-slider",
                     children=[
-                        #####html.B(id='titulo'),
+                        html.Hr(),
+                        html.Br(),
+                        html.B('Selecciona un año', className = 'fix_label'),
+                        dcc.RangeSlider(2014, 2022, value=[2020], 
+                            marks={str(yr) : {'label' : str(yr), 'style':{'color':'white'}} for yr in range(2014, 2022,1)},
+                        id = 'year-slider',className = 'slider'),
+                    ],
+                ),    
+                html.Div(
+                    children=[
+                        html.Br()
+                    ],
+                ),            
+                html.Div(
+                    id="treemap-container",
+                    className="pretty_container",
+                    children=[
                         html.Div(children=[
                             html.P(id = 'titulo',style={'text-align': 'center', 'color': 'white'}),
                         ],className = 'titulo-indicador'),
-                        html.Hr(),
-                        html.B('Selecciona un año', className = 'fix_label', style = {'text-align': 'left', 'color': 'black'}),
-                        dcc.RangeSlider(2014, 2022, value=[2020], marks={
-                            str(yr): str(yr) for yr in range(2014   , 2022, 1)
-                        },id = 'year-slider',className = 'dcc_compon'),
-                        
-                        dcc.Loading(
-                            id="ls-loading-2",
-                            children=[html.Div([html.Div(id="ls-loading-output-2")])],
-                            type="circle",
-                        ),
                         dcc.Graph(id="treemap",config={'displayModeBar':True},style={'margin-top': '0px'},)
                     ],
                 ),
@@ -199,34 +201,16 @@ app.layout = html.Div(
         ),
         dcc.Store(id='store-df', data=[], storage_type='memory'),
         dcc.Store(id='store-graphs_selections', data={}, storage_type='memory'),
-        dcc.Store(id='hoverDataCP-status', data={}, storage_type='memory') # 'local' or 'session'),
     ],
 )
-
-
-
-@app.callback(Output("ls-loading-output-1", "children"), Input("ls-input-1", "value"))
-def input_triggers_spinner(value):
-    return value
-
-@app.callback(Output("hoverDataCP-status", "data"), 
-                Input("region_select", "value"),
-                Input("country_select", "value"),
-                Input("product-select", "value"),
-                Input("import-btn", "n_clicks"),
-                Input("export-btn", "n_clicks"),
-                Input("year-slider", "value"),)
-def update_hoverDataCP_status(region, country, product, imp, exp, year):
-    return  False
-
 
 @app.callback(
     Output('store-graphs_selections', 'data'),
     [Input('import-btn', 'n_clicks'),
     Input('export-btn', 'n_clicks')],
     Input('region_select', 'value'),
-    Input('origen-destino', 'hoverData'),)
-def define_imp_exp(n_clicks_imp,n_clicks_exp,region_selected,hoverDataCP_status):
+    Input('origen-destino', 'clickData'),)
+def define_imp_exp(n_clicks_imp,n_clicks_exp,region_selected,clickCP_status):
     if "import-btn" == ctx.triggered_id:
         imp_exp =1
     elif "export-btn" == ctx.triggered_id:
@@ -234,7 +218,7 @@ def define_imp_exp(n_clicks_imp,n_clicks_exp,region_selected,hoverDataCP_status)
     else:
         imp_exp = 1
     data = {}
-    data['hoverDataCP']=True if hoverDataCP_status is not None else True
+    data['clickDataCP']=True if clickCP_status is not None else True
     data['imp_exp'] = imp_exp 
     return data
     
@@ -242,10 +226,10 @@ def define_imp_exp(n_clicks_imp,n_clicks_exp,region_selected,hoverDataCP_status)
     Output('store-df', 'data'),
     [Input('region_select', 'value')])
 def store_data(selected_region):
-    if selected_region == 'Mundo':
-        df_inicial_ = Data('world_trade',reporting_country='484',year=[2015,2016,2017,2018,2019,2020,2021],region=selected_region).read_data()
+    if selected_region !='Mundo':
+        df_inicial_ = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021],region=selected_region).read_data()
     else:
-        df_inicial_ =  Data('world_trade',reporting_country='484',year=[2015,2016,2017,2018,2019,2020,2021],region=selected_region).read_data()
+        df_inicial_ = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()
     data = df_inicial_.to_json(orient='split')
     return data
    
@@ -255,10 +239,12 @@ def store_data(selected_region):
               [Input('region_select','value')])
 def paises_por_region(region_select):
     if region_select == 'Mundo':
-        countriesList = Data('world_trade').obtaincountriesProperties(nivel=3)
+        countriesList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=3)
     else:
-        countriesList = Data('world_trade').obtaincountriesProperties(nivel=1,region=region_select)
-
+        countriesList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=1,region=region_select)
+    try:
+        countriesList.remove('Mexico')
+    except:pass
     #countriesList = [country if len(country) < 10 else country[:10] + '...' for country in countriesList]
     #placeholder = "United States of America"
     # if region_select == 'North America':
@@ -280,7 +266,7 @@ def paises_por_region(region_select):
 @app.callback(Output(component_id='treemap',component_property='figure'),
                 Input('store-df', 'data'),
                 Input('store-graphs_selections', 'data'),
-                Input('origen-destino', 'hoverData'),
+                Input('origen-destino', 'clickData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
                 Input('product-select','value'),
@@ -288,9 +274,11 @@ def paises_por_region(region_select):
                 Input('import-btn','n_clicks'),
                 Input('export-btn','n_clicks'),
                 )
-def update_treemap(data_df,data_graphs_settings,hoverData1,region_select,country_select,product_select,year_slider,import_btn,export_btn):
-    imp_exp = data_graphs_settings['imp_exp']
+def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country_select,product_select,year_slider,import_btn,export_btn):
     df_inicial = pd.read_json(data_df, orient='split')
+    if region_select !='Mundo':
+        df_inicial_ = df_inicial[df_inicial['region']==region_select]
+    imp_exp = data_graphs_settings['imp_exp']
     df = df_inicial.copy()
     try: #Si se selecciona un producto
         if product_select != None and len(product_select) > 0:
@@ -302,8 +290,8 @@ def update_treemap(data_df,data_graphs_settings,hoverData1,region_select,country
     try: #Si hay algún país seleccionado
         df = df_inicial[(df_inicial['name'].isin(country_select))]  if len(country_select) > 0 else df 
     except:pass 
-    if hoverData1 is not None and data_graphs_settings['hoverDataCP'] == True and region_select!='Mundo': #"SI SE SELECCIONA UN PAIS EN EL MAPA"
-        country = hoverData1['points'][0]['location']
+    if clickData1 is not None and data_graphs_settings['clickDataCP'] == True and region_select!='Mundo': #"SI SE SELECCIONA UN PAIS EN EL MAPA"
+        country = clickData1['points'][0]['location']
         #verificar que country este el df
         if country in df['iso_3'].unique():
             df_aux=df[(df['iso_3']==country)]
@@ -312,7 +300,6 @@ def update_treemap(data_df,data_graphs_settings,hoverData1,region_select,country
         df_aux = df_aux[(df_aux['year'].isin(year_slider)) & (df_aux['imp_exp'] == imp_exp)]
     else:
         df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
-    print(df_aux)
     df_treemap = df_aux.groupby(['description','SA_4','year','sa4_description'])['tradevalue','porcentaje'].sum().reset_index()
     df_treemap['porcentaje'] = df_treemap['tradevalue'].apply(lambda x:(x/df_treemap['tradevalue'].sum())*100)
     df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:round(x,2))
@@ -322,8 +309,7 @@ def update_treemap(data_df,data_graphs_settings,hoverData1,region_select,country
                     values='tradevalue',
                     height=500, width=950,
                     hover_data=['porcentaje'],
-                    ).update_layout(margin=dict(t=25, r=0, l=5, b=20),
-                    )
+                    ).update_layout(margin=dict(t=25, r=0, l=5, b=20))
     return fig1
 
 
@@ -338,7 +324,7 @@ def update_treemap(data_df,data_graphs_settings,hoverData1,region_select,country
                 Input('store-df', 'data'),
                 Input('store-graphs_selections', 'data'),
                 Input('treemap', 'clickData'),
-                Input('origen-destino', 'hoverData'),
+                Input('origen-destino', 'clickData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
                 Input('product-select','value'),
@@ -373,7 +359,7 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
 
 
     df_aux = df
-    if clickData2 is not None and data_graphs_settings['hoverDataCP'] == True and selected_region!='Mundo': #"SI SE SELECCIONA UN PAIS EN EL MAPA"
+    if clickData2 is not None and data_graphs_settings['clickDataCP'] == True and selected_region!='Mundo': #"SI SE SELECCIONA UN PAIS EN EL MAPA"
         country = clickData2['points'][0]['location']
         if country in df['iso_3'].unique():
             df_aux = df[(df['iso_3']==country)]
@@ -382,7 +368,6 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
     df_cpleth= df_aux.groupby('iso_3',group_keys=False).sum().reset_index()
     region = selected_region
     scope_ = 'asia' if region == 'Asia' else 'africa' if region == 'Africa' else 'europe' if region == 'Europa' else 'north america' if region == 'América del Norte' else 'south america' if region == 'América del Sur' else 'oceania' if region == 'Oceanía' else 'world'
-    imp_exp_ = 'Orígenes de importación en {}'.format(region) if imp_exp == 1 else 'Destinos de exportación en {}'.format(region)
     fig2 = px.choropleth(df_cpleth, locations='iso_3', 
                             color='tradevalue',
                             color_continuous_scale="viridis",
@@ -398,7 +383,7 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
 
 
     #Gráfica relación importación-exportación de productos (bubble chart)
-    if clickData2 is not None and selected_region not in ('Mundo','Asia','Africa','Europa','América del Norte','América del Sur','Oceanía'):
+    if clickData2 is not None and selected_region != 'Mundo':
         try: #Si se selecciona un producto en el treemap
             print(clickData2['points'][0]['location'])
             country = clickData2['points'][0]['location']
@@ -419,10 +404,6 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
             print(e)
             return dash.no_update
     try:
-
-        #ajustar xaxis y yaxis en función de minimo y del máximo de los valores de export e import
-        #sacar el quantile 25 de importacion y exportacion
-        #pasar el df a un csv
         df_bubble_chart.to_csv('df_bubble_chart.csv')
         export_values  = df_bubble_chart[df_bubble_chart['export'] > 0]
         import_values  = df_bubble_chart[df_bubble_chart['import'] > 0]
@@ -448,8 +429,7 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
 
     #Gráfica de histórico de importaciones y exportaciones (line plot)
     df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
-    print(data_graphs_settings['hoverDataCP'])
-    if clickData2 is not None and data_graphs_settings['hoverDataCP'] == True and selected_region!='Mundo': #"SI SE SELECCIONA UN PAIS EN EL MAPA"
+    if clickData2 is not None and data_graphs_settings['clickDataCP'] == True and selected_region!='Mundo': #"SI SE SELECCIONA UN PAIS EN EL MAPA"
         country = clickData2['points'][0]['location']
         if country in df['iso_3'].unique():
             df_line_plot = df[(df['iso_3']==country)]
@@ -469,22 +449,25 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
                         x=0.02))    
 
 
-    #Regresa el título de las gráficas
-    imp_exp_ = 1 if imp_exp == 1 else 2
-    if imp_exp_ == 1:
-        titulo = 'Importaciones a México desde {} ({})'.format(selected_region,year_slider[0])
-        titulo_origen_destino_graph = 'Orígenes de importación ({})'.format(year_slider[0])
-         
-    else:
-        titulo = 'Exportaciones de México hacia {} ({})'.format(selected_region,year_slider[0])
-        titulo_origen_destino_graph = 'Destinos de exportación ({})'.format(year_slider[0])
-
+    # #Regresa el título de las gráficas
+    imp_exp_ = 'Importaciones' if imp_exp == 1 else 'Exportaciones'
+    try:
+        region = country_select[0] if country_select!=None else selected_region 
+    except:
+        region = selected_region 
+    titulo = '{} a México desde {} ({})'.format(imp_exp_,region,year_slider[0])
+    titulo_origen_destino_graph = '{} por país ({})'.format(imp_exp_,year_slider[0])
     titulo_imp_exp = 'Importación vs Exportación (2015-2021)'.format(year_slider[0])
 
-
-    
     return fig2,fig5,fig4,titulo,titulo_origen_destino_graph,titulo_imp_exp,titulo_ventaja_competitiva
         
 # Run the server
 if __name__ == "__main__":
     app.run_server(debug=True)
+
+
+
+# sankey 
+# slope
+# waterfull
+# ribbon chart
