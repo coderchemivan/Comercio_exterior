@@ -1,0 +1,255 @@
+partner_code_,iso_3,name,region
+0,0,World,SE
+10,ATA,Antarctica,SE
+100,BGR,Bulgaria,Europa
+104,MMR,Myanmar,Asia
+108,BDI,Burundi,Africa
+112,BLR,Belarus,Europa
+116,KHM,Cambodia,Asia
+12,DZA,Algeria,Africa
+120,CMR,Cameroon,Africa
+124,CAN,Canada,"América del Norte"
+132,CPV,"Cabo Verde",Africa
+136,CYM,"Cayman Islands","América del Sur"
+140,CAF,"Central African Republic",Africa
+144,LKA,"Sri Lanka",Asia
+148,TCD,Chad,Africa
+152,CHL,Chile,"América del Sur"
+156,CHN,China,Asia
+16,ASM,"American Samoa",Oceanía
+162,CXR,"Christmas Island",Oceanía
+166,CCK,"Cocos (Keeling) Islands",Oceanía
+170,COL,Colombia,"América del Sur"
+174,COM,Comoros,Africa
+175,MYT,Mayotte,Africa
+178,COG,Congo,Africa
+180,COD,"Democratic Republic of the Congo",Africa
+184,COK,"Cook Islands",Oceanía
+188,CRI,"Costa Rica","América del Sur"
+191,HRV,Croatia,Europa
+192,CUB,Cuba,"América del Sur"
+196,CYP,Cyprus,Asia
+20,AND,Andorra,Europa
+203,CZE,Czechia,Europa
+204,BEN,Benin,Africa
+208,DNK,Denmark,Europa
+212,DMA,Dominica,"América del Sur"
+214,DOM,"Dominican Republic","América del Sur"
+218,ECU,Ecuador,"América del Sur"
+222,SLV,"El Salvador","América del Sur"
+226,GNQ,"Equatorial Guinea",Africa
+231,ETH,Ethiopia,Africa
+232,ERI,Eritrea,Africa
+233,EST,Estonia,Europa
+234,FRO,"Faroe Islands",Europa
+238,FLK,"Falkland Islands (Malvinas)","América del Sur"
+239,SGS,"South Georgia and the South Sandwich Islands","América del Sur"
+24,AGO,Angola,Africa
+242,FJI,Fiji,Oceanía
+246,FIN,Finland,Europa
+248,ALA,"Ã…land Islands",Europa
+251,FRA,France,Europa
+254,GUF,"French Guiana","América del Sur"
+258,PYF,"French Polynesia",Oceanía
+260,ATF,"French Southern Territories",Africa
+262,DJI,Djibouti,Africa
+266,GAB,Gabon,Africa
+268,GEO,Georgia,Asia
+270,GMB,Gambia,Africa
+275,PSE,"State of Palestine",Asia
+276,DEU,Germany,Europa
+28,ATG,"Antigua and Barbuda","América del Sur"
+288,GHA,Ghana,Africa
+292,GIB,Gibraltar,Europa
+296,KIR,Kiribati,Oceanía
+300,GRC,Greece,Europa
+304,GRL,Greenland,"América del Sur"
+308,GRD,Grenada,"América del Sur"
+31,AZE,Azerbaijan,Asia
+312,GLP,Guadeloupe,"América del Sur"
+316,GUM,Guam,Oceanía
+32,ARG,Argentina,"América del Sur"
+320,GTM,Guatemala,"América del Sur"
+324,GIN,Guinea,Africa
+328,GUY,Guyana,"América del Sur"
+332,HTI,Haiti,"América del Sur"
+334,HMD,"Heard Island and McDonald Islands",Oceanía
+336,VAT,"Holy See",Europa
+340,HND,Honduras,"América del Sur"
+344,HKG,"Hong Kong",Asia
+348,HUN,Hungary,Europa
+352,ISL,Iceland,Europa
+36,AUS,Australia,Oceanía
+360,IDN,Indonesia,Asia
+364,IRN,"Iran (Islamic Republic of)",Asia
+368,IRQ,Iraq,Asia
+372,IRL,Ireland,Europa
+376,ISR,Israel,Asia
+380,ITA,Italy,Europa
+384,CIV,"CÃ´te dâ€™Ivoire",Africa
+388,JAM,Jamaica,"América del Sur"
+392,JPN,Japan,Asia
+398,KAZ,Kazakhstan,Asia
+4,AFG,Afghanistan,Asia
+40,AUT,Austria,Europa
+400,JOR,Jordan,Asia
+404,KEN,Kenya,Africa
+408,PRK,"Democratic People's Republic of Korea",Asia
+410,KOR,"South Korea",Asia
+414,KWT,Kuwait,Asia
+417,KGZ,Kyrgyzstan,Asia
+418,LAO,"Lao People's Democratic Republic",Asia
+422,LBN,Lebanon,Asia
+426,LSO,Lesotho,Africa
+428,LVA,Latvia,Europa
+430,LBR,Liberia,Africa
+434,LBY,Libya,Africa
+438,LIE,Liechtenstein,Europa
+44,BHS,Bahamas,"América del Sur"
+440,LTU,Lithuania,Europa
+442,LUX,Luxembourg,Europa
+446,MAC,"China, Macao",Asia
+450,MDG,Madagascar,Africa
+454,MWI,Malawi,Africa
+458,MYS,Malaysia,Asia
+462,MDV,Maldives,Asia
+466,MLI,Mali,Africa
+470,MLT,Malta,Europa
+474,MTQ,Martinique,"América del Sur"
+478,MRT,Mauritania,Africa
+48,BHR,Bahrain,Asia
+480,MUS,Mauritius,Africa
+484,MEX,Mexico,"América del Norte"
+490,TWN,Taipei,Asia
+492,MCO,Monaco,Europa
+496,MNG,Mongolia,Asia
+498,MDA,"Republic of Moldova",Europa
+499,MNE,Montenegro,Europa
+50,BGD,Bangladesh,Asia
+500,MSR,Montserrat,"América del Sur"
+504,MAR,Morocco,Africa
+508,MOZ,Mozambique,Africa
+51,ARM,Armenia,Asia
+512,OMN,Oman,Asia
+516,NAM,Namibia,Africa
+52,BRB,Barbados,"América del Sur"
+520,NRU,Nauru,Oceanía
+524,NPL,Nepal,Asia
+528,NLD,Netherlands,Europa
+530,ANT,"Antillas holandesas","América del Sur"
+531,CUW,CuraÃ§ao,"América del Sur"
+533,ABW,Aruba,"América del Sur"
+534,SXM,"Sint Maarten (Dutch part)","América del Sur"
+540,NCL,"New Caledonia",Oceanía
+548,VUT,Vanuatu,Oceanía
+554,NZL,"New Zealand",Oceanía
+558,NIC,Nicaragua,"América del Sur"
+56,BEL,Belgium,Europa
+562,NER,Niger,Africa
+566,NGA,Nigeria,Africa
+568,EUo,"Europa otros Nep",Europa
+570,NIU,Niue,Oceanía
+574,NFK,"Norfolk Island",Oceanía
+579,NOR,Norway,Europa
+580,MNP,"Northern Mariana Islands",Oceanía
+581,UMI,"United States Minor Outlying Islands",Oceanía
+583,FSM,"Micronesia (Federated States of)",Oceanía
+584,MHL,"Marshall Islands",Oceanía
+585,PLW,Palau,Oceanía
+586,PAK,Pakistan,Asia
+591,PAN,Panama,"América del Sur"
+598,PNG,"Papua New Guinea",Oceanía
+60,BMU,Bermuda,"América del Sur"
+600,PRY,Paraguay,"América del Sur"
+604,PER,Peru,"América del Sur"
+608,PHL,Philippines,Asia
+612,PCN,Pitcairn,Oceanía
+616,POL,Poland,Europa
+620,PRT,Portugal,Europa
+624,GNB,Guinea-Bissau,Africa
+626,TLS,Timor-Leste,Asia
+630,PRI,"Puerto Rico","América del Sur"
+634,QAT,Qatar,Asia
+637,NAC,"North America and central america","América del Sur"
+638,REU,RÃ©union,Africa
+64,BTN,Bhutan,Asia
+642,ROU,Romania,Europa
+643,RUS,"Russian Federation",Europa
+646,RWA,Rwanda,Africa
+652,BLM,"Saint BarthÃ©lemy","América del Sur"
+654,SHN,"Saint Helena",Africa
+659,KNA,"Saint Kitts and Nevis","América del Sur"
+660,AIA,Anguilla,"América del Sur"
+662,LCA,"Saint Lucia","América del Sur"
+663,MAF,"Saint Martin (French Part)","América del Sur"
+666,SPM,"Saint Pierre and Miquelon","América del Sur"
+670,VCT,"Saint Vincent and the Grenadines","América del Sur"
+674,SMR,"San Marino",Europa
+678,STP,"Sao Tome and Principe",Africa
+68,BOL,"Bolivia (Plurinational State of)","América del Sur"
+682,SAU,"Saudi Arabia",Asia
+686,SEN,Senegal,Africa
+688,SRB,Serbia,Europa
+690,SYC,Seychelles,Africa
+694,SLE,"Sierra Leone",Africa
+699,IND,India,Asia
+70,BIH,"Bosnia and Herzegovina",Europa
+702,SGP,Singapore,Asia
+703,SVK,Slovakia,Europa
+704,VNM,"Viet Nam",Asia
+705,SVN,Slovenia,Europa
+706,SOM,Somalia,Africa
+710,ZAF,"South Africa",Africa
+716,ZWE,Zimbabwe,Africa
+72,BWA,Botswana,Africa
+724,ESP,Spain,Europa
+728,SSD,"South Sudan",Africa
+729,SDN,Sudan,Africa
+732,ESH,"Western Sahara",Africa
+74,BVT,"Bouvet Island","América del Sur"
+740,SUR,Suriname,"América del Sur"
+744,SJM,"Svalbard and Jan Mayen Islands",Europa
+748,SWZ,Eswatini,Africa
+752,SWE,Sweden,Europa
+757,CHE,Switzerland,Europa
+76,BRA,Brazil,"América del Sur"
+760,SYR,"Syrian Arab Republic",Asia
+762,TJK,Tajikistan,Asia
+764,THA,Thailand,Asia
+768,TGO,Togo,Africa
+772,TKL,Tokelau,Oceanía
+776,TON,Tonga,Oceanía
+780,TTO,"Trinidad and Tobago","América del Sur"
+784,ARE,"United Arab Emirates",Asia
+788,TUN,Tunisia,Africa
+792,TUR,TÃ¼rkiye,Asia
+795,TKM,Turkmenistan,Asia
+796,TCA,"Turks and Caicos Islands","América del Sur"
+798,TUV,Tuvalu,Oceanía
+8,ALB,Albania,Europa
+800,UGA,Uganda,Africa
+804,UKR,Ukraine,Europa
+807,MKD,"North Macedonia",Europa
+818,EGY,Egypt,Africa
+826,GBR,"United Kingdom of Great Britain and Northern Ireland",Europa
+831,GGY,Guernsey,Europa
+832,JEY,Jersey,Europa
+833,IMN,"Isle of Man",Europa
+834,TZA,"United Republic of Tanzania",Africa
+84,BLZ,Belize,"América del Sur"
+842,USA,"United States of America","América del Norte"
+850,VIR,"United States Virgin Islands","América del Sur"
+854,BFA,"Burkina Faso",Africa
+858,URY,Uruguay,"América del Sur"
+86,IOT,"British Indian Ocean Territory",Africa
+860,UZB,Uzbekistan,Asia
+862,VEN,"Venezuela (Bolivarian Republic of)","América del Sur"
+876,WLF,"Wallis and Futuna Islands",Oceanía
+882,WSM,Samoa,Oceanía
+887,YEM,Yemen,Asia
+891,SYM,"Serbia y montenegro",Europa
+894,ZMB,Zambia,Africa
+899,ZNE,"Zona nep",SE
+90,SLB,"Solomon Islands",Oceanía
+92,VGB,"British Virgin Islands","América del Sur"
+96,BRN,"Brunei Darussalam",Asia

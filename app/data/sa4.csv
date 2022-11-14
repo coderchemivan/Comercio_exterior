@@ -1,0 +1,1216 @@
+SA_4,sa4_description
+101,Caballos
+102,Bovino
+103,Cerdos
+104,Ovejas y cabras
+105,Aves de corral
+106,Otros animales
+201,Carne bovina
+202,Carne bovina congelada
+203,Carne de cerdo
+204,Carne de oveja y cabra
+205,Carne de caballo
+206,Desposape comestible
+207,Carne de ave
+208,Otra carne
+209,Grasa animal
+210,Carne conservada
+301,Pez vivo
+302,Pescado fresco sin relleno
+303,Pescado congelado sin relleno
+304,Filetes de pescado
+305,Pescado procesado
+306,Crustáceos
+307,Moluscos
+401,Leche
+402,Leche concentrada
+403,Productos lácteos fermentados
+404,Suero y otros productos lácteos
+405,Manteca
+406,Queso
+407,Huevos
+408,Productos de huevo procesados
+409,Miel
+410,Otros productos animales comestibles
+501,Cabello humano
+502,Cabello
+504,Órganos de animales
+505,Plumas y pieles de pájaros
+506,Huesos procesados
+507,Huesos crudos
+508,Coral y conchas
+510,Productos animales farmacéuticos
+511,Otros productos animales no comestibles
+601,Bombillas y raíces
+602,"Otras plantas vivas, esquejes y resbalones;
+reproducción de hongos"
+603,Cortar flores
+604,Follaje vegetal
+701,Patatas
+702,Tomates
+703,Cebollas
+704,Coles
+705,Lechuga
+706,Vegetales de raíz
+707,Pepinos
+708,Legumbres
+709,Otras verduras
+710,Vegetales congelados
+711,Vegetales conservados
+712,Vegetales secos
+713,Legumbres secas
+714,Mandioca
+801,"Coconuts, nueces de Brasil y anacardos"
+802,Otras nueces
+803,Plátanos
+804,Frutas tropicales
+805,Agrios
+806,Uvas
+807,Melones
+808,Manzanas y peras
+809,Frutas con picaduras
+810,Otras frutas
+811,Frutas y nueces congeladas
+812,Frutas y nueces conservadas
+813,Frutas secas
+814,Cáscaras de cítricos y melón
+901,Café
+902,Té
+903,Compañero
+904,Pimienta
+905,Vainilla
+906,Canela
+907,Clavos de olor
+908,"Nuez moscada, maza y cardamones"
+909,Semillas de especias
+910,Especias
+1001,Trigo
+1002,Centeno
+1003,Cebada
+1004,Avena
+1005,Maíz
+1006,Arroz
+1007,Sorgo
+1008,Alforfón
+1101,Harina de trigo
+1102,Harina de cereal
+1103,Comida de cereal y gránulos
+1104,Cereales procesados
+1105,Harina de papa
+1106,Harina de leguminosa
+1107,Malta
+1108,Almidón
+1109,Gluten de trigo
+1201,Soja
+1202,Nueces de tierra
+1203,Copra
+1204,Linaza
+1205,Por colas
+1206,Semillas de girasol
+1207,Otras semillas grasas
+1208,Flor de semilla de aceite
+1209,Semillas de siembra
+1210,Lúpulo
+1211,Plantas de perfume
+1212,"Frijoles de langosta, algas, remolacha azucarera, bastón, para comida"
+1213,Pajitas de cereal
+1214,Cultivos forrajeros
+1301,Resinas de insectos
+1302,Saps de verduras
+1401,Materiales de trenzas de verduras
+1404,Otros productos de verduras
+1501,Grasa de cerdo y aves de corral
+1502,"Bovino, oveja y grasa de cabra"
+1503,Stearin y aceites de manteca
+1504,Aceite de pescado
+1505,Grasa de lana
+1506,Otras grasas animales
+1507,Aceite de soja
+1508,Aceite de cacahuete
+1509,Aceite de oliva puro
+1510,Aceite de oliva
+1511,Aceite de palma
+1512,Aceites de semillas
+1513,Aceite de coco
+1514,Aceite de colza
+1515,Otros aceites vegetales puros
+1516,Otros aceites vegetales
+1517,Margarina
+1518,Grasas y aceites no comestibles
+1519,Ícido esteárico
+1520,Glicerol
+1521,Cemas
+1522,Residuos de grasa y aceite
+1601,Salchichas
+1602,Otra carne preparada
+1603,Extractos de animales
+1604,Pescado procesado
+1605,Crustáceos procesados
+1701,Azúcar en bruto
+1702,Otros azúcares
+1703,Melaza
+1704,Azúcar de confitería
+1801,Granos de cacao
+1802,Cáscara de cacao
+1803,Pasta de cacao
+1804,Mantequilla de cocoa
+1805,Polvo de cacao
+1806,Chocolate
+1901,Extracto de malta
+1902,Pasta
+1903,Tapioca
+1904,Cereales preparados
+1905,Productos horneados
+2001,Alimentos en escabeche
+2002,Tomates procesados
+2003,Hongos procesados
+2004,Otras verduras congeladas
+2005,Otras verduras procesadas
+2006,Alimentos conservados en azúcar
+2007,Enjambres
+2008,Otras frutas y nueces procesadas
+2009,Zumo de frutas
+2101,Extractos de café y té
+2102,Levadura
+2103,Salsas y condimentos
+2104,Sopas y caldo
+2105,Helado
+2106,Otras preparaciones comestibles
+2201,Agua
+2202,Agua con sabor
+2203,Cerveza
+2204,Vino
+2205,Vermut
+2206,Otras bebidas fermentadas
+2207,Alcohol> 80% ABV
+2208,Licor fuerte
+2209,Vinagre
+2301,Harina de animales y gránulos
+2302,Salvado
+2303,Residuo de almidón
+2304,Harina de soja
+2305,Comida de nuez molido
+2306,Otros residuos de vegetales
+2307,Vinos
+2308,Otros residuos de verduras y desechos
+2309,Comida para animales
+2401,Tabaco crudo
+2402,Tabaco enrollado
+2403,Tabaco procesado
+2501,Sal
+2502,Piritas de hierro
+2503,Azufre
+2504,Grafito
+2505,Arena
+2506,Cuarzo
+2507,Caolín
+2508,Arcillas
+2509,Tiza
+2510,Fosfatos de calcio
+2511,Sulfato de bario
+2512,Comidas fósiles silíceas
+2513,Piedra pómez
+2514,Pizarra
+2515,"Mármol, travertino y alabastro"
+2516,Granito
+2517,Grava y piedra triturada
+2518,Dolomita
+2519,Carbonato de magnesio
+2520,Yeso
+2521,Caliza
+2522,Cal viva
+2523,Cemento
+2524,Amianto
+2525,Mica
+2526,Esteatita
+2528,Bórax
+2529,Feldespato
+2530,Otro mineral
+2601,Mineral de hierro
+2602,Mineral de manganeso
+2603,Mina de cobre
+2604,Mineral de níquel
+2606,Mineral de aluminio
+2607,Mineral de plomo
+2608,Mineral de zinc
+2609,Minerales de lata
+2610,Mineral de cromo
+2611,Mineral de tungsteno
+2613,Mineral de molibdeno
+2614,Mineral de titanio
+2615,"Niobium, Tantalum, Vanadium y Ore de circonio"
+2616,Mineral de metal precioso
+2617,Otros minerales
+2618,Escoria granulada
+2619,Escoria de escoria
+2620,"Escoria, cenizas y residuos que no son hierro y acero"
+2621,Otras escorias y cenizas
+2701,Briquetas de carbón
+2702,Lignito
+2703,Turba
+2704,Coca
+2705,Gas no petroleum
+2706,Alquitrán
+2707,Aceite de alquitrán de carbón
+2708,Coca -Cola
+2709,Petróleo crudo
+2710,Petróleo refinado
+2711,Gas petróleo
+2712,Jalea de petróleo
+2713,Coca -Cola de petróleo
+2714,Asfalto
+2715,Mezclas de asfalto
+2716,Electricidad
+2801,Halógenos
+2802,Azufre
+2803,Carbón
+2804,Hidrógeno
+2805,Metales alcalinos
+2806,Ícido clorhídrico
+2807,Ícido sulfúrico
+2808,Ícidos nítricos
+2809,Ícido fosfórico
+2810,Boro
+2811,Otros ácidos inorgánicos
+2812,Hávales
+2813,Sulfuros no metálicos
+2814,Amoníaco
+2815,Peróxidos de sodio o potasio
+2816,Hidróxido de magnesio y peróxido
+2817,Óxido de zinc y peróxido
+2818,Óxido de aluminio
+2819,Óxidos de cromo e hidróxidos
+2820,Óxidos de manganeso
+2821,Óxidos de hierro e hidróxidos
+2822,Óxidos de cobalto e hidróxidos
+2823,Óxidos de titanio
+2824,Óxidos de plomo
+2825,Sales inorgánicas
+2826,Fluoruros
+2827,Cloruros
+2828,Hipocloritos
+2829,Cloratos y percloratos
+2830,Sulfuros
+2831,Ditionitas y sulfoxilatos
+2832,Sulfites
+2833,Sulfatos
+2834,Nitritos y nitratos
+2835,Fosfinaciones y fosfonatos
+2836,Carbonatos
+2837,Cianuros
+2839,Silicato
+2840,Boratos
+2841,Sales de ácido oxometálico o peroxometálico
+2842,Otras sales de ácidos inorgánicos
+2843,Compuestos de metales preciosos
+2844,Químicos radiactivos
+2845,Otros isótopos
+2846,Compuestos de metales de tierra rara
+2847,Peróxido de hidrógeno
+2848,Fósfuros
+2849,Carburos
+2850,Hidruros y otros aniones
+2851,Compuestos inorgánicos
+2901,Hidrocarburos acíclicos
+2902,Hidrocarburos cíclicos
+2903,Hidrocarburos halogenados
+2904,"Hidrocarburos sulfonados, nitrados o nitrosados"
+2905,Alcoholes acíclicos
+2906,Alcoholes cíclicos
+2907,Fenoles
+2908,Derivados de fenol
+2909,Í‰ter
+2910,Epóxidos
+2911,Acetales y hemiacetales
+2912,Aldehídos
+2913,Derivados de aldehído
+2914,Cetonas y quinones
+2915,Ícidos monocarboxílicos acíclicos saturados
+2916,Ícidos monocarboxílicos acíclicos insaturados
+2917,Ícidos policarboxílicos
+2918,Ícidos carboxílicos
+2919,Í‰steres y sales fosfóricas
+2920,Otros ésteres
+2921,Compuestos de amina
+2922,Compuestos amino de oxígeno
+2923,Sales de amonio cuaternario e hidróxidos
+2924,Compuestos de carboxyamida
+2925,Compuestos de carboxiimida
+2926,Compuestos de nitrilo
+2927,"Compuestos de diazo, azo o aoxi"
+2928,Derivados de hidrazina o hidroxilamina
+2929,Otros compuestos de nitrógeno
+2930,Compuestos organo-azufre
+2931,Otros compuestos organo-inorgánicos
+2932,Compuestos heterocíclicos de oxígeno
+2933,Compuestos heterocíclicos de nitrógeno
+2934,Ícidos nucleicos
+2935,Sulfonamidas
+2936,Vitaminas
+2937,Hormonas
+2938,Glucósidos
+2939,Alcaloides vegetales
+2940,Azúcares químicamente puros
+2941,Antibióticos
+2942,Otros compuestos orgánicos
+3001,Glándulas y otros órganos
+3002,"Vacunas, sangre, antisueros, toxinas y cultivos"
+3003,Medicamentos desempacados
+3004,Medicamentos envasados
+3005,Vendajes
+3006,Farmacéuticos especiales
+3101,Fertilizantes animales o vegetales
+3102,Fertilizantes nitrogenados
+3103,Fertilizantes fosfáticos
+3104,Fertilizantes potásicos
+3105,Fertilizantes minerales o químicos mixtos
+3201,Extractos de bronceado
+3202,Extractos de bronceado sintético
+3203,Tintes vegetales o animales
+3204,Materia para colorear sintética
+3205,Pigmentos del lago
+3206,Otra materia para colorear
+3207,Pigmentos preparados
+3208,Pinturas no acuosas
+3209,Pinturas acuosas
+3210,Otras pinturas
+3211,Se preparan secadores de pintura
+3212,Pigmentos no acuosos
+3213,Pinturas de arte
+3214,Masilla de glaziers
+3215,Tinta
+3301,Aceites esenciales
+3302,Mezclas perfumadas
+3303,Perfumes
+3304,Productos de belleza
+3305,Productos para el cabello
+3306,Productos dentales
+3307,Productos de afeitar
+3401,Jabón
+3402,Productos de limpieza
+3403,Productos lubricantes
+3404,Cemas
+3405,Esmaltes y cremas
+3406,Velas
+3407,Pastas y ceras
+3501,Caseína
+3502,Proteínas solubles en agua
+3503,Gelatina
+3504,Peptones
+3505,Dextrinas
+3506,Colas
+3507,Enzimas
+3601,Polvos propulsores
+3602,Explosivos preparados
+3603,Fusibles detonadores
+3604,Fuegos artificiales
+3605,Partidos
+3606,Aleaciones pirofóricas
+3701,Platos fotográficos
+3702,Film fotográfico
+3703,Papel fotográfico
+3704,Material fotográfico expuesto no desarrollado
+3705,Material fotográfico expuesto desarrollado
+3706,"Película de imagen de movimiento, expuesta y desarrollada"
+3707,Químicos fotográficos
+3801,Grafito artificial
+3802,Carbón activado
+3803,Aceite alto
+3804,Lyes de pulpa de madera
+3805,Trementina
+3806,Colofonia
+3807,"Alquitrán de madera, aceites y tono"
+3808,Pesticidas
+3809,Teñido agentes de acabado
+3810,Preparaciones de decapado en metal
+3811,Antidetonante
+3812,Aceleradores de goma preparados
+3813,Preparaciones de extintores de incendios
+3814,Solventes compuestos orgánicos
+3815,Reacción y productos catalíticos
+3816,Cementos refractarios
+3817,Alquilbencenos y alquilnaftalenos
+3818,Disc Chemicals for Electronics
+3819,Líquido de frenos hidráulico
+3820,Anticongelante
+3821,Preparaciones de cultura de microorganismo
+3822,Reactivos de laboratorio
+3823,"Ícidos grasos industriales, aceites y alcoholes"
+3901,Polímeros de etileno
+3902,Polímeros de propileno
+3903,Polímeros de estireno
+3904,Polímeros de cloruro de vinilo
+3905,Otros polímeros de vinilo
+3906,Polímeros acrílicos
+3907,Poliacetales
+3908,Poliamidas
+3909,Amino-resinas
+3910,Silicona
+3911,Resinas de petróleo
+3912,Celulosa
+3913,Polímeros naturales
+3914,Exchangadores de iones de polímero
+3915,Plástico de chatarra
+3916,Monofilamento
+3917,Tuberías de plástico
+3918,Cubiertos de plástico
+3919,Plásticos autoadhesivos
+3920,Lámina de plástico crudo
+3921,Otras láminas de plástico
+3922,Cuencas de lavado de plástico
+3923,Tapas de plástico
+3924,Artículos para el hogar de plástico
+3925,Materiales de construcción de plástico
+3926,Otros productos de plástico
+4001,Caucho
+4002,Caucho sintético
+4003,Goma recuperada
+4004,Goma de chatarra
+4005,Caucho no vulcanizado
+4006,Productos de caucho no vulcanizados
+4007,Hilo de goma
+4008,Sábanas de goma
+4009,Tuberías de goma
+4010,Pañuelo de goma
+4011,Neumáticos de goma
+4012,Neumáticos de goma usados
+4013,Tubos internos de goma
+4014,Productos de caucho farmacéutico
+4015,Ropa de goma
+4016,Otros productos de goma
+4017,Goma dura
+4101,Hides equino y bovino
+4102,Cueros de oveja
+4103,Otros cueros y pieles
+4104,Hides Equino y Bovino bronceado
+4105,Pasadas de oveja bronceada
+4106,Pasadas de cabra bronceada
+4107,Cuero de otros animales
+4108,Cuero de gamuza
+4109,Charol
+4110,Desechos de cuero
+4111,Sábanas de cuero
+4201,Talabartería
+4202,Troncos y casos
+4203,Ropa de cuero
+4205,Otros artículos de cuero
+4206,Artículo
+4301,Pieles crudas
+4302,Pieles de piel bronceadas
+4303,Ropa de piel
+4304,Pelaje artificial
+4401,Madera de combustible
+4402,Carbón de madera
+4403,Madera rugosa
+4404,Estacas de madera
+4405,Lana de madera
+4406,Vínculo ferroviario
+4407,Madera aserrada
+4408,Sábanas de chapa
+4409,Madera con forma
+4410,Tabla de partículas
+4411,Tablero de fibra de madera
+4412,Madera contrachapada
+4413,Madera densificada
+4414,Marcos de madera
+4415,Cajas de madera
+4416,Barriles de madera
+4417,Manijas de herramientas de madera
+4418,Carpintería de madera
+4419,Utensilios de cocina de madera
+4420,Adornos de madera
+4421,Otros artículos de madera
+4501,Corcho crudo
+4502,Corcho debacked
+4503,Artículos de corcho natural
+4504,Corcho aglomerado
+4601,Productos de trenza
+4602,Cestería
+4701,Pulpa de madera mecánica
+4702,Disolución de grados de carpintería química
+4703,Sulfato de leña química
+4704,Pájaro carpintería de sulfito
+4705,Carpintería semi química
+4706,Pulpa de papel recuperada
+4707,Papel recuperado
+4801,Papel prensa
+4802,Papel sin recubrimiento
+4803,Pañuelo de papel
+4804,Papel kraft
+4805,Otro papel sin recubrimiento
+4806,Pergamino
+4807,Papel compuesto
+4808,Papel corrugado
+4809,Papel carbón
+4810,Papel recubierto de caolín
+4811,Papel de fibras de celulosa
+4812,Bloques de filtro de pulpa de papel
+4813,Papel para cigarrillos
+4814,Fondo de pantalla
+4816,Otro papel de carbono
+4817,Stock de letras
+4818,Papel higienico
+4819,Contenedores de papel
+4820,Cuadernos de papel
+4821,Etiquetas de papel
+4822,Carrete de papel
+4823,Papel con forma
+4901,Folletos
+4902,Periódicos
+4903,Libros ilustrados para niños
+4904,Partitura
+4905,Mapas
+4906,Planes arquitectónicos
+4907,"Documentos de título (bonos, etc.) y sellos no utilizados"
+4908,Calcomanías
+4909,Tarjetas postales
+4910,Calendario
+4911,Otro material impreso
+5001,Capullos de gusano de seda
+5002,Seda en bruto
+5003,Residuos de seda
+5004,Hilo de seda no minorista
+5005,Hilado de residuos de seda
+5006,Hilo de seda minorista
+5007,Telas de seda
+5101,Lana
+5102,Pelo animal
+5103,Residuos de lana o pelo animal
+5105,Cabello de lana o animal preparado
+5106,Hilo de lana con cardado sin retraso
+5107,Hilo de lana sin retraso
+5108,Hilo de cabello animal sin retraso
+5109,Hilo de lana minorista o cabello animal
+5110,Hilo de caballo
+5111,Tela de lana o cabello de animal cardado
+5112,Tela de lana o cabello animal
+5113,Tela de crin de caballo
+5201,Algodón en bruto
+5202,Desperdicio de algodón
+5203,Algodón preparado
+5204,Hilo de costura de algodón
+5205,Hilo de algodón puro no minorista
+5206,Hilo de algodón mixto sin retraso
+5207,Hilo de algodón minorista
+5208,Algodón tejido puro claro
+5209,Algodón tejido puro pesado
+5210,Algodón tejido mixto ligero
+5211,Algodón tejido mixto pesado
+5212,Otras telas de algodón
+5301,Fibras de lino
+5302,Fibras de cáñamo
+5303,Yute y otras fibras textiles
+5305,Coco y otras fibras vegetales
+5306,Hilo de lino
+5307,Hilo de yute
+5308,Otras fibras de vegetales hilo
+5309,Tela tejida de lino
+5310,Tela tejida de yute
+5311,Otras fibras de vegetales tela
+5401,Hilo de coser de filamento artificial
+5402,Hilo de filamento sintético sin retraso
+5403,Hilo de filamento artificial sin retraso
+5404,Monofilamento sintético
+5405,Monofilamento artificial
+5406,Hilo de filamento artificial minorista
+5407,Tela tejida de hilo de filamento sintético
+5408,Tela tejida de hilo de filamento artificial
+5501,Remolque de filamento sintético
+5502,Remolque de filamento artificial
+5503,Fibras básicas sintéticas sin procesar
+5504,Fibras básicas artificiales sin procesar
+5505,Residuos de fibras artificiales
+5506,Fibras básicas sintéticas procesadas
+5507,Fibras básicas artificiales procesadas
+5508,Hilo de costura de fibras artificiales no retrasadas
+5509,Fibras básicas sintéticas sin retraso hilo
+5510,Fibras de elementos básicos no retrasos hilo
+5511,Hilo
+5512,Telas sintéticas
+5513,Telas de algodón sintéticas ligeras
+5514,Telas de algodón sintéticas pesadas
+5515,Otras telas sintéticas
+5516,Tela tejida de fibras básicas sintéticas
+5601,Guata
+5602,Sintió
+5603,Textiles no tejidos
+5604,Textiles de goma
+5605,Hilo metálico
+5606,Hilo de gimp
+5607,Cuerda y cuerda
+5608,Red
+5609,Otros artículos de hilo y cuerda
+5701,Alfombras anudadas
+5702,Alfombras tejidas a mano
+5703,Alfombras con mechones
+5704,Alfombras de fieltro
+5705,Otras alfombras
+5801,Telas tejidas
+5802,Tela Terry
+5803,Gasa
+5804,Tulles y tela de red
+5805,Tapices tejidos a mano
+5806,Tela tejida estrecha
+5807,Etiquetas
+5808,Adornos ornamentales
+5809,Tela metálica
+5810,Bordado
+5811,Textiles acolchados
+5901,Tela textil recubierta de goma
+5902,Tela de poliamida
+5903,Tela textil recubierta de plástico
+5904,Linóleo
+5905,Cubiertas de paredes textiles
+5906,Tela textil de goma
+5907,Tela textil recubierta
+5908,Mechas textiles
+5909,Textiles de tubería de manguera
+5910,Textiles de cinta transportadora
+5911,Textiles para usos técnicos
+6001,Tela
+6002,Tela de punto de goma ligera
+6101,Tejer abrigos para hombres
+6102,Tejer abrigos para mujeres
+6103,Trajes para hombres de punto
+6104,Trajes para mujeres tejidos
+6105,Camisas para hombres de punto
+6106,Camisas para mujeres de punto
+6107,Tejer ropa interior para hombres
+6108,Tejer ropa interior para mujeres
+6109,Camisetas de punto
+6110,Suéteres de punto
+6111,Prendas de tejidos de tejido
+6112,Ropa de punto activo
+6113,Prendas de tela impregnada
+6114,Otras prendas de punto
+6115,Calcetines y medias
+6116,Guantes de punto
+6117,Otros accesorios de ropa de punto
+6201,Abrigos para hombres no unidos
+6202,Abrigos para mujeres no unidos
+6203,Trajes para hombres no unidos
+6204,Trajes para mujeres no unidos
+6205,Camisas para hombres no unidas
+6206,Camisas para mujeres no unidas
+6207,Ropa interior de hombre no unida
+6208,Ropa interior de mujer sin una
+6209,Prendas de bebés no unidas
+6210,Prendas de tela de fieltro o recubierto
+6211,Desgaste activo no unido
+6212,Otras ropa interior de mujeres
+6213,Pañuelos
+6214,Bufandas
+6215,Corbatas del cuello
+6216,Guantes no unidos
+6217,Otros accesorios de ropa no unidos
+6301,Mantas
+6302,Ropa de cama
+6303,Aderezo
+6304,Colchas
+6305,Bolsas de embalaje
+6306,"Toldos, carpas y velas"
+6307,Otros artículos de tela
+6308,Juegos de costura envasados
+6309,Ropa usada
+6310,Restos textiles
+6401,Calzado impermeable
+6402,Calzado de goma
+6403,Calzado de cuero
+6404,Calzado textil
+6405,Otro calzado
+6406,Piezas de calzado
+6501,Formas de sombrero
+6502,Formas de sombrero
+6503,Sombreros de fieltro
+6504,Sombreros
+6505,Sombreros tejidos
+6506,Otras sombrillas
+6507,Diademas y revestimientos
+6601,Paraguas
+6602,Bastones
+6603,Accesorios paraguas y para caminar
+6701,Pieles y plumas de pájaros
+6702,Vegetación artificial
+6703,Cabello procesado
+6704,Cabello falso
+6801,Curbstones
+6802,Construcción de piedra
+6803,Pizarra
+6804,Frases
+6805,Polvo abrasivo
+6806,Lana mineral de roca
+6807,Asfalto
+6808,Fibra de verduras
+6809,Artículos de yeso
+6810,Artículos de cemento
+6811,Artículos de cemento de asbesto
+6812,Fibras de asbesto
+6813,Material de fricción
+6814,Mica
+6815,Otros artículos de piedra
+6901,Ladrillos
+6902,Ladrillos refractarios
+6903,Cerámica refractaria
+6904,Ladrillos de cerámica
+6905,Tejas
+6906,Tuberías de cerámica
+6907,Cerámica sin esmaltar
+6908,Cerámica acristalada
+6909,Laboratorio de cerámica
+6910,Cerámica de baño
+6911,Vajilla de porcelana
+6912,Vajilla de cerámica
+6913,Cerámica ornamental
+6914,Otros artículos de cerámica
+7001,Restos de vidrio
+7002,Bolas de vidrio
+7003,Vidrio fundido o enrollado
+7004,Vidrio soplado
+7005,Vaso flotante
+7006,Vidrio con trabajos de borde
+7007,Vidrio de seguridad
+7008,Cristal aislante
+7009,Espejos de vidrio
+7010,Botellas de vidrio
+7011,Bulbos de vidrio
+7013,Cristalería decorativa interior
+7014,Cristalería de señalización
+7015,Gafas y vidrio de reloj
+7016,Ladrillos de vidrio
+7017,Cristalería de laboratorio
+7018,Cuentas de vidrio
+7019,Fibras de vidrio
+7020,Otros artículos de vidrio
+7101,Perlas
+7102,Diamantes
+7103,Piedras preciosas
+7104,Joyas reconstruidas sintéticas
+7105,Polvo de piedra precioso
+7106,Plata
+7107,Metales vestidos de plata
+7108,Oro
+7109,Metales vestidos de oro
+7110,Platino
+7111,Metales vestidos de platino
+7112,Restos de metal precioso
+7113,Joyería
+7114,Productos vestidos de metal
+7115,Otros productos de metales preciosos
+7116,Productos de perlas
+7117,Joyería de imitación
+7118,Moneda
+7201,Arrabio
+7202,Ferroalloys
+7203,Reducciones de hierro
+7204,Chatarra
+7205,Polvo de hierro
+7206,Lingotes de hierro
+7207,Hierro semi-acabado
+7208,Hierro en caliente
+7209,Hierro enrollado
+7210,Hierro de mano plana recubierta
+7211,Hierro de rodilla plana
+7212,Hierro de rodilla plana grande
+7213,Barras de hierro en caliente
+7214,Barras de hierro crudo
+7215,Otras barras de hierro
+7216,Bloques de hierro
+7217,Alambre de hierro
+7218,Lingotes de acero inoxidable
+7219,Gran acero inoxidable de mano plana
+7220,Acero inoxidable
+7221,Barras de acero inoxidable en caliente
+7222,Otras barras de acero inoxidable
+7223,Cable de acero inoxidable
+7224,Lingotes de acero
+7225,Acero plano de mano plana
+7226,Hierro de rodilla plana
+7227,Barras de acero
+7228,Otras barras de acero
+7229,Alambre de acero
+7301,Acumulación de hoja de hierro
+7302,Productos ferroviarios de hierro
+7303,Tuberías de hierro fundido
+7304,Tuberías de hierro
+7305,Otras grandes tuberías de hierro
+7306,Otras pequeñas tuberías de hierro
+7307,Accesorios de tubería de hierro
+7308,Estructuras de hierro
+7309,Grandes recipientes de hierro
+7310,Pequeños recipientes de hierro
+7311,Contenedores de gas de hierro
+7312,Alambre de hierro varado
+7313,Alambre de espino
+7314,Tela de hierro
+7315,Cadenas de hierro
+7316,Anclajes de hierro
+7317,Uñas de hierro
+7318,Sujetadores de hierro
+7319,Agujas de costura de hierro
+7320,Resortes de hierro
+7321,Estufas de hierro
+7322,Radiadores de hierro
+7323,Artículos para el hogar de hierro
+7324,Tocador de hierro
+7325,Otros productos de hierro fundido
+7326,Otros productos de hierro
+7401,Cobre precipitado
+7402,Cobre crudo
+7403,Cobre refinado
+7404,Chatarra de cobre
+7405,Aleaciones de cobre
+7406,Polvo de cobre
+7407,Barras de cobre
+7408,Alambre de cobre
+7409,Recubrimiento de cobre
+7410,Hoja de cobre
+7411,Tubos de cobre
+7412,Accesorios de tubería de cobre
+7413,Alambre de cobre varado
+7415,Sujetadores de cobre
+7418,Artículos para el hogar de cobre
+7419,Otros productos de cobre
+7501,Mattes de níquel
+7502,Níquel crudo
+7503,Níquel
+7504,Polvo de níquel
+7505,Barras de níquel
+7506,Hojas de níquel
+7507,Tuberías de níquel
+7508,Otros productos de níquel
+7601,Aluminio crudo
+7602,Aluminio de chatarra
+7603,Polvo de aluminio
+7604,Barras de aluminio
+7605,Alambre de aluminio
+7606,Revestimiento de aluminio
+7607,Papel de aluminio
+7608,Tuberías de aluminio
+7609,Accesorios de tubería de aluminio
+7610,Estructuras de aluminio
+7611,Recipientes de aluminio grandes
+7612,Latas de aluminio
+7613,Contenedores de gas de aluminio
+7614,Alambre de aluminio varado
+7615,Artículos para el hogar de aluminio
+7616,Otros productos de aluminio
+7801,Plomo en bruto
+7802,Plomo de chatarra
+7804,Hojas de plomo
+7806,Otros productos de plomo
+7901,Zinc crudo
+7902,Desecho
+7903,Polvo de zinc
+7904,Barras de zinc
+7905,Sábanas de zinc
+7907,Otros productos de zinc
+8001,Lata cruda
+8002,Lata de chatarra
+8003,Barras de lata
+8007,Otros productos de estaño
+8101,Tungsteno
+8102,Molibdeno
+8103,Tántalo
+8104,Magnesio
+8105,Cobalto
+8106,Bismuto
+8107,Cadmio
+8108,Titanio
+8109,Circonio
+8110,Antimonio
+8111,Manganeso
+8112,Otros metales
+8113,Cermetos
+8201,Herramientas de jardín
+8202,Sierras manuales
+8203,Herramientas manuales
+8204,Llaves
+8205,Otras herramientas manuales
+8206,Conjuntos de herramientas
+8207,Piezas de herramientas intercambiables
+8208,Cuchillas de corte
+8209,Placas de herramientas
+8210,Herramientas manuales de cocción
+8211,Cuchillos
+8212,Hojas de afeitar
+8213,Tijeras
+8214,Otros cubiertos
+8215,Conjuntos de cubiertos
+8301,Candado
+8302,Montaje de metal
+8303,Cajas fuertes
+8304,Archivadores
+8305,Suministros de oficina de metal
+8306,Campanas y otros adornos de metal
+8307,Tubo de metal flexible
+8308,Otros sujetadores de metal
+8309,Tapones de metal
+8310,Letreros de metal
+8311,Productos de soldadura de metal recubiertos
+8401,Reactores nucleares
+8402,Calderas de vapor
+8403,Calderas de calefacción central
+8404,Plantas calderas
+8405,Generadores de agua y gas
+8406,Turbinas de vapor
+8407,Motores de encendido chispa
+8408,Motores de combustión
+8409,Partes del motor
+8410,Turbinas hidráulicas
+8411,Turbinas de gas
+8412,Otros motores
+8413,Bombas líquidas
+8414,Bombas de aire
+8415,Acondicionadores de aire
+8416,Hornos de combustible líquido
+8417,Hornos industriales
+8418,Refrigeradores
+8419,Otra maquinaria de calefacción
+8420,Máquinas rodantes
+8421,Centrifugadoras
+8422,Máquinas de lavado y embotellado
+8423,Escamas
+8424,Máquinas de dispersión de líquidos
+8425,Sistemas de polea
+8426,Grúas
+8427,Bifurcos
+8428,Maquinaria de elevación
+8429,Grandes vehículos de construcción
+8430,Otros vehículos de construcción
+8431,Maquinaria de excavación
+8432,Maquinaria de preparación del suelo
+8433,Cosecha de maquinaria
+8434,Maquinaria lechera
+8435,Maquinaria presionadora de frutas
+8436,Otra maquinaria agrícola
+8437,Maquinaria
+8438,Maquinaria de preparación de alimentos industriales
+8439,Máquinas de fabricación de papel
+8440,Máquinas de unión a libros
+8441,Otra maquinaria de papel
+8442,Maquinaria de producción impresa
+8443,Impresoras industriales
+8444,Maquinaria textil artificial
+8445,Maquinaria de fibra textil
+8446,Telares
+8447,Máquinas de tejido
+8448,Accesorios de la máquina de tejer
+8449,Maquinaria
+8450,Lavadoras para el hogar
+8451,Máquinas de procesamiento textil
+8452,Máquinas de coser
+8453,Maquinaria de cuero
+8454,Máquinas de fundición
+8455,Fábricas de metal
+8456,Maquinaria de eliminación no mecánica
+8457,Máquinas de transferencia de metal
+8458,Tornos de metal
+8459,Máquinas de perforación
+8460,Máquinas de acabado de metal
+8461,Máquinas de metal
+8462,Forjado
+8463,Otra maquinaria de eliminación no metálica
+8464,Máquinas de trabajo de piedra
+8465,Máquinas de carpintería
+8466,Piezas de la máquina de metalurgia
+8467,Herramientas para el trabajo del motor
+8468,Maquinaria de soldadura y soldadura
+8469,Máquinas de escribir
+8470,Calculador
+8471,Ordenadores
+8472,Otras máquinas de oficina
+8473,Piezas de máquina de oficina
+8474,Máquinas de procesamiento de piedra
+8475,Máquinas de trabajo de vidrio
+8476,Máquinas expendedoras
+8477,Maquinaria de trabajo de goma
+8478,Máquinas de procesamiento de tabaco
+8479,Maquinaria que tiene funciones individuales
+8480,Moldes de metal
+8481,Válvulas
+8482,Rodamientos de bolas
+8483,Transmisión
+8484,Juntas
+8485,Hélices de botes
+8501,Motor electrico
+8502,Juegos de generación eléctrica
+8503,Piezas de motor eléctrico
+8504,Transformadores eléctricos
+8505,Electroimán
+8506,Baterías
+8507,Baterías eléctricas
+8508,Aspiradoras
+8509,Otros artículos para el hogar eléctrico doméstico
+8510,Recortadores de cabello
+8511,Igniciones eléctricas
+8512,Equipo de iluminación y señalización eléctrica
+8513,Iluminación portátil
+8514,Hornos eléctricos
+8515,Equipo de soldadura eléctrica
+8516,Calentadores eléctricos
+8517,Teléfono
+8518,Micrófonos y auriculares
+8519,Equipo de grabación de sonido
+8520,Máquinas de dictado
+8521,Equipo de grabación de video
+8522,Accesorios de grabación de audio y video
+8523,Medios de audio en blanco
+8524,Grabaciones de sonido
+8525,Equipo de transmisión
+8526,Equipo de navegación
+8527,Receptores de radio
+8528,Pantallas de video
+8529,Accesorios de transmisión
+8530,Señales de tráfico
+8531,Alarma de audio
+8532,Condensadores eléctricos
+8533,Resistencias eléctricas
+8534,Placas de circuito impreso
+8535,Equipo de protección de alto voltaje
+8536,Equipo de protección de bajo voltaje
+8537,Tableros de control eléctrico
+8538,Accesorios de energía eléctrica
+8539,Filamento eléctrico
+8540,Tubos de cátodo
+8541,Dispositivos semiconductores
+8542,Circuitos integrados
+8543,Otra maquinaria eléctrica
+8544,Cable aislado
+8545,Electrónica a base de carbono
+8546,Aisladores eléctricos
+8547,Accesorios aislantes de metal
+8548,Partes eléctricas
+8601,Locomotoras eléctricas
+8602,Otras locomotoras
+8603,Transporte ferroviario autopropulsado
+8604,Vehículos de mantenimiento ferroviario
+8605,Pasajeros ferroviarios
+8606,Autos de carga de ferrocarril
+8607,Piezas de locomotoras
+8608,Accesorios de vía ferroviaria
+8609,Contenedores de carga ferroviaria
+8701,Tractores
+8702,Autobús
+8703,Coches
+8704,Camiones de entrega
+8705,Vehículos de motor de propósito especial
+8706,Vehículo de motor (8701 a 8705) Chasis equipado con motor
+8707,Cuerpos de vehículos (incluidos taxis) para los vehículos de motor (8701 a 8705)
+8708,Vehículos de motor; Piezas y accesorios (8701 a 8705)
+8709,Camiones de trabajo
+8710,Vehículos blindados
+8711,Motocicletas
+8712,Bicicletas
+8713,Silla de ruedas
+8714,Piezas de vehículo bi-rueda
+8715,Carruajes para bebés
+8716,Remolques
+8801,Aeronaves sin propulsión motorizada
+8802,"Aviones, helicópteros y/o naves espaciales"
+8803,Piezas de aviones
+8804,Paracaídas
+8805,Equipo de lanzamiento de aviones
+8901,Barcos de pasajeros y de carga
+8902,Barcos de pesca
+8903,Botes recreativos
+8904,Remolcador
+8905,Barcos para propósitos especiales
+8906,Otros buques marinos
+8907,Otras estructuras flotantes
+9001,Fibras ópticas
+9002,Espejos y lentes
+9003,Marcos de gafas
+9004,Gafas
+9005,Binoculares y telescopios
+9006,Cámaras
+9007,Cámaras de vídeo
+9008,Proyectores de imagen
+9009,Fotocopiadores
+9010,Equipo de laboratorio de fotos
+9011,Microscopios
+9012,Microscopios no ópticos
+9013,LCDS
+9014,Brújulas
+9015,Equipo de topografía
+9016,Saldos
+9017,Herramientas de redacción
+9018,Instrumentos medicos
+9019,Electrodomésticos terapéuticos
+9020,Electrodomésticos de respiración
+9021,Aparatos ortopédicos
+9022,Equipo de rayos X
+9023,Modelos instructivos
+9024,Máquinas de prueba de tracción
+9025,Hidrómetros
+9026,Instrumentos de medición de gas y flujo líquido
+9027,Instrumentos de análisis químico
+9028,Medidores de servicios públicos
+9029,Contadores de revolución
+9030,Osciloscopios
+9031,Otros instrumentos de medición
+9032,Termostatos
+9033,Piezas de instrumentos optoeléctricos
+9101,Relojes de metales preciosos
+9102,Relojes de metal base
+9103,Relojes con movimientos de reloj
+9104,Relojes del tablero
+9105,Otros relojes
+9106,Instrumentos de grabación de tiempo
+9107,Interruptores de tiempo
+9108,Ver movimientos
+9109,Movimientos de reloj
+9110,Conjuntos de movimiento incompletos
+9111,Mire las cajas y las piezas
+9112,Cajas de reloj y piezas
+9113,Mira correas
+9114,Otros relojes y relojes
+9201,Pianos
+9202,Instrumentos de cuerda
+9205,Instrumentos de viento
+9206,Percusión
+9207,Instrumentos musicales eléctricos
+9208,Otros instrumentos musicales
+9209,Partes de instrumentos musicales
+9301,Armas militares
+9302,Pistolas
+9303,Otras armas de fuego
+9304,"Pistolas de primavera, aire y gas"
+9305,Piezas y accesorios de armas
+9306,Munición explosiva
+9307,Armas y accesorios con copa
+9401,Asientos
+9402,Muebles médicos
+9403,Otros muebles
+9404,Colchones
+9405,Artefactos de iluminación
+9406,Edificios prefabricados
+9503,Otros juguetes
+9504,Juegos de video y cartas
+9505,Decoraciones de fiesta
+9506,Equipo deportivo
+9507,Equipo de pesca y caza
+9508,Amplios de recinto ferial
+9601,Marfil y hueso trabajado
+9602,Tallas de vegetales y minerales
+9603,Escoba
+9604,Tamizas de mano
+9605,Kits de viaje
+9606,Botones
+9607,Cremalleras
+9608,Plumas
+9609,Lápices y crayones
+9610,Pizarra
+9611,Sellos de goma
+9612,Cintas de tinta
+9613,Encendedores
+9614,Tuberías de fumar
+9615,Peines
+9616,Rociadores
+9617,Dosis de vacuna
+9618,Maniquíes
+9701,Pinturas
+9702,Impresiones Originales
+9703,Esculturas
+9704,Sellos de ingreso
+9705,Artículos de coleccionista
+9706,Antiguedades
