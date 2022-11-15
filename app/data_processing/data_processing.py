@@ -8,11 +8,6 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 class Data():
     def __init__(self,table_name=None,fuente_datos='csv',reporting_country=None,region=None,partner_code = None,year=None,period=None,section=None,SA_4=None,imp_exp=None):
-        self.conn = mysql.connector.connect(user="root", password="123456",
-                                       host="localhost",
-                                       database="mexico_it",
-                                       port='3306'
-                                       )
         self.table_name = table_name
         self.fuente_datos = fuente_datos
         self.reporting_country = reporting_country
@@ -23,9 +18,17 @@ class Data():
         self.section = section
         self.SA_4 = SA_4
         self.imp_exp = imp_exp
-        
+
+    def iniciar_mysql_conection(self):
+        self.conn = mysql.connector.connect(user="root", password="123456",
+                                       host="localhost",
+                                       database="mexico_it",
+                                       port='3306'
+                                       )
+
     def get_table(self,table):
         if self.fuente_datos == 'mysql':
+            self.iniciar_mysql_conection()
             cur = self.conn.cursor()
             cur.execute('SELECT*FROM {}'.format(table))
             rows = cur.fetchall()
@@ -113,15 +116,12 @@ class Data():
         df_['{}'.format(columna)] = df_.index
         df = df.merge(df_,how='inner',on='{}'.format(columna))
         df = df.sort_values(by='tradevalue',ascending=True)
-        df['aumento'] = df['aumento_disminucion'].apply(lambda x:1 if x>0 else 0)
-        df = df[df['year']==year]
-        df = df.sort_values(by='tradevalue',ascending=False)
-        df = df.head(10)
+        #df['aumento'] = df['aumento_disminucion'].apply(lambda x:1 if x>0 else 0)
         df['aumento_disminucion'] = df['aumento_disminucion'].apply(lambda x:round(x,2))
         df['tradevalue'] = df['tradevalue'].apply(lambda x:round(x,2))
-        #dar formato de $ a columna de tradevalue en millones
-        df = df.sort_values(by='tradevalue',ascending=True)
-        print(df)
+        df = df[df['year']==year]
+        df = df.sort_values(by='tradevalue',ascending=False)
+        df = df.head(10).sort_values(by='tradevalue',ascending=True)
         return df
 
 #c = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()

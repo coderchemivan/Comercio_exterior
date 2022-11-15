@@ -1,6 +1,7 @@
 import dash
 from dash import Dash, html, Input, Output, State,ctx,dcc,callback
 from dash.dependencies import Input, Output, ClientsideFunction
+import dash_daq as daq
 import plotly.graph_objs as go
 import plotly.express as px
 from plotly.subplots import make_subplots
@@ -51,48 +52,50 @@ def generate_control_card():
     """
     regionsList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=2,region='America')
     regionsList.remove('SE')
-    productsList = Data('world_trade',fuente_datos='csv').obtainProductoDescription(tabla='sections_')
-    
     regionsList = [region if len(region) < 20 else region[:10] + '...' for region in regionsList]
     #productsList = [product if len(product) < 15 else product[:10] + '...' for product in productsList]
 
-    return html.Div(
-        id="control-card",
-        children=[
-            html.P("Selecciona una región"),
-            dcc.Dropdown(
-                id="region_select",
-                options=[{"label": i, "value": i} for i in regionsList],
-                value='América del Norte',
-                #placeholder='North America',
-            ),
-            html.Br(),
-            html.P("Selecciona un país"),
-            dcc.Dropdown(
-                id="country_select",
-                multi=True,
-            ),
-            # html.Br(),
-            # html.P("Selecciona un producto"),
-            # dcc.Dropdown(
-            #     id="product-select",
-            #     options=[{"label": i, "value": i} for i in productsList],
-            #     #value='Todos',
-            #     multi=True,
-            #     placeholder="Productos minerales",
-            # ),
-            html.Br(),
-            html.Div(
-                id="import-btn-outer",
-                children=html.Button(id="import-btn", children="Importaciones", n_clicks=0),
-            ),
-            html.Br(),
-            html.Div(
-                id="export-btn-outer",
-                children=html.Button(id="export-btn", children="Exportaciones", n_clicks=0),
-            ),
-        ],
-    )
+    return [
+                        html.Div(
+                                    className="three columns",
+                                ),  
+                        html.Div(
+                                className="three columns",
+                                children=[
+                                                dcc.Dropdown(
+                                                            id="region_select",
+                                                            options=[{"label": i, "value": i} for i in regionsList],
+                                                            value='América',
+                                                            placeholder='América',
+                                                            ),
+
+                                        ]
+                                ),
+                        html.Div(
+                                className="three columns",
+                                children=[
+                                                dcc.Dropdown(
+                                                            id="country_select",
+                                                            options=[{"label": i, "value": i} for i in range(10)],
+                                                            placeholder='Selecciona un país',
+                                                            ),
+
+                                        ]
+                                ),
+                        html.Div(
+                                className="two columns",
+                                children=[
+                                            daq.ToggleSwitch(
+                                                id='imp-exp-toggle-switch',
+                                                label='Exportaciones|Importaciones',
+                                                labelPosition='top',
+                                                value=True,
+
+                                            )
+
+                                        ]
+                                ),
+    ]
 app.layout = html.Div(
     id="app-container",
     children=[
@@ -100,18 +103,40 @@ app.layout = html.Div(
         html.Div(
             id="banner",
             className="banner",
-            children=[html.Img(src=app.get_asset_url("International-trade.png"))],
+            children=[
+                html.Div(
+                    className="three columns",
+                    children =[html.Img(src=app.get_asset_url("International-trade.png"))]),
+                html.Div(
+                        className="nine columns",
+                        ),
+                    ]
+        ),
+        html.Div(
+            id="filters",
+            className="filters",
+            children=generate_control_card(),        
         ),
         # Left column
         html.Div(
             id="left-column",
             className="three columns",
-            children=[description_card(),generate_control_card()]
-            + [
-                html.Div(
-                    ["initial child"], id="output-clientside", style={"display": "none"}
-                )
-            ],
+            children=[
+                description_card(),
+                html.Div([
+                        dcc.Graph(id = 'indicador1', config={'displayModeBar': False}, className='dcc_compon',
+                                style={'margin-top': '20px'}),                   
+                            ]),
+                html.Br(),
+                html.Div([
+                        dcc.Graph(id = 'indicador2', config={'displayModeBar': False}, className='dcc_compon',
+                                style={'margin-top': '20px'}),                   
+                            ]),
+                html.Div([
+                        dcc.Graph(id = 'indicador3', config={'displayModeBar': False}, className='dcc_compon',
+                                style={'margin-top': '20px'}),                   
+                            ]),               
+            ]
         ),
         # Right column
         html.Div(
@@ -140,8 +165,8 @@ app.layout = html.Div(
                     children=[
                         html.Div(children=[
                             html.P(id = 'titulo',style={'text-align': 'center', 'color': 'white'}),
-                        ],className = 'titulo-indicador'),
-                        dcc.Graph(id="treemap",config={'displayModeBar':True},style={'margin-top': '0px'},)
+                        ],className = 'titulo-grafica'),
+                        dcc.Graph(id="treemap",config={'displayModeBar':True},style={'margin-top': '0px'},className='dcc_compon',)
                     ],
                 ),
                 
@@ -152,8 +177,8 @@ app.layout = html.Div(
                         children=[
                             #html.B("Patient Wait Time and Satisfactory Scores"),
                             html.Div(children=[
-                                html.P(id='titulo-imp-exp-pais',style={'text-align': 'center', 'color': 'white'}),
-                            ],className = 'titulo-indicador'),
+                                html.P(id='titulo-imp-exp-pais',style={'text-align': 'center', 'color': 'black'}),
+                            ],className = 'titulo-grafica'),
                             html.Div([
                                 dcc.Graph(id = 'imp-exp-pais',  config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'}
@@ -167,7 +192,7 @@ app.layout = html.Div(
                         children=[
                             html.Div(children=[
                                 html.P(id = 'titulo-imp-exp-producto',style={'text-align': 'center', 'color': 'white'}),
-                            ],className = 'titulo-indicador'),
+                            ],className = 'titulo-grafica'),
                             html.Div([
                                 dcc.Graph(id = 'imp-exp-producto', config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'})
@@ -185,7 +210,7 @@ app.layout = html.Div(
                         children=[
                             html.Div(children=[
                                 html.P(id = 'imp-exp-historico-title',style={'text-align': 'center', 'color': 'white'}),
-                            ],className = 'titulo-indicador'),
+                            ],className = 'titulo-grafica'),
                             html.Div([
                                 dcc.Graph(id = 'imp-exp-historico', config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'})
@@ -202,7 +227,7 @@ app.layout = html.Div(
                         children=[
                             html.Div(children=[
                                 html.P(id = 'products-distribution-container-title',style={'text-align': 'center', 'color': 'white'}),
-                            ],className = 'titulo-indicador'),
+                            ],className = 'titulo-grafica'),
                             html.Div([
                                 dcc.Graph(id = 'products-distribution-plot', config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'})
@@ -221,17 +246,11 @@ app.layout = html.Div(
 
 @app.callback(
     Output('store-graphs_selections', 'data'),
-    [Input('import-btn', 'n_clicks'),
-    Input('export-btn', 'n_clicks')],
+    Input('imp-exp-toggle-switch', 'value'),
     Input('region_select', 'value'),
     Input('imp-exp-pais', 'clickData'),)
-def define_imp_exp(n_clicks_imp,n_clicks_exp,region_selected,clickCP_status):
-    if "import-btn" == ctx.triggered_id:
-        imp_exp =1
-    elif "export-btn" == ctx.triggered_id:
-        imp_exp = 2
-    else:
-        imp_exp = 1
+def define_imp_exp(imp_exp_,region_selected,clickCP_status):
+    imp_exp = 1 if imp_exp_ else 2
     data = {}
     data['clickDataCP']=True if clickCP_status is not None else True
     data['imp_exp'] = imp_exp 
@@ -259,6 +278,10 @@ def paises_por_region(region_select):
         countriesList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=1,region=region_select)
     try:
         countriesList.remove('Mexico')
+        remove_items = ['World','Antarctica']
+        for item in remove_items:
+            if item in countriesList:
+                countriesList.remove(item)
     except:pass
     #countriesList = [country if len(country) < 10 else country[:10] + '...' for country in countriesList]
     #placeholder = "United States of America"
@@ -277,7 +300,6 @@ def paises_por_region(region_select):
     return [{"label": i, "value": i} for i in countriesList]
 
 
-
 @app.callback(Output(component_id='treemap',component_property='figure'),
                 Input('store-df', 'data'),
                 Input('store-graphs_selections', 'data'),
@@ -286,24 +308,15 @@ def paises_por_region(region_select):
                 Input('country_select','value'),
                 #Input('product-select','value'),
                 Input('year-slider','value'),
-                Input('import-btn','n_clicks'),
-                Input('export-btn','n_clicks'),
                 )
-def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country_select,year_slider,import_btn,export_btn):
+def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country_select,year_slider):
     df_inicial = pd.read_json(data_df, orient='split')
     if region_select !='Mundo':
         df_inicial_ = df_inicial[df_inicial['region']==region_select]
     imp_exp = data_graphs_settings['imp_exp']
     df = df_inicial.copy()
-    # try: #Si se selecciona un producto
-    #     if product_select != None and len(product_select) > 0:
-    #         df = df[df['description'].isin(product_select)]
-    #     else:
-    #         df = df_inicial.copy()
-    # except:pass
-    
     try: #Si hay algún país seleccionado
-        df = df_inicial[(df_inicial['name'].isin(country_select))]  if len(country_select) > 0 else df 
+        df = df[(df['name']==country_select)]  if country_select!=None else df 
     except:pass 
     if clickData1 is not None and data_graphs_settings['clickDataCP'] == True and region_select!='Mundo': #"SI SE SELECCIONA UN PAIS EN EL MAPA"
         country = clickData1['points'][0]['location']
@@ -336,6 +349,9 @@ def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country
                 Output('titulo-imp-exp-pais', 'children'),
                 Output('titulo-imp-exp-producto', 'children'),
                 Output('imp-exp-historico-title', 'children'),
+                Output('indicador1','figure'),
+                Output('indicador2','figure'),
+                Output('indicador3','figure'),
                 Input('store-df', 'data'),
                 Input('store-graphs_selections', 'data'),
                 Input('treemap', 'clickData'),
@@ -344,24 +360,14 @@ def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country
                 Input('country_select','value'),
                 #Input('product-select','value'),
                 Input('year-slider','value'),
-                Input('import-btn','n_clicks'),
-                Input('export-btn','n_clicks'),
                 )
-def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_region,country_select,year_slider,import_btn,export_btn):
+def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_region,country_select,year_slider):
     imp_exp = data_graphs_settings['imp_exp']
     df_inicial = pd.read_json(data_df, orient='split')
-
-    df = df_inicial.copy()
-    # try: #Si se selecciona un producto
-    #     if product_select != None and len(product_select) > 0:
-    #         df = df[df['description'].isin(product_select)]
-    #     else:
-    #         pass
-    # except:pass
-        
+    df = df_inicial.copy()        
     try: #Si hay algún país seleccionado
-        df = df[(df['name'].isin(country_select))]  if len(country_select) > 0 else df 
-    except:pass
+        df = df[(df['name']==country_select)]  if country_select!=None else df
+    except Exception as e: print(e)
         #df = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
     column = 'description'
     if clickData1 is not None:
@@ -434,21 +440,97 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
                         x=0.02))
 
 
-
-    # #Regresa el título de las gráficas
-    region = selected_region
     imp_exp_ = 'Importaciones' if imp_exp == 1 else 'Exportaciones'
     try:
-        region = country_select[0] if country_select!=None else selected_region 
+        region = country_select if country_select!=None else selected_region 
     except:
         region = selected_region 
+
+    #titulos de las gráficas
     titulo_treemap = '{} a México desde {} ({})'.format(imp_exp_,region,math.floor(year_slider[0]))
     titulo_origen_destino_país = '{} por país ({})'.format(imp_exp_,math.floor(year_slider[0]))
     titulo_origen_destino_producto = '{} por producto ({})'.format(imp_exp_,math.floor(year_slider[0]))
     titulo_imp_exp_historico = 'Importación vs Exportación (2015-2021)'.format(math.floor(year_slider[0]))
 
-    return fig1,fig2,fig3,titulo_treemap,titulo_origen_destino_país,titulo_origen_destino_producto,titulo_imp_exp_historico
-# Run the server
+
+    totales = df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
+    total_imp_years = totales[(totales['year'].isin([math.floor(year_slider[0]),math.floor(year_slider[0])-1])) 
+                                                        & (totales['imp_exp']==1)]
+
+    total_exp_years = totales[(totales['year'].isin([math.floor(year_slider[0]),math.floor(year_slider[0])-1])) 
+                                                        & (totales['imp_exp']==2)]   
+ 
+    indicator1 = go.Figure()
+    indicator1.add_trace(go.Indicator(
+                mode = "number+delta",
+                value = total_imp_years['tradevalue'].iloc[1],    
+                #value format en millones
+                number={'valueformat': ".2s",},
+                title = {"text": "Total importaciones<br><span style='font-size:0.8em;color:gray'>Subtitle</span><br><span style='font-size:0.8em;color:gray'>Subsubtitle</span>".format(imp_exp_)},
+                delta = {'reference': total_imp_years['tradevalue'].iloc[0], 'relative': True},
+                domain = {'x': [0, 1], 'y': [0, 1]}))
+    indicator1.update_layout(
+            title={
+                   'y': 1,
+                   'x': 0.5,
+                   'xanchor': 'center',
+                   'yanchor': 'top'},
+            font=dict(color='orange'),
+            paper_bgcolor='#1f2c56',
+            plot_bgcolor='#1f2c56',
+            height = 300)
+
+    indicator2 = go.Figure()
+    indicator2.add_trace(go.Indicator(
+               mode='number+delta',
+               value=total_exp_years['tradevalue'].iloc[1],
+               delta = {'reference': total_imp_years['tradevalue'].iloc[0],
+                        'position': 'right',
+                        'valueformat': ',g',
+                        'relative': False,
+                        'font': {'size': 15}},
+               number={'valueformat': ',',
+                       'font': {'size': 20}},
+               domain={'y': [0, 1], 'x': [0, 1]}))
+
+    indicator2.update_layout(
+            title={'text': 'New Confirmed',
+                   'y': 1,
+                   'x': 0.5,
+                   'xanchor': 'center',
+                   'yanchor': 'top'},
+            font=dict(color='orange'),
+            paper_bgcolor='#1f2c56',
+            plot_bgcolor='#1f2c56',
+            height = 300)
+
+
+    indicator3 = go.Figure()
+    indicator3.add_trace(go.Indicator(
+               mode='number+delta',
+               value=20,
+               delta = {'reference': 20,
+                        'position': 'right',
+                        'valueformat': ',g',
+                        'relative': False,
+                        'font': {'size': 15}},
+               number={'valueformat': ',',
+                       'font': {'size': 20}},
+               domain={'y': [0, 1], 'x': [0, 1]}))
+
+    indicator3.update_layout(
+            title={'text': 'New Confirmed',
+                   'y': 1,
+                   'x': 0.5,
+                   'xanchor': 'center',
+                   'yanchor': 'top'},
+            font=dict(color='orange'),
+            paper_bgcolor='#1f2c56',
+            plot_bgcolor='#1f2c56',
+            height = 300)
+
+    return fig1,fig2,fig3,titulo_treemap,titulo_origen_destino_país,titulo_origen_destino_producto,titulo_imp_exp_historico,indicator1,indicator2,indicator3
+# # Run the server
 if __name__ == "__main__":
     app.run_server(debug=True)
 
