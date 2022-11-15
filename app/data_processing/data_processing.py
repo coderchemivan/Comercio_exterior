@@ -95,6 +95,32 @@ class Data():
         productos = df.iloc[:,1].values.tolist()
         return productos 
 
+    def cambio_porcentualImpExp(self,df,pais_producto,lista_columnas,year,imp_exp):
+        columna = 'partner_code' if pais_producto == 'pais' else 'description'
+        previous_year = year-1
+        years = [year,previous_year]
+        df = df[(df['year'].isin(years)) & (df['imp_exp'] == imp_exp)]
+        df =df.groupby(lista_columnas,group_keys=False)[['tradevalue']].sum().reset_index()
+        paises = df['{}'.format(columna)].unique()
+        aumento_disminucion_pais = {}
+        for pais in paises:
+            df_pais = df[df['{}'.format(columna)]==pais]
+            df_pais=df_pais['tradevalue'].values.tolist()
+            if len(df_pais) > 1:
+                diff = ((df_pais[1]-df_pais[0])/df_pais[1]*100)
+                aumento_disminucion_pais[pais] = diff
+                #dicc to dataframe
+        df_ = pd.DataFrame.from_dict(aumento_disminucion_pais,orient='index',columns=['aumento_disminucion'])
+        df_['{}'.format(columna)] = df_.index
+        df = df.merge(df_,how='inner',on='{}'.format(columna))
+        df = df.sort_values(by='tradevalue',ascending=True)
+        df['aumento'] = df['aumento_disminucion'].apply(lambda x:1 if x>0 else 0)
+        df = df[df['year']==year]
+        df = df.sort_values(by='tradevalue',ascending=False)
+        df['tradevalue'] = df['tradevalue'].apply(lambda x:round(x,2))
+        df = df.head(10)
+        df = df.sort_values(by='tradevalue',ascending=True)
+        return df
 
 #c = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()
 # c = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021])

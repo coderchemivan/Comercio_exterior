@@ -124,7 +124,7 @@ app.layout = html.Div(
                         html.Hr(),
                         html.Br(),
                         html.B('Selecciona un año', className = 'fix_label'),
-                        dcc.RangeSlider(2014, 2022, value=[2020], 
+                        dcc.RangeSlider(2014, 2022, value=[2021], 
                             marks={str(yr) : {'label' : str(yr), 'style':{'color':'white'}} for yr in range(2014, 2022,1)},
                         id = 'year-slider',className = 'slider'),
                     ],
@@ -152,10 +152,10 @@ app.layout = html.Div(
                         children=[
                             #html.B("Patient Wait Time and Satisfactory Scores"),
                             html.Div(children=[
-                                html.P(id='titulo-origen-destino',style={'text-align': 'center', 'color': 'white'}),
+                                html.P(id='titulo-imp-exp-pais',style={'text-align': 'center', 'color': 'white'}),
                             ],className = 'titulo-indicador'),
                             html.Div([
-                                dcc.Graph(id = 'origen-destino',  config={'displayModeBar': False}, className='dcc_compon',
+                                dcc.Graph(id = 'imp-exp-pais',  config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'}
                                 )
                             ],)
@@ -166,10 +166,10 @@ app.layout = html.Div(
                         className="six columns",
                         children=[
                             html.Div(children=[
-                                html.P(id = 'titulo-imp-vs-exp',style={'text-align': 'center', 'color': 'white'}),
+                                html.P(id = 'titulo-imp-exp-producto',style={'text-align': 'center', 'color': 'white'}),
                             ],className = 'titulo-indicador'),
                             html.Div([
-                                dcc.Graph(id = 'indicator', config={'displayModeBar': False}, className='dcc_compon',
+                                dcc.Graph(id = 'imp-exp-producto', config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'})
                                                     
                             ],)
@@ -177,16 +177,17 @@ app.layout = html.Div(
                     ),
 
                 ],),
+
                 html.Div([
                     html.Div(
-                        id="ventaja-competitiva-container",
+                        id="imp-exp-historico-container",
                         className="twelve columns",
                         children=[
                             html.Div(children=[
-                                html.P(id = 'titulo-ventaja-competitiva',style={'text-align': 'center', 'color': 'white'}),
+                                html.P(id = 'imp-exp-historico-title',style={'text-align': 'center', 'color': 'white'}),
                             ],className = 'titulo-indicador'),
                             html.Div([
-                                dcc.Graph(id = 'ventaja-competitiva', config={'displayModeBar': False}, className='dcc_compon',
+                                dcc.Graph(id = 'imp-exp-historico', config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'})
                                                     
                             ],)
@@ -194,8 +195,22 @@ app.layout = html.Div(
                     ),
                 ],),
 
-
-
+                html.Div([
+                    html.Div(
+                        id="products-distribution-container",
+                        className="twelve columns",
+                        children=[
+                            html.Div(children=[
+                                html.P(id = 'products-distribution-container-title',style={'text-align': 'center', 'color': 'white'}),
+                            ],className = 'titulo-indicador'),
+                            html.Div([
+                                dcc.Graph(id = 'products-distribution-plot', config={'displayModeBar': False}, className='dcc_compon',
+                                                    style={'margin-top': '15px'})
+                                                    
+                            ],)
+                        ],
+                    ),
+                ],),
 
             ],
         ),
@@ -209,7 +224,7 @@ app.layout = html.Div(
     [Input('import-btn', 'n_clicks'),
     Input('export-btn', 'n_clicks')],
     Input('region_select', 'value'),
-    Input('origen-destino', 'clickData'),)
+    Input('imp-exp-pais', 'clickData'),)
 def define_imp_exp(n_clicks_imp,n_clicks_exp,region_selected,clickCP_status):
     if "import-btn" == ctx.triggered_id:
         imp_exp =1
@@ -266,7 +281,7 @@ def paises_por_region(region_select):
 @app.callback(Output(component_id='treemap',component_property='figure'),
                 Input('store-df', 'data'),
                 Input('store-graphs_selections', 'data'),
-                Input('origen-destino', 'clickData'),
+                Input('imp-exp-pais', 'clickData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
                 Input('product-select','value'),
@@ -314,17 +329,17 @@ def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country
 
 
 
-@app.callback(Output(component_id='origen-destino',component_property='figure'),
-                Output(component_id='ventaja-competitiva',component_property='figure'),
-                Output(component_id='indicator',component_property='figure'),
+@app.callback(Output(component_id='imp-exp-pais',component_property='figure'),
+                Output(component_id='imp-exp-producto',component_property='figure'),
+                Output(component_id='imp-exp-historico',component_property='figure'),
                 Output('titulo', 'children'),
-                Output('titulo-origen-destino', 'children'),
-                Output('titulo-imp-vs-exp', 'children'),
-                Output('titulo-ventaja-competitiva', 'children'),
+                Output('titulo-imp-exp-pais', 'children'),
+                Output('titulo-imp-exp-producto', 'children'),
+                Output('imp-exp-historico-title', 'children'),
                 Input('store-df', 'data'),
                 Input('store-graphs_selections', 'data'),
                 Input('treemap', 'clickData'),
-                Input('origen-destino', 'clickData'),
+                Input('imp-exp-pais', 'clickData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
                 Input('product-select','value'),
@@ -358,109 +373,77 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
         pass
 
 
-    df_aux = df
-    if clickData2 is not None and data_graphs_settings['clickDataCP'] == True and selected_region!='Mundo': #"SI SE SELECCIONA UN PAIS EN EL MAPA"
-        country = clickData2['points'][0]['location']
-        if country in df['iso_3'].unique():
-            df_aux = df[(df['iso_3']==country)]
-        else:pass
-    df_aux = df_aux[(df_aux['year'].isin(year_slider)) & (df_aux['imp_exp'] == imp_exp)]
-    df_cpleth= df_aux.groupby('iso_3',group_keys=False).sum().reset_index()
-    region = selected_region
-    scope_ = 'asia' if region == 'Asia' else 'africa' if region == 'Africa' else 'europe' if region == 'Europa' else 'north america' if region == 'América del Norte' else 'south america' if region == 'América del Sur' else 'oceania' if region == 'Oceanía' else 'world'
-    fig2 = px.choropleth(df_cpleth, locations='iso_3', 
-                            color='tradevalue',
-                            color_continuous_scale="viridis",
-                            range_color=(df_cpleth.tradevalue.min(), df_cpleth.tradevalue.max()),
-                            scope = scope_.lower(),
-                            #labels={'aumento_disminucion':'Aumento/disminucion'},
-                            #title='{imp_exp} ({año})'.format(imp_exp=imp_exp_,año=year_slider[0]),
-                            projection='kavrayskiy7',
-                            height = 400,
-                        ).update_layout(margin={"r":0,"t":25,"l":5,"b":20}) 
+    #gráfica importaciones/exportaciones por país
+    selected_year = year_slider[0]
+    df_bar = Data().cambio_porcentualImpExp(df,pais_producto='pais',lista_columnas=['year','imp_exp','partner_code','iso_3'],year=selected_year,imp_exp=imp_exp)
+    fig1 = px.bar(df_bar,
+                x='tradevalue',
+                y='iso_3',
+                orientation='h',
+                color_discrete_sequence=px.colors.qualitative.Dark24,
+                height=400,
+                text_auto='.2s',
+                #color verde si aumento, rojo si disminuyo
+                color='aumento_disminucion',
+                color_continuous_scale=['red','green'],
+                range_color=(-50, 50),
+                #mostrar columna porcentaje en tooltip
+                ).update_layout(margin=dict(t=25, r=0, l=5, b=20),xaxis={'visible':False},showlegend=False,coloraxis_showscale=False,
+                yaxis= {'anchor': 'x', 'domain': [0.0, 1.0], 'title': {'text': ''}})
+    fig1.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
+    
+
+    #gráfica importaciones/exportaciones por producto
+    df_bar = Data().cambio_porcentualImpExp(df,pais_producto='producto',lista_columnas=['year','imp_exp','description'],year=selected_year,imp_exp=imp_exp)
+    fig2 = px.bar(df_bar,
+                x='tradevalue',
+                y='description',
+                orientation='h',
+                color_discrete_sequence=px.colors.qualitative.Dark24,
+                height=400,
+                text_auto='.2s',
+                #color verde si aumento, rojo si disminuyo
+                color='aumento_disminucion',
+                color_continuous_scale=['red','green'],
+                range_color=(-50, 50),
+                #mostrar columna porcentaje en tooltip
+                ).update_layout(margin=dict(t=25, r=0, l=5, b=20),xaxis={'visible':False},showlegend=False,coloraxis_showscale=False
+                ,yaxis= {'anchor': 'x', 'domain': [0.0, 1.0], 'title': {'text': ''}})
+    fig2.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
+
+    
 
 
-
-
-    #Gráfica relación importación-exportación de productos (bubble chart)
-    if clickData2 is not None and selected_region != 'Mundo':
-        try: #Si se selecciona un producto en el treemap
-            print(clickData2['points'][0]['location'])
-            country = clickData2['points'][0]['location']
-            df_aux2 = df[(df['year'].isin(year_slider)) & (df['iso_3']==country)]
-            df_bubble_chart = df_aux2.groupby(['year','imp_exp','description','SA_4'])['tradevalue'].sum().reset_index()
-            df_imp = df_bubble_chart[df_bubble_chart['imp_exp'] == 1]
-            df_imp.drop(columns=['imp_exp','year'],inplace=True)
-            df_exp = df_bubble_chart[df_bubble_chart['imp_exp'] == 2]
-            df_exp.drop(columns=['imp_exp','year'],inplace=True)
-            #juntar los dos dataframes con SA_4 como clave primaria
-            df_bubble_chart = pd.merge(df_exp,df_imp,on=['SA_4','description'],how='outer')
-            df_bubble_chart.rename(columns={'tradevalue_x':'export','tradevalue_y':'import'},inplace=True)
-            df_bubble_chart['export'] = df_bubble_chart['export'].apply(lambda x:0 if np.isnan(x) else x)
-            df_bubble_chart['import'] = df_bubble_chart['import'].apply(lambda x:0 if np.isnan(x) else x)
-            #crear una columna con el dato mayor 
-            df_bubble_chart['max'] = df_bubble_chart[['export','import']].max(axis=1)
-        except Exception as e:
-            print(e)
-            return dash.no_update
-    try:
-        df_bubble_chart.to_csv('df_bubble_chart.csv')
-        export_values  = df_bubble_chart[df_bubble_chart['export'] > 0]
-        import_values  = df_bubble_chart[df_bubble_chart['import'] > 0]
-        min_export_ = export_values['export'].quantile(0.25)
-        min_import_ = import_values['import'].quantile(0.25)
-        min_export = np.log10(min_export_)
-        min_import= np.log10(min_import_)   
-          
-        max_import_ = df_bubble_chart['import'].max()
-        max_export_= df_bubble_chart['export'].max()
-        max_export = np.log10(max_export_)
-        max_import = np.log10(max_import_)
-
-        fig5 = px.scatter(df_bubble_chart, x="export", y="import", size="max", color="description", hover_name="SA_4", log_x=True,log_y=True, size_max=60,hover_data={'SA_4':True,'description':True,'max':False})
-        fig5.update_layout(xaxis_range=[min_export,max_export+0.3],yaxis_range=[min_import, max_import+0.3],height=400,width=900,margin=dict(t=25, r=0, l=5, b=20),showlegend=True)
-        #agregar una pendiente de 45° que tome en cuente la escala logaritmica
-        fig5.add_trace(go.Scatter(x=[min_export_, max_export_+1000], y=[min_import_, max_import_+1000],mode='lines',line=dict(color='black', width=1, dash='dash')))
-        titulo_ventaja_competitiva = 'Exportaciones desde México vs importaciones de {} ({})'.format(country,year_slider[0])
-    except Exception as e:
-        print(e)    
-        fig5 = px.line(x=[1,2,3],y=[1,2,3])
-        titulo_ventaja_competitiva = ""
 
     #Gráfica de histórico de importaciones y exportaciones (line plot)
     df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
-    if clickData2 is not None and data_graphs_settings['clickDataCP'] == True and selected_region!='Mundo': #"SI SE SELECCIONA UN PAIS EN EL MAPA"
-        country = clickData2['points'][0]['location']
-        if country in df['iso_3'].unique():
-            df_line_plot = df[(df['iso_3']==country)]
-            df_line_plot=df_line_plot.groupby(['year','imp_exp','iso_3'],group_keys=False)['tradevalue'].sum().reset_index()
-        else:pass
-            
     df_imp= df_line_plot[df_line_plot['imp_exp']==1]
     df_exp = df_line_plot[df_line_plot['imp_exp']==2]
-    fig4 = make_subplots(rows=1, cols=1,) #subplot_titles=('Importación vs Exportación en {}'.format(region)
-    fig4.add_trace(go.Scatter(x=df_imp['year'],y=df_imp['tradevalue'],name='Importaciones',line_color='blue'),row=1,col=1)
-    fig4.add_trace(go.Scatter(x=df_exp['year'],y=df_exp['tradevalue'],name='Exportaciones',line_color='green'),row=1,col=1)
-    fig4.update_layout(barmode='group',height=400,margin=dict(t=25, r=0, l=5, b=20),
+    fig3 = make_subplots(rows=1, cols=1,) #subplot_titles=('Importación vs Exportación en {}'.format(region)
+    fig3.add_trace(go.Scatter(x=df_imp['year'],y=df_imp['tradevalue'],name='Importaciones',line_color='blue'),row=1,col=1)
+    fig3.add_trace(go.Scatter(x=df_exp['year'],y=df_exp['tradevalue'],name='Exportaciones',line_color='green'),row=1,col=1)
+    fig3.update_layout(barmode='group',height=400,margin=dict(t=25, r=0, l=5, b=20),
                         legend=dict(
                         yanchor="bottom",
                         y=0.85,
                         xanchor="left",
-                        x=0.02))    
+                        x=0.02))
+
 
 
     # #Regresa el título de las gráficas
+    region = selected_region
     imp_exp_ = 'Importaciones' if imp_exp == 1 else 'Exportaciones'
     try:
         region = country_select[0] if country_select!=None else selected_region 
     except:
         region = selected_region 
-    titulo = '{} a México desde {} ({})'.format(imp_exp_,region,year_slider[0])
-    titulo_origen_destino_graph = '{} por país ({})'.format(imp_exp_,year_slider[0])
-    titulo_imp_exp = 'Importación vs Exportación (2015-2021)'.format(year_slider[0])
+    titulo_treemap = '{} a México desde {} ({})'.format(imp_exp_,region,year_slider[0])
+    titulo_origen_destino_país = '{} por país ({})'.format(imp_exp_,year_slider[0])
+    titulo_origen_destino_producto = '{} por producto ({})'.format(imp_exp_,year_slider[0])
+    titulo_imp_exp_historico = 'Importación vs Exportación (2015-2021)'.format(year_slider[0])
 
-    return fig2,fig5,fig4,titulo,titulo_origen_destino_graph,titulo_imp_exp,titulo_ventaja_competitiva
-        
+    return fig1,fig2,fig3,titulo_treemap,titulo_origen_destino_país,titulo_origen_destino_producto,titulo_imp_exp_historico
 # Run the server
 if __name__ == "__main__":
     app.run_server(debug=True)
