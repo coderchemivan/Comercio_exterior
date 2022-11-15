@@ -6,7 +6,7 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import numpy as np
 import pandas as pd 
-import sqlalchemy
+import math
 
 import pathlib
 from data_processing.data_processing import Data
@@ -72,15 +72,15 @@ def generate_control_card():
                 id="country_select",
                 multi=True,
             ),
-            html.Br(),
-            html.P("Selecciona un producto"),
-            dcc.Dropdown(
-                id="product-select",
-                options=[{"label": i, "value": i} for i in productsList],
-                #value='Todos',
-                multi=True,
-                placeholder="Productos minerales",
-            ),
+            # html.Br(),
+            # html.P("Selecciona un producto"),
+            # dcc.Dropdown(
+            #     id="product-select",
+            #     options=[{"label": i, "value": i} for i in productsList],
+            #     #value='Todos',
+            #     multi=True,
+            #     placeholder="Productos minerales",
+            # ),
             html.Br(),
             html.Div(
                 id="import-btn-outer",
@@ -284,23 +284,23 @@ def paises_por_region(region_select):
                 Input('imp-exp-pais', 'clickData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
-                Input('product-select','value'),
+                #Input('product-select','value'),
                 Input('year-slider','value'),
                 Input('import-btn','n_clicks'),
                 Input('export-btn','n_clicks'),
                 )
-def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country_select,product_select,year_slider,import_btn,export_btn):
+def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country_select,year_slider,import_btn,export_btn):
     df_inicial = pd.read_json(data_df, orient='split')
     if region_select !='Mundo':
         df_inicial_ = df_inicial[df_inicial['region']==region_select]
     imp_exp = data_graphs_settings['imp_exp']
     df = df_inicial.copy()
-    try: #Si se selecciona un producto
-        if product_select != None and len(product_select) > 0:
-            df = df[df['description'].isin(product_select)]
-        else:
-            df = df_inicial.copy()
-    except:pass
+    # try: #Si se selecciona un producto
+    #     if product_select != None and len(product_select) > 0:
+    #         df = df[df['description'].isin(product_select)]
+    #     else:
+    #         df = df_inicial.copy()
+    # except:pass
     
     try: #Si hay algún país seleccionado
         df = df_inicial[(df_inicial['name'].isin(country_select))]  if len(country_select) > 0 else df 
@@ -312,9 +312,9 @@ def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country
             df_aux=df[(df['iso_3']==country)]
         else: 
             df_aux=df.copy()
-        df_aux = df_aux[(df_aux['year'].isin(year_slider)) & (df_aux['imp_exp'] == imp_exp)]
+        df_aux = df_aux[(df_aux['year'] ==math.floor(year_slider[0])) & (df_aux['imp_exp'] == imp_exp)]
     else:
-        df_aux = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
+        df_aux = df[(df['year']==math.floor(year_slider[0])) & (df['imp_exp'] == imp_exp)]
     df_treemap = df_aux.groupby(['description','SA_4','year','sa4_description'])['tradevalue','porcentaje'].sum().reset_index()
     df_treemap['porcentaje'] = df_treemap['tradevalue'].apply(lambda x:(x/df_treemap['tradevalue'].sum())*100)
     df_treemap['porcentaje'] = df_treemap['porcentaje'].apply(lambda x:round(x,2))
@@ -342,40 +342,44 @@ def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country
                 Input('imp-exp-pais', 'clickData'),
                 Input('region_select','value'),
                 Input('country_select','value'),
-                Input('product-select','value'),
+                #Input('product-select','value'),
                 Input('year-slider','value'),
                 Input('import-btn','n_clicks'),
                 Input('export-btn','n_clicks'),
                 )
-def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_region,country_select,product_select,year_slider,import_btn,export_btn):
+def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_region,country_select,year_slider,import_btn,export_btn):
     imp_exp = data_graphs_settings['imp_exp']
     df_inicial = pd.read_json(data_df, orient='split')
 
     df = df_inicial.copy()
-    try: #Si se selecciona un producto
-        if product_select != None and len(product_select) > 0:
-            df = df[df['description'].isin(product_select)]
-        else:
-            pass
-    except:pass
+    # try: #Si se selecciona un producto
+    #     if product_select != None and len(product_select) > 0:
+    #         df = df[df['description'].isin(product_select)]
+    #     else:
+    #         pass
+    # except:pass
         
     try: #Si hay algún país seleccionado
         df = df[(df['name'].isin(country_select))]  if len(country_select) > 0 else df 
     except:pass
         #df = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
- 
-    if clickData1 is not None: #Si se ha dado click en algún capítulo del treemap
+    column = 'description'
+    if clickData1 is not None:
+        #Si se ha dado click en algún capítulo del treemap
         try: 
-            if clickData1['points'][0]['id'] in df_inicial['description'].values:
-                df = df[df['description'] == clickData1['points'][0]['id']]
+            id = clickData1['points'][0]['id'].split('/')[1] if clickData1['points'][0]['currentPath']!= '/' else clickData1['points'][0]['id'].split('/')[0]
+            column = 'sa4_description'
+            column_filtro = 'sa4_description' if clickData1['points'][0]['currentPath']!= '/' else 'description'
+            if id.strip() in df_inicial['{}'.format(column_filtro)].values:
+                df = df[df['{}'.format(column_filtro)] == id.strip()]
         except:pass
     else:
         pass
 
 
     #gráfica importaciones/exportaciones por país
-    selected_year = year_slider[0]
-    df_bar = Data().cambio_porcentualImpExp(df,pais_producto='pais',lista_columnas=['year','imp_exp','partner_code','iso_3'],year=selected_year,imp_exp=imp_exp)
+    selected_year = math.floor(year_slider[0])
+    df_bar = Data().cambio_porcentualImpExp(df,pais_producto='pais',lista_columnas=['year','imp_exp','partner_code','iso_3'],columna='partner_code',year=selected_year,imp_exp=imp_exp)
     fig1 = px.bar(df_bar,
                 x='tradevalue',
                 y='iso_3',
@@ -394,10 +398,10 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
     
 
     #gráfica importaciones/exportaciones por producto
-    df_bar = Data().cambio_porcentualImpExp(df,pais_producto='producto',lista_columnas=['year','imp_exp','description'],year=selected_year,imp_exp=imp_exp)
+    df_bar = Data().cambio_porcentualImpExp(df,pais_producto='producto',lista_columnas=['year','imp_exp',column],columna=column,year=selected_year,imp_exp=imp_exp)
     fig2 = px.bar(df_bar,
                 x='tradevalue',
-                y='description',
+                y=column,
                 orientation='h',
                 color_discrete_sequence=px.colors.qualitative.Dark24,
                 height=400,
@@ -438,10 +442,10 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
         region = country_select[0] if country_select!=None else selected_region 
     except:
         region = selected_region 
-    titulo_treemap = '{} a México desde {} ({})'.format(imp_exp_,region,year_slider[0])
-    titulo_origen_destino_país = '{} por país ({})'.format(imp_exp_,year_slider[0])
-    titulo_origen_destino_producto = '{} por producto ({})'.format(imp_exp_,year_slider[0])
-    titulo_imp_exp_historico = 'Importación vs Exportación (2015-2021)'.format(year_slider[0])
+    titulo_treemap = '{} a México desde {} ({})'.format(imp_exp_,region,math.floor(year_slider[0]))
+    titulo_origen_destino_país = '{} por país ({})'.format(imp_exp_,math.floor(year_slider[0]))
+    titulo_origen_destino_producto = '{} por producto ({})'.format(imp_exp_,math.floor(year_slider[0]))
+    titulo_imp_exp_historico = 'Importación vs Exportación (2015-2021)'.format(math.floor(year_slider[0]))
 
     return fig1,fig2,fig3,titulo_treemap,titulo_origen_destino_país,titulo_origen_destino_producto,titulo_imp_exp_historico
 # Run the server

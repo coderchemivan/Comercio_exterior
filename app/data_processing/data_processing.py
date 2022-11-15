@@ -95,8 +95,7 @@ class Data():
         productos = df.iloc[:,1].values.tolist()
         return productos 
 
-    def cambio_porcentualImpExp(self,df,pais_producto,lista_columnas,year,imp_exp):
-        columna = 'partner_code' if pais_producto == 'pais' else 'description'
+    def cambio_porcentualImpExp(self,df,pais_producto,lista_columnas,columna,year,imp_exp):
         previous_year = year-1
         years = [year,previous_year]
         df = df[(df['year'].isin(years)) & (df['imp_exp'] == imp_exp)]
@@ -117,9 +116,12 @@ class Data():
         df['aumento'] = df['aumento_disminucion'].apply(lambda x:1 if x>0 else 0)
         df = df[df['year']==year]
         df = df.sort_values(by='tradevalue',ascending=False)
-        df['tradevalue'] = df['tradevalue'].apply(lambda x:round(x,2))
         df = df.head(10)
+        df['aumento_disminucion'] = df['aumento_disminucion'].apply(lambda x:round(x,2))
+        df['tradevalue'] = df['tradevalue'].apply(lambda x:round(x,2))
+        #dar formato de $ a columna de tradevalue en millones
         df = df.sort_values(by='tradevalue',ascending=True)
+        print(df)
         return df
 
 #c = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()
