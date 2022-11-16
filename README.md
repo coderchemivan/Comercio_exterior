@@ -1,5 +1,4 @@
 Proyecto de Data Analysis
-Ciudad de México, 2022
 ========================
 Este proyecto es un ejemplo de análisis de datos usando Python. El objetivo es hacer poner en práctica los conocimientos adquiridos durante mi estancia en DEV.F. En este proyecto puse en práctica técnicas de obtención de datos (a través de APIs y webscraping), análisis de datos (EDA, visualización de datos, limpieza de datos, etc.) y estructuración de datos (MySQL).
 
