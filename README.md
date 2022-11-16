@@ -17,6 +17,6 @@ Algunas preguntas que se pueden responder con este proyecto son:
 entre otras.
 
 
-![Image](Captura_Proyecto.PNG)
-![Image](Captura_Proyecto2.PNG)
+![Image](projectScreenShoots/Captura_PROYECTO.PNG)
+![Image](projectScreenShoots/Captura_PROYECTO2.PNG)
 
