@@ -140,7 +140,7 @@ app.layout = html.Div(
                     children=[
                         html.Div(children=[
                             html.P(id = 'titulo',style={'text-align': 'center', 'color': 'white'}),
-                        ],className = 'titulo-indicador'),
+                        ],className = 'titulo-grafica'),
                         dcc.Graph(id="treemap",config={'displayModeBar':True},style={'margin-top': '0px'},)
                     ],
                 ),
@@ -153,7 +153,7 @@ app.layout = html.Div(
                             #html.B("Patient Wait Time and Satisfactory Scores"),
                             html.Div(children=[
                                 html.P(id='titulo-imp-exp-pais',style={'text-align': 'center', 'color': 'white'}),
-                            ],className = 'titulo-indicador'),
+                            ],className = 'titulo-grafica'),
                             html.Div([
                                 dcc.Graph(id = 'imp-exp-pais',  config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'}
@@ -167,7 +167,7 @@ app.layout = html.Div(
                         children=[
                             html.Div(children=[
                                 html.P(id = 'titulo-imp-exp-producto',style={'text-align': 'center', 'color': 'white'}),
-                            ],className = 'titulo-indicador'),
+                            ],className = 'titulo-grafica'),
                             html.Div([
                                 dcc.Graph(id = 'imp-exp-producto', config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'})
@@ -185,7 +185,7 @@ app.layout = html.Div(
                         children=[
                             html.Div(children=[
                                 html.P(id = 'imp-exp-historico-title',style={'text-align': 'center', 'color': 'white'}),
-                            ],className = 'titulo-indicador'),
+                            ],className = 'titulo-grafica'),
                             html.Div([
                                 dcc.Graph(id = 'imp-exp-historico', config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'})
@@ -202,7 +202,7 @@ app.layout = html.Div(
                         children=[
                             html.Div(children=[
                                 html.P(id = 'products-distribution-container-title',style={'text-align': 'center', 'color': 'white'}),
-                            ],className = 'titulo-indicador'),
+                            ],className = 'titulo-grafica'),
                             html.Div([
                                 dcc.Graph(id = 'products-distribution-plot', config={'displayModeBar': False}, className='dcc_compon',
                                                     style={'margin-top': '15px'})
