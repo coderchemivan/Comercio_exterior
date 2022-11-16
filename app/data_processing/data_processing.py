@@ -1,18 +1,12 @@
 import pandas as pd
 import numpy as np
 import mysql.connector 
-import sqlalchemy
 import plotly.express as px
 import json
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 class Data():
     def __init__(self,table_name=None,fuente_datos='csv',reporting_country=None,region=None,partner_code = None,year=None,period=None,section=None,SA_4=None,imp_exp=None):
-        self.conn = mysql.connector.connect(user="root", password="123456",
-                                       host="localhost",
-                                       database="mexico_it",
-                                       port='3306'
-                                       )
         self.table_name = table_name
         self.fuente_datos = fuente_datos
         self.reporting_country = reporting_country
@@ -23,9 +17,17 @@ class Data():
         self.section = section
         self.SA_4 = SA_4
         self.imp_exp = imp_exp
-        
+    
+    def inicar_mysql_connection(self):
+        self.conn = mysql.connector.connect(user="root", password="123456",
+                                       host="localhost",
+                                       database="mexico_it",
+                                       port='3306'
+                                       )
+
     def get_table(self,table):
         if self.fuente_datos == 'mysql':
+            self.inicar_mysql_connection()
             cur = self.conn.cursor()
             cur.execute('SELECT*FROM {}'.format(table))
             rows = cur.fetchall()
