@@ -16,6 +16,9 @@ Algunas preguntas que se pueden responder con este proyecto son:
 entre otras.
 
 
+La aplicación se montó en pythonanywhere.com y se puede acceder a ella a través del siguiente link: http://chemivan16.pythonanywhere.com/
+
+
 ![Image](projectScreenShoots/Captura_PROYECTO.PNG)
 ![Image](projectScreenShoots/Captura_PROYECTO2.PNG)
 
