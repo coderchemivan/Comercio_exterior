@@ -46,7 +46,7 @@ class Datos_comercio():
         codigos_productos = [item for sublist in codigos_productos for item in sublist]
         '''2 PARA LA API NUEVA'''
         if self.api == 2:
-            self.extract_data(years=self.years,country_code=self.country_code,product_codes=codigos_productos[226:])
+            self.extract_data(years=self.years,country_code=self.country_code,product_codes=codigos_productos[342:])
         else:
             self.extract_data(period=self.period,years=self.years,country_code=self.country_code,partner_code=self.partner_code,product_codes=codigos_productos[0:1]) 
     

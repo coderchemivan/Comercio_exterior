@@ -74,7 +74,7 @@ class MysqlDB():
 
     def consultar_sections(self):
         cur = self.conn.cursor()
-        cur.execute("SELECT chapters FROM sections")
+        cur.execute("SELECT chapters FROM sections_")
         rows = cur.fetchall()
         rows,= list(zip(*rows))
         self.conn.commit()

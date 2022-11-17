@@ -118,12 +118,10 @@ class Data():
         df['aumento'] = df['aumento_disminucion'].apply(lambda x:1 if x>0 else 0)
         df = df[df['year']==year]
         df = df.sort_values(by='tradevalue',ascending=False)
-        df = df.head(10)
         df['aumento_disminucion'] = df['aumento_disminucion'].apply(lambda x:round(x,2))
         df['tradevalue'] = df['tradevalue'].apply(lambda x:round(x,2))
         #dar formato de $ a columna de tradevalue en millones
-        df = df.sort_values(by='tradevalue',ascending=True)
-        print(df)
+        
         return df
 
 #c = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()

@@ -8,13 +8,19 @@ body {
   .card_container1 {
     background-color: #61a74f;
   }
+
+  .indicator-graphic {
+    height: 10%;
+  }
+
   .card_container {     
     border-radius: 5px;
-    background-color: #8088a3;
+    background-color: #e5ecf6;
     margin: 16px;
     padding: 15px;
     position: relative;
     box-shadow: 2px 2px 2px #1f2c56;
+    height:200px;
   }
   
   .create_container {
@@ -45,6 +51,12 @@ body {
     box-shadow: 2px 2px 2px  #1f2c56
   }
   
+  #year-slider {
+    margin: 0;
+    padding: 0;
+    background-color: #192444;
+  }
+
   .fix_label {
   font-size: 20px;
     margin: 0;

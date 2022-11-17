@@ -80,53 +80,32 @@ app.layout = html.Div([
          className='row flex display'),
     html.Div([
         html.Div([
-            html.H6(children='Global Cases',
+            html.H6(children='Total de importaciones',
                     style={'textAlign': 'center',
-                           'color': 'white'}),
+                           'color': 'black'}),
+            dcc.Graph(id='indicator1',className='indicator-graph',style={"height": "70%"}),
         ], className='card_container three columns'),
 
         html.Div([
-                    html.H6(children='Global Deaths',
+                    html.H6(children='Mayor crecimiento',
                             style={'textAlign': 'center',
-                                'color': 'white'}),
+                                'color': 'black'}),
+                    dcc.Graph(id='indicator2',className='indicator-graph',style={"height": "70%"}),
                 ], className='card_container three columns'),
 
         html.Div([
-                    html.H6(children='Global Recovered',
+                    html.H6(children='Mayor crecimiento',
                             style={'textAlign': 'center',
-                                'color': 'white'}),
-                ], className='card_container three columns'),
-
-        html.Div([
-                    html.H6(children='Global Active',
-                            style={'textAlign': 'center',
-                                'color': 'white'}),
+                                'color': 'black'}),
+                    dcc.Graph(id='indicator3',className='indicator-graph',style={"height": "70%"}),
                 ], className='card_container three columns'),
 
             ], className='row flex display'),
-
-    html.Div([
-        html.Div([
-        dcc.Graph(id = 'imp-exp-historico', config={'displayModeBar': 'hover'},className='dcc_compon'
-                            )
-                ], className='create_container twelve columns')
-
-            ], className='row flex-display'),
-            
     html.Div(
         dcc.RangeSlider(2014, 2022, value=[2021], 
             marks={str(yr) : {'label' : str(yr), 'style':{'color':'white'}} for yr in range(2014, 2022,1)},
-        id = 'year-slider',className = 'slider'),
+        id = 'year-slider',className = 'twelve columns'),
     ),
-
-    html.Div([
-        html.Div([
-        dcc.Graph(id = 'treemap', config={'displayModeBar': 'hover'},className='dcc_compon'
-                            )
-                ], className='create_container twelve columns')
-
-            ], className='row flex-display'),
-
 
     html.Div([
         html.Div([
@@ -138,8 +117,56 @@ app.layout = html.Div([
         dcc.Graph(id = 'imp-exp-producto', config={'displayModeBar': 'hover'},className='dcc_compon'
                             )
                 ], className='create_container six columns'),
+        # html.Div([
+        #     html.Div([
+        #         html.H6(children='Mayor crecimiento',
+        #                 style={'textAlign': 'center',
+        #                     'color': 'black'}),
+        #         dcc.Graph(id='indicator_may_aum_producto',className='indicator-graph',style={"height": "70%"})
+        #     ]),
+        #     html.Div([
+        #         html.H6(children='Mayor crecimiento',
+        #                 style={'textAlign': 'center',
+        #                     'color': 'black'}),
+        #         dcc.Graph(id='indicator_may_dis_producto',className='indicator-graph',style={"height": "70%"}) 
+        #     ])
+
+        # ])
 
         ], className='row flex-display'),
+
+    html.Div([
+        html.Div([
+        dcc.Graph(id = 'treemap', config={'displayModeBar': 'hover'},className='dcc_compon'
+                            )
+                ], className='create_container twelve columns')
+
+            ], className='row flex-display'),
+
+    html.Div([
+        html.Div([
+        dcc.Graph(id = 'imp-exp-historico', config={'displayModeBar': 'hover'},className='dcc_compon'
+                            )
+                ], className='create_container twelve columns')
+
+            ], className='row flex-display'),
+
+    # html.Div([
+    #     html.Div([
+    #     dcc.Graph(id = 'prueba', config={'displayModeBar': 'hover'},className='dcc_compon'
+    #                         )
+    #             ], className='create_container twelve columns')
+
+    #         ], className='row flex-display'),
+    html.Div([
+        html.Div([
+            html.H6(children='Créditos',),
+            html.P(children='Este proyecto fue realizado por: Ivan Alejandro Gómez Simón'),
+            html.P(children='Con datos obtenidos a través de la API de UN Comtrade Database',style={'textAlign': 'left',}),
+            html.P(children='https://comtrade.un.org/'),
+        ],className='create_container twelve columns')
+    ],className='row flex-display'),
+
     dcc.Store(id='store-df', data=[], storage_type='memory'),
     dcc.Store(id='store-graphs_selections', data={}, storage_type='memory'),
 
@@ -244,12 +271,12 @@ def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country
 @app.callback(Output(component_id='imp-exp-pais',component_property='figure'),
                 Output(component_id='imp-exp-producto',component_property='figure'),
                 Output(component_id='imp-exp-historico',component_property='figure'),
-                #Output('titulo', 'children'),
                 #Output('titulo-imp-exp-pais', 'children'),
                 #Output('titulo-imp-exp-producto', 'children'),
                 #Output('imp-exp-historico-title', 'children'),
-                #Output('indicador1','figure'),
-                #Output('indicador2','figure'),
+                Output('indicator1','figure'),
+                Output('indicator2','figure'),
+                Output('indicator3','figure'),
                 Input('store-df', 'data'),
                 Input('store-graphs_selections', 'data'),
                 Input('treemap', 'clickData'),
@@ -277,10 +304,13 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
     except:pass
         #df = df[(df['year'].isin(year_slider)) & (df['imp_exp'] == imp_exp)]
     column = 'description'
+    section = ''
     if clickData1 is not None:
+        
         #Si se ha dado click en algún capítulo del treemap
         try: 
             id = clickData1['points'][0]['id'].split('/')[1] if clickData1['points'][0]['currentPath']!= '/' else clickData1['points'][0]['id'].split('/')[0]
+            section = id
             column = 'sa4_description'
             column_filtro = 'sa4_description' if clickData1['points'][0]['currentPath']!= '/' else 'description'
             if id.strip() in df_inicial['{}'.format(column_filtro)].values:
@@ -292,7 +322,9 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
 
     #gráfica importaciones/exportaciones por país
     selected_year = math.floor(year_slider[0])
-    df_var_pais = Data().cambio_porcentualImpExp(df,pais_producto='pais',lista_columnas=['year','imp_exp','partner_code','iso_3','name'],columna='partner_code',year=selected_year,imp_exp=imp_exp)
+    df_aux1 = Data().cambio_porcentualImpExp(df,pais_producto='pais',lista_columnas=['year','imp_exp','partner_code','iso_3','name'],columna='partner_code',year=selected_year,imp_exp=imp_exp)
+    df_var_pais = df_aux1.sort_values(by='tradevalue',ascending=False).head(10)
+    df_var_pais = df_var_pais.sort_values(by='tradevalue',ascending=True)
     fig1 = px.bar(df_var_pais,
                 x='tradevalue',
                 y='iso_3',
@@ -304,33 +336,33 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
                 color='aumento_disminucion',
                 color_continuous_scale=['red','green'],
                 range_color=(-50, 50),
+                labels={'aumento_disminucion':'% Var'}
                 #mostrar columna porcentaje en tooltip
-                ).update_layout(margin=dict(t=25, r=0, l=5, b=20),xaxis={'visible':False},showlegend=False,coloraxis_showscale=False,
+                ).update_layout(margin=dict(t=25, r=0, l=5, b=20),xaxis={'visible':False},showlegend=False,coloraxis_showscale=True,
                 yaxis= {'anchor': 'x', 'domain': [0.0, 1.0], 'title': {'text': ''}})
     fig1.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
-    
 
     #gráfica importaciones/exportaciones por producto
-    df_bar = Data().cambio_porcentualImpExp(df,pais_producto='producto',lista_columnas=['year','imp_exp',column],columna=column,year=selected_year,imp_exp=imp_exp)
-    fig2 = px.bar(df_bar,
+    df_aux2 = Data().cambio_porcentualImpExp(df,pais_producto='producto',lista_columnas=['year','imp_exp',column],columna=column,year=selected_year,imp_exp=imp_exp)
+    df_var_producto = df_aux2.sort_values(by='tradevalue',ascending=False).head(10)
+    df_var_producto = df_var_producto.sort_values(by='tradevalue',ascending=True)
+    print(df_var_producto)
+    fig2 = px.bar(df_var_producto,
                 x='tradevalue',
                 y=column,
                 orientation='h',
                 color_discrete_sequence=px.colors.qualitative.Dark24,
                 height=400,
                 text_auto='.2s',
-                #color verde si aumento, rojo si disminuyo
+                #color verde si aumento, rojo si disminuyo|
                 color='aumento_disminucion',
                 color_continuous_scale=['red','green'],
                 range_color=(-50, 50),
+                labels={'aumento_disminucion':'% Var'}
                 #mostrar columna porcentaje en tooltip
-                ).update_layout(margin=dict(t=25, r=0, l=5, b=20),xaxis={'visible':False},showlegend=False,coloraxis_showscale=False
+                ).update_layout(margin=dict(t=25, r=0, l=5, b=20),xaxis={'visible':False},showlegend=False,coloraxis_showscale=True
                 ,yaxis= {'anchor': 'x', 'domain': [0.0, 1.0], 'title': {'text': ''}})
     fig2.update_traces(textfont_size=12, textangle=0, textposition="inside", cliponaxis=False)
-
-    
-
-
 
     #Gráfica de histórico de importaciones y exportaciones (line plot)
     df_line_plot=df.groupby(['year','imp_exp'],group_keys=False)['tradevalue'].sum().reset_index()
@@ -370,7 +402,6 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
     indicator1.add_trace(go.Indicator(
                 mode = "number+delta",
                 value = total_imp_exp_years['tradevalue'].iloc[1],
-                title= {'text': 'Total de {}'.format(imp_exp_.lower()),'font': {'size': 25}},
                 #value format en millones
                 number={'valueformat': ".2s",'font': {'size': 25}},
                 delta = {'reference': total_imp_exp_years['tradevalue'].iloc[0], 'relative': True,'valueformat': '.1%','font': {'size': 20},'position': "right"},
@@ -381,13 +412,13 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
                    'x': 0.5,
                    'xanchor': 'center',
                    'yanchor': 'top'},
+            height=100,
             font=dict(color='black',size=25),
             paper_bgcolor='#e5ecf6',
-            plot_bgcolor='#e5ecf6',
-            height = 200)
+            plot_bgcolor='#e5ecf6',)
 
 
-    df_var_pais = df_var_pais[['name','tradevalue','aumento_disminucion']].sort_values(by='aumento_disminucion',ascending=False).head(3)
+    df_var_pais = df_var_pais[['name','tradevalue','aumento_disminucion']].sort_values(by='aumento_disminucion',ascending=False).head(1)
     df_var_pais['tradevalue_año_anterior'] = df_var_pais['tradevalue'] - df_var_pais['tradevalue']*df_var_pais['aumento_disminucion']/100
     df_var_pais = df_var_pais.to_dict('records')
     indicator2 = go.Figure()
@@ -402,7 +433,7 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
             domain = {'x': [0, 1], 'y': [0, 1]}),
             )
     indicator2.update_layout(
-            title={'text': 'Mercado de mayor crecimiento',
+            title={'text': '',
                    'y': 0.9,    
                    'x': 0.5,
                    'xanchor': 'center',
@@ -410,10 +441,44 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
             font=dict(color='black'),
             paper_bgcolor='#e5ecf6',
             plot_bgcolor='#e5ecf6',
-            height = 200)
+            height = 100)
+
+
+
+    df_var_producto = df
+    if section in df_inicial['description'].values:
+        df_var_producto = df_var_producto[df_var_producto['description'] == section]
+    df_var_producto = Data().cambio_porcentualImpExp(df_var_producto,pais_producto='producto',lista_columnas=['year','imp_exp','sa4_description'],columna='sa4_description',year=selected_year,imp_exp=imp_exp)
+    df_var_producto = df_var_producto[['sa4_description','tradevalue','aumento_disminucion']].sort_values(by='aumento_disminucion',ascending=False).head(1)
+    df_var_producto['tradevalue_año_anterior'] = df_var_producto['tradevalue'] - df_var_producto['tradevalue']*df_var_producto['aumento_disminucion']/100
+    df_var_producto = df_var_producto.to_dict('records')
+
+    indicator3 = go.Figure()
+
+    indicator3.add_trace(go.Indicator(
+            mode = "number+delta",
+            value = df_var_producto[0]['tradevalue'],
+            title = {'text':df_var_producto[0]['sa4_description'],'font': {'size': 30}},
+            #value format en millones
+            number={'valueformat': ".2s",'font': {'size': 25}},
+            delta = {'reference': df_var_producto[0]['tradevalue_año_anterior'], 'relative': True,'valueformat': '.1%','font': {'size': 20},'position': "right"},
+            domain = {'x': [0, 1], 'y': [0, 1]}),
+            )
+    indicator3.update_layout(
+            title={'text': '',
+                   'y': 0.9,    
+                   'x': 0.5,
+                   'xanchor': 'center',
+                   'yanchor': 'top'},
+            font=dict(color='black'),
+            paper_bgcolor='#e5ecf6',
+            plot_bgcolor='#e5ecf6',
+            height = 100)
+
+
     #return fig1,fig2,fig3,titulo_treemap,titulo_origen_destino_país,titulo_origen_destino_producto,titulo_imp_exp_historico,indicator1,indicator2
-    return fig1,fig2,fig3
-#Run the server
+    return fig1,fig2,fig3,indicator1,indicator2,indicator3
+#Run the serverf
 if __name__ == "__main__":
     app.run_server(debug=True)
 
