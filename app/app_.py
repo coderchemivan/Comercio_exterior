@@ -8,7 +8,7 @@ from plotly.subplots import make_subplots
 import numpy as np
 import pandas as pd 
 import math
-
+import time
 import pathlib
 from data_processing.data_processing import Data
 
@@ -82,23 +82,31 @@ app.layout = html.Div([
         html.Div([
             html.H6(children='Total de importaciones',
                     style={'textAlign': 'center',
-                           'color': 'black'}),
-            dcc.Graph(id='indicator1',className='indicator-graph',style={"height": "70%"}),
-        ], className='card_container three columns'),
+                           'color': 'black'},
+                           id = 'total-indicador',),
+                    
+        dcc.Loading(id = "loading-icon1", 
+                        children=[dcc.Graph(id='indicator1',className='indicator-graph',style={"height": "70%"})], type="default",style={"height": "70%"}),
+
+        ], className='card_container four columns'),
 
         html.Div([
-                    html.H6(children='Mayor crecimiento',
+                    html.H6(children='Mercado con mayor crecimiento',
                             style={'textAlign': 'center',
-                                'color': 'black'}),
-                    dcc.Graph(id='indicator2',className='indicator-graph',style={"height": "70%"}),
-                ], className='card_container three columns'),
+                                'color': 'black'},
+                                id = 'mercado-mayor-indicador'),
+        dcc.Loading(id = "loading-icon2", 
+                        children=[dcc.Graph(id='indicator2',className='indicator-graph',style={"height": "70%"})], type="default",style={"height": "70%"})
+                ], className='card_container four columns'),
 
         html.Div([
-                    html.H6(children='Mayor crecimiento',
+                    html.H6(children='Producto con mayor crecimiento',
                             style={'textAlign': 'center',
-                                'color': 'black'}),
-                    dcc.Graph(id='indicator3',className='indicator-graph',style={"height": "70%"}),
-                ], className='card_container three columns'),
+                                'color': 'black'},
+                                id = 'producto-mayor-indicador'),
+        dcc.Loading(id = "loading-icon3", 
+                        children=[dcc.Graph(id='indicator3',className='indicator-graph',style={"height": "70%"})], type="default",style={"height": "70%"}),
+                ], className='card_container four columns'),
 
             ], className='row flex display'),
     html.Div(
@@ -109,13 +117,15 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            dcc.Graph(id = 'imp-exp-pais', config={'displayModeBar': 'hover',},className='dcc_compon'
-                                )
+            html.H4(id = 'titulo-imp-exp-pais'),
+                    dcc.Loading(id = "loading-icon5", 
+                        children=[dcc.Graph(id = 'imp-exp-pais', config={'displayModeBar': 'hover',},className='dcc_compon')], type="default",),
                     ], className='create_container six columns'),
 
         html.Div([
-        dcc.Graph(id = 'imp-exp-producto', config={'displayModeBar': 'hover'},className='dcc_compon'
-                            )
+            html.H4(id = 'titulo-imp-exp-producto'),
+                    dcc.Loading(id = "loading-icon6", 
+                        children=[dcc.Graph(id = 'imp-exp-producto', config={'displayModeBar': 'hover',},className='dcc_compon')], type="default",),
                 ], className='create_container six columns'),
         # html.Div([
         #     html.Div([
@@ -137,16 +147,18 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-        dcc.Graph(id = 'treemap', config={'displayModeBar': 'hover'},className='dcc_compon'
-                            )
+            html.H4(id = 'titulo-treemap'),
+                    dcc.Loading(id = "loading-icon7", 
+                        children=[dcc.Graph(id = 'treemap', config={'displayModeBar': 'hover',},className='dcc_compon')], type="default",),
                 ], className='create_container twelve columns')
 
             ], className='row flex-display'),
 
     html.Div([
         html.Div([
-        dcc.Graph(id = 'imp-exp-historico', config={'displayModeBar': 'hover'},className='dcc_compon'
-                            )
+        html.H4(id = 'titulo-imp-exp-historico'),
+                            dcc.Loading(id = "loading-icon8", 
+                        children=[dcc.Graph(id = 'imp-exp-historico', config={'displayModeBar': 'hover',},className='dcc_compon')], type="default",),
                 ], className='create_container twelve columns')
 
             ], className='row flex-display'),
@@ -172,6 +184,7 @@ app.layout = html.Div([
 
 ], id = 'mainContainer', style={'display': 'flex', 'flex-direction': 'column'})
 
+
 @app.callback(
     Output('store-graphs_selections', 'data'),
     Input('imp-exp-toggle-switch', 'value'),
@@ -194,7 +207,6 @@ def store_data(selected_region):
         df_inicial_ = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()
     data = df_inicial_.to_json(orient='split')
     return data
-   
 
 @app.callback(Output(component_id='country_select',component_property='options'),
             #Output(component_id='country_select',component_property='value'),
@@ -202,6 +214,8 @@ def store_data(selected_region):
 def paises_por_region(region_select):
     if region_select == 'Mundo':
         countriesList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=3)
+        countriesList.remove('Antarctica')
+        countriesList.remove('World')
     else:
         countriesList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=1,region=region_select)
     try:
@@ -271,9 +285,13 @@ def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country
 @app.callback(Output(component_id='imp-exp-pais',component_property='figure'),
                 Output(component_id='imp-exp-producto',component_property='figure'),
                 Output(component_id='imp-exp-historico',component_property='figure'),
-                #Output('titulo-imp-exp-pais', 'children'),
-                #Output('titulo-imp-exp-producto', 'children'),
-                #Output('imp-exp-historico-title', 'children'),
+                Output('total-indicador', 'children'),
+                Output('mercado-mayor-indicador', 'children'),
+                Output('producto-mayor-indicador', 'children'),
+                Output('titulo-imp-exp-pais', 'children'),
+                Output('titulo-imp-exp-producto', 'children'),
+                Output('titulo-treemap', 'children'),
+                Output('titulo-imp-exp-historico', 'children'),
                 Output('indicator1','figure'),
                 Output('indicator2','figure'),
                 Output('indicator3','figure'),
@@ -386,10 +404,14 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
     try:
         region = country_select[0] if country_select!=None else selected_region 
     except:
-        region = selected_region 
-    titulo_treemap = '{} a México desde {} ({})'.format(imp_exp_,region,math.floor(year_slider[0]))
-    titulo_origen_destino_país = '{} por país ({})'.format(imp_exp_,math.floor(year_slider[0]))
+        region = selected_region
+
+    titulo_total = '{} totales ({})'.format(imp_exp_,year_slider[0])
+    titulo_mercado_mayor = 'Mercado con mayor crecimiento ({})'.format(year_slider[0])
+    titulo_producto_mayor = 'Producto con mayor crecimiento ({})'.format(year_slider[0])
+    titulo_origen_destino_pais = '{} por país ({})'.format(imp_exp_,math.floor(year_slider[0]))
     titulo_origen_destino_producto = '{} por producto ({})'.format(imp_exp_,math.floor(year_slider[0]))
+    titulo_treemap = '{} a México desde {} ({})'.format(imp_exp_,region,math.floor(year_slider[0]))
     titulo_imp_exp_historico = 'Importación vs Exportación (2015-2021)'.format(math.floor(year_slider[0]))
 
 
@@ -403,7 +425,7 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
                 mode = "number+delta",
                 value = total_imp_exp_years['tradevalue'].iloc[1],
                 #value format en millones
-                number={'valueformat': ".2s",'font': {'size': 25}},
+                number={'valueformat': ".2s",'font': {'size': 35}},
                 delta = {'reference': total_imp_exp_years['tradevalue'].iloc[0], 'relative': True,'valueformat': '.1%','font': {'size': 20},'position': "right"},
                 domain = {'x': [0, 1], 'y': [0, 1]}))
     indicator1.update_layout(
@@ -418,18 +440,26 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
             plot_bgcolor='#e5ecf6',)
 
 
-    df_var_pais = df_var_pais[['name','tradevalue','aumento_disminucion']].sort_values(by='aumento_disminucion',ascending=False).head(1)
+    df_var_pais = df_var_pais[['name','iso_3','tradevalue','aumento_disminucion']].sort_values(by='aumento_disminucion',ascending=False).head(1)
     df_var_pais['tradevalue_año_anterior'] = df_var_pais['tradevalue'] - df_var_pais['tradevalue']*df_var_pais['aumento_disminucion']/100
     df_var_pais = df_var_pais.to_dict('records')
+    if country_select!= None:
+        valor = df[(df['name'] == country_select) & df['year'] == year_slider[0]]['tradevalue'].sum()
+        valor2 = df[(df['name'] == country_select) & df['year'] == year_slider[0]-1]['tradevalue'].sum()
+        name = country_select
+    else:
+        valor = df_var_pais[0]['tradevalue']
+        valor2 = df_var_pais[0]['tradevalue_año_anterior']
+        name = df_var_pais[0]['name'] if len(df_var_pais[0]['name'])<15 else df_var_pais[0]['iso_3']
     indicator2 = go.Figure()
     indicator2.add_trace(go.Indicator(
             mode = "number+delta",
-            value = df_var_pais[0]['tradevalue'],
-            title = {'text': df_var_pais[0]['name'],'font': {'size': 30}},
+            value = valor,
+            title = {'text': name,'font': {'size': 30}},
             #value format en millones
             number={'valueformat': ".2s",'font': {'size': 25}},
             #dar formato a delta en % con cero decimales
-            delta = {'reference': df_var_pais[0]['tradevalue_año_anterior'], 'relative': True,'valueformat': '.1%','font': {'size': 20},'position': "right"},
+            delta = {'reference': valor2, 'relative': True,'valueformat': '.1%','font': {'size': 20},'position': "right"},
             domain = {'x': [0, 1], 'y': [0, 1]}),
             )
     indicator2.update_layout(
@@ -447,8 +477,12 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
 
     df_var_producto = df
     if section in df_inicial['description'].values:
-        df_var_producto = df_var_producto[df_var_producto['description'] == section]
+        df_var_producto = df_var_producto[(df_var_producto['description'] == section)]
+    if country_select!= None:
+        df_var_producto = df_var_producto[(df_var_producto['name'] == country_select)]
     df_var_producto = Data().cambio_porcentualImpExp(df_var_producto,pais_producto='producto',lista_columnas=['year','imp_exp','sa4_description'],columna='sa4_description',year=selected_year,imp_exp=imp_exp)
+    df_var_producto = df_var_producto.sort_values(by='tradevalue',ascending=False).head(10)
+    df_var_producto = df_var_producto.sort_values(by='tradevalue',ascending=True)
     df_var_producto = df_var_producto[['sa4_description','tradevalue','aumento_disminucion']].sort_values(by='aumento_disminucion',ascending=False).head(1)
     df_var_producto['tradevalue_año_anterior'] = df_var_producto['tradevalue'] - df_var_producto['tradevalue']*df_var_producto['aumento_disminucion']/100
     df_var_producto = df_var_producto.to_dict('records')
@@ -477,7 +511,7 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
 
 
     #return fig1,fig2,fig3,titulo_treemap,titulo_origen_destino_país,titulo_origen_destino_producto,titulo_imp_exp_historico,indicator1,indicator2
-    return fig1,fig2,fig3,indicator1,indicator2,indicator3
+    return fig1,fig2,fig3,titulo_total,titulo_mercado_mayor,titulo_producto_mayor,titulo_origen_destino_pais,titulo_origen_destino_producto,titulo_treemap,titulo_imp_exp_historico,indicator1,indicator2,indicator3
 #Run the serverf
 if __name__ == "__main__":
     app.run_server(debug=True)
