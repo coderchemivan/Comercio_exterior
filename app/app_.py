@@ -17,7 +17,7 @@ app = dash.Dash(
     __name__,
     meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}]
 )
-app.title = "Mexico Trade"
+app.title = "Mexico's Trade"
 
 server = app.server
 app.config.suppress_callback_exceptions = True
@@ -75,6 +75,13 @@ def filtros():
     ]
         
 app.layout = html.Div([
+    html.Div(
+        id="banner",
+        className="banner",
+        children=[
+            html.H4("Comercio internacional de México con el Mundo", style={"margin-bottom": "0px", "color": "blue"}),
+            html.Hr(),
+        ],),
     html.Div(
             children=filtros(),
          className='row flex display'),

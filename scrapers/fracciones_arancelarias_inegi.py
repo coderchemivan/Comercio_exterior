@@ -12,7 +12,8 @@ from time import sleep
 from bs4 import BeautifulSoup
 import re
 from time import sleep
-
+import json
+import csv
 import pandas as pd
 from itertools import zip_longest
 
@@ -36,7 +37,7 @@ class fracciones_arancelarias_inegi():
         categorias = driver.find_elements(By.XPATH,"//*[@class='curs-txt']")
         categorias = [x.text for x in categorias]
 
-        for i in range(1,96):
+        for i in range(1,3):
             if i != 77:
                 try:
                     buton_mas = driver.find_element(By.XPATH,"//span[@id='boton_{i}']".format(i=str(i).zfill(2)))
@@ -48,11 +49,18 @@ class fracciones_arancelarias_inegi():
 
                 except:
                     print('error en ', i)
-        self.guarar(categorias_)
+        #impirmir los primeros 5 elementos del dicc de categorias
+        print({k: categorias_[k] for k in list(categorias_)[:1]})
+        self.guardar_datos(categorias_)
                     
-        def guardar_datos(diccionario,archivo):
-            df =  pd.DataFrame(zip_longest(*diccionario.values()), columns=diccionario)
-            df.to_csv('categorias.csv', index=False)   
+    def guardar_datos(diccionario,archivo='fracciones_arancelarias_inegi.csv'):
+        #usarca cada clave como encabezado de columna y cada valor como una fila de la columna
+
+        with open(archivo, 'w', encoding='utf-8') as f:
+            w = csv.writer(f)
+            w.writerows(diccionario.items())
+
+
 
 
 c = fracciones_arancelarias_inegi()

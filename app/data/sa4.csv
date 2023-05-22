@@ -1,4 +1,4 @@
-SA_4,sa4_description
+ÔªøSA_4,sa4_description
 101,Caballos
 102,Bovino
 103,Cerdos
@@ -20,12 +20,12 @@ SA_4,sa4_description
 303,Pescado congelado sin relleno
 304,Filetes de pescado
 305,Pescado procesado
-306,Crust·ceos
+306,Crust√°ceos
 307,Moluscos
 401,Leche
 402,Leche concentrada
-403,Productos l·cteos fermentados
-404,Suero y otros productos l·cteos
+403,Productos l√°cteos fermentados
+404,Suero y otros productos l√°cteos
 405,Manteca
 406,Queso
 407,Huevos
@@ -34,16 +34,16 @@ SA_4,sa4_description
 410,Otros productos animales comestibles
 501,Cabello humano
 502,Cabello
-504,”rganos de animales
-505,Plumas y pieles de p·jaros
+504,√ìrganos de animales
+505,Plumas y pieles de p√°jaros
 506,Huesos procesados
 507,Huesos crudos
 508,Coral y conchas
-510,Productos animales farmacÈuticos
+510,Productos animales farmac√©uticos
 511,Otros productos animales no comestibles
-601,Bombillas y raÌces
+601,Bombillas y ra√≠ces
 602,"Otras plantas vivas, esquejes y resbalones;
-reproducciÛn de hongos"
+reproducci√≥n de hongos"
 603,Cortar flores
 604,Follaje vegetal
 701,Patatas
@@ -51,7 +51,7 @@ reproducciÛn de hongos"
 703,Cebollas
 704,Coles
 705,Lechuga
-706,Vegetales de raÌz
+706,Vegetales de ra√≠z
 707,Pepinos
 708,Legumbres
 709,Otras verduras
@@ -62,7 +62,7 @@ reproducciÛn de hongos"
 714,Mandioca
 801,"Coconuts, nueces de Brasil y anacardos"
 802,Otras nueces
-803,Pl·tanos
+803,Pl√°tanos
 804,Frutas tropicales
 805,Agrios
 806,Uvas
@@ -73,10 +73,10 @@ reproducciÛn de hongos"
 811,Frutas y nueces congeladas
 812,Frutas y nueces conservadas
 813,Frutas secas
-814,C·scaras de cÌtricos y melÛn
-901,CafÈ
-902,TÈ
-903,CompaÒero
+814,C√°scaras de c√≠tricos y mel√≥n
+901,Caf√©
+902,T√©
+903,Compa√±ero
 904,Pimienta
 905,Vainilla
 906,Canela
@@ -88,18 +88,18 @@ reproducciÛn de hongos"
 1002,Centeno
 1003,Cebada
 1004,Avena
-1005,MaÌz
+1005,Ma√≠z
 1006,Arroz
 1007,Sorgo
-1008,AlforfÛn
+1008,Alforf√≥n
 1101,Harina de trigo
 1102,Harina de cereal
-1103,Comida de cereal y gr·nulos
+1103,Comida de cereal y gr√°nulos
 1104,Cereales procesados
 1105,Harina de papa
 1106,Harina de leguminosa
 1107,Malta
-1108,AlmidÛn
+1108,Almid√≥n
 1109,Gluten de trigo
 1201,Soja
 1202,Nueces de tierra
@@ -110,9 +110,9 @@ reproducciÛn de hongos"
 1207,Otras semillas grasas
 1208,Flor de semilla de aceite
 1209,Semillas de siembra
-1210,L˙pulo
+1210,L√∫pulo
 1211,Plantas de perfume
-1212,"Frijoles de langosta, algas, remolacha azucarera, bastÛn, para comida"
+1212,"Frijoles de langosta, algas, remolacha azucarera, bast√≥n, para comida"
 1213,Pajitas de cereal
 1214,Cultivos forrajeros
 1301,Resinas de insectos
@@ -137,7 +137,7 @@ reproducciÛn de hongos"
 1516,Otros aceites vegetales
 1517,Margarina
 1518,Grasas y aceites no comestibles
-1519,ÕÅcido este·rico
+1519,√ç¬Åcido este√°rico
 1520,Glicerol
 1521,Cemas
 1522,Residuos de grasa y aceite
@@ -145,13 +145,13 @@ reproducciÛn de hongos"
 1602,Otra carne preparada
 1603,Extractos de animales
 1604,Pescado procesado
-1605,Crust·ceos procesados
-1701,Az˙car en bruto
-1702,Otros az˙cares
+1605,Crust√°ceos procesados
+1701,Az√∫car en bruto
+1702,Otros az√∫cares
 1703,Melaza
-1704,Az˙car de confiterÌa
+1704,Az√∫car de confiter√≠a
 1801,Granos de cacao
-1802,C·scara de cacao
+1802,C√°scara de cacao
 1803,Pasta de cacao
 1804,Mantequilla de cocoa
 1805,Polvo de cacao
@@ -166,11 +166,11 @@ reproducciÛn de hongos"
 2003,Hongos procesados
 2004,Otras verduras congeladas
 2005,Otras verduras procesadas
-2006,Alimentos conservados en az˙car
+2006,Alimentos conservados en az√∫car
 2007,Enjambres
 2008,Otras frutas y nueces procesadas
 2009,Zumo de frutas
-2101,Extractos de cafÈ y tÈ
+2101,Extractos de caf√© y t√©
 2102,Levadura
 2103,Salsas y condimentos
 2104,Sopas y caldo
@@ -185,9 +185,9 @@ reproducciÛn de hongos"
 2207,Alcohol> 80% ABV
 2208,Licor fuerte
 2209,Vinagre
-2301,Harina de animales y gr·nulos
+2301,Harina de animales y gr√°nulos
 2302,Salvado
-2303,Residuo de almidÛn
+2303,Residuo de almid√≥n
 2304,Harina de soja
 2305,Comida de nuez molido
 2306,Otros residuos de vegetales
@@ -203,15 +203,15 @@ reproducciÛn de hongos"
 2504,Grafito
 2505,Arena
 2506,Cuarzo
-2507,CaolÌn
+2507,Caol√≠n
 2508,Arcillas
 2509,Tiza
 2510,Fosfatos de calcio
 2511,Sulfato de bario
-2512,Comidas fÛsiles silÌceas
-2513,Piedra pÛmez
+2512,Comidas f√≥siles sil√≠ceas
+2513,Piedra p√≥mez
 2514,Pizarra
-2515,"M·rmol, travertino y alabastro"
+2515,"M√°rmol, travertino y alabastro"
 2516,Granito
 2517,Grava y piedra triturada
 2518,Dolomita
@@ -223,13 +223,13 @@ reproducciÛn de hongos"
 2524,Amianto
 2525,Mica
 2526,Esteatita
-2528,BÛrax
+2528,B√≥rax
 2529,Feldespato
 2530,Otro mineral
 2601,Mineral de hierro
 2602,Mineral de manganeso
 2603,Mina de cobre
-2604,Mineral de nÌquel
+2604,Mineral de n√≠quel
 2606,Mineral de aluminio
 2607,Mineral de plomo
 2608,Mineral de zinc
@@ -245,47 +245,47 @@ reproducciÛn de hongos"
 2619,Escoria de escoria
 2620,"Escoria, cenizas y residuos que no son hierro y acero"
 2621,Otras escorias y cenizas
-2701,Briquetas de carbÛn
+2701,Briquetas de carb√≥n
 2702,Lignito
 2703,Turba
 2704,Coca
 2705,Gas no petroleum
-2706,Alquitr·n
-2707,Aceite de alquitr·n de carbÛn
+2706,Alquitr√°n
+2707,Aceite de alquitr√°n de carb√≥n
 2708,Coca -Cola
-2709,PetrÛleo crudo
-2710,PetrÛleo refinado
-2711,Gas petrÛleo
-2712,Jalea de petrÛleo
-2713,Coca -Cola de petrÛleo
+2709,Petr√≥leo crudo
+2710,Petr√≥leo refinado
+2711,Gas petr√≥leo
+2712,Jalea de petr√≥leo
+2713,Coca -Cola de petr√≥leo
 2714,Asfalto
 2715,Mezclas de asfalto
 2716,Electricidad
-2801,HalÛgenos
+2801,Hal√≥genos
 2802,Azufre
-2803,CarbÛn
-2804,HidrÛgeno
+2803,Carb√≥n
+2804,Hidr√≥geno
 2805,Metales alcalinos
-2806,ÕÅcido clorhÌdrico
-2807,ÕÅcido sulf˙rico
-2808,ÕÅcidos nÌtricos
-2809,ÕÅcido fosfÛrico
+2806,√ç¬Åcido clorh√≠drico
+2807,√ç¬Åcido sulf√∫rico
+2808,√ç¬Åcidos n√≠tricos
+2809,√ç¬Åcido fosf√≥rico
 2810,Boro
-2811,Otros ·cidos inorg·nicos
-2812,H·vales
-2813,Sulfuros no met·licos
-2814,AmonÌaco
-2815,PerÛxidos de sodio o potasio
-2816,HidrÛxido de magnesio y perÛxido
-2817,”xido de zinc y perÛxido
-2818,”xido de aluminio
-2819,”xidos de cromo e hidrÛxidos
-2820,”xidos de manganeso
-2821,”xidos de hierro e hidrÛxidos
-2822,”xidos de cobalto e hidrÛxidos
-2823,”xidos de titanio
-2824,”xidos de plomo
-2825,Sales inorg·nicas
+2811,Otros √°cidos inorg√°nicos
+2812,H√°vales
+2813,Sulfuros no met√°licos
+2814,Amon√≠aco
+2815,Per√≥xidos de sodio o potasio
+2816,Hidr√≥xido de magnesio y per√≥xido
+2817,√ìxido de zinc y per√≥xido
+2818,√ìxido de aluminio
+2819,√ìxidos de cromo e hidr√≥xidos
+2820,√ìxidos de manganeso
+2821,√ìxidos de hierro e hidr√≥xidos
+2822,√ìxidos de cobalto e hidr√≥xidos
+2823,√ìxidos de titanio
+2824,√ìxidos de plomo
+2825,Sales inorg√°nicas
 2826,Fluoruros
 2827,Cloruros
 2828,Hipocloritos
@@ -300,74 +300,74 @@ reproducciÛn de hongos"
 2837,Cianuros
 2839,Silicato
 2840,Boratos
-2841,Sales de ·cido oxomet·lico o peroxomet·lico
-2842,Otras sales de ·cidos inorg·nicos
+2841,Sales de √°cido oxomet√°lico o peroxomet√°lico
+2842,Otras sales de √°cidos inorg√°nicos
 2843,Compuestos de metales preciosos
-2844,QuÌmicos radiactivos
-2845,Otros isÛtopos
+2844,Qu√≠micos radiactivos
+2845,Otros is√≥topos
 2846,Compuestos de metales de tierra rara
-2847,PerÛxido de hidrÛgeno
-2848,FÛsfuros
+2847,Per√≥xido de hidr√≥geno
+2848,F√≥sfuros
 2849,Carburos
 2850,Hidruros y otros aniones
-2851,Compuestos inorg·nicos
-2901,Hidrocarburos acÌclicos
-2902,Hidrocarburos cÌclicos
+2851,Compuestos inorg√°nicos
+2901,Hidrocarburos ac√≠clicos
+2902,Hidrocarburos c√≠clicos
 2903,Hidrocarburos halogenados
 2904,"Hidrocarburos sulfonados, nitrados o nitrosados"
-2905,Alcoholes acÌclicos
-2906,Alcoholes cÌclicos
+2905,Alcoholes ac√≠clicos
+2906,Alcoholes c√≠clicos
 2907,Fenoles
 2908,Derivados de fenol
-2909,Õâter
-2910,EpÛxidos
+2909,√ç‚Ä∞ter
+2910,Ep√≥xidos
 2911,Acetales y hemiacetales
-2912,AldehÌdos
-2913,Derivados de aldehÌdo
+2912,Aldeh√≠dos
+2913,Derivados de aldeh√≠do
 2914,Cetonas y quinones
-2915,ÕÅcidos monocarboxÌlicos acÌclicos saturados
-2916,ÕÅcidos monocarboxÌlicos acÌclicos insaturados
-2917,ÕÅcidos policarboxÌlicos
-2918,ÕÅcidos carboxÌlicos
-2919,Õâsteres y sales fosfÛricas
-2920,Otros Èsteres
+2915,√ç¬Åcidos monocarbox√≠licos ac√≠clicos saturados
+2916,√ç¬Åcidos monocarbox√≠licos ac√≠clicos insaturados
+2917,√ç¬Åcidos policarbox√≠licos
+2918,√ç¬Åcidos carbox√≠licos
+2919,√ç‚Ä∞steres y sales fosf√≥ricas
+2920,Otros √©steres
 2921,Compuestos de amina
-2922,Compuestos amino de oxÌgeno
-2923,Sales de amonio cuaternario e hidrÛxidos
+2922,Compuestos amino de ox√≠geno
+2923,Sales de amonio cuaternario e hidr√≥xidos
 2924,Compuestos de carboxyamida
 2925,Compuestos de carboxiimida
 2926,Compuestos de nitrilo
 2927,"Compuestos de diazo, azo o aoxi"
 2928,Derivados de hidrazina o hidroxilamina
-2929,Otros compuestos de nitrÛgeno
+2929,Otros compuestos de nitr√≥geno
 2930,Compuestos organo-azufre
-2931,Otros compuestos organo-inorg·nicos
-2932,Compuestos heterocÌclicos de oxÌgeno
-2933,Compuestos heterocÌclicos de nitrÛgeno
-2934,ÕÅcidos nucleicos
+2931,Otros compuestos organo-inorg√°nicos
+2932,Compuestos heteroc√≠clicos de ox√≠geno
+2933,Compuestos heteroc√≠clicos de nitr√≥geno
+2934,√ç¬Åcidos nucleicos
 2935,Sulfonamidas
 2936,Vitaminas
 2937,Hormonas
-2938,GlucÛsidos
+2938,Gluc√≥sidos
 2939,Alcaloides vegetales
-2940,Az˙cares quÌmicamente puros
-2941,AntibiÛticos
-2942,Otros compuestos org·nicos
-3001,Gl·ndulas y otros Ûrganos
+2940,Az√∫cares qu√≠micamente puros
+2941,Antibi√≥ticos
+2942,Otros compuestos org√°nicos
+3001,Gl√°ndulas y otros √≥rganos
 3002,"Vacunas, sangre, antisueros, toxinas y cultivos"
 3003,Medicamentos desempacados
 3004,Medicamentos envasados
 3005,Vendajes
-3006,FarmacÈuticos especiales
+3006,Farmac√©uticos especiales
 3101,Fertilizantes animales o vegetales
 3102,Fertilizantes nitrogenados
-3103,Fertilizantes fosf·ticos
-3104,Fertilizantes pot·sicos
-3105,Fertilizantes minerales o quÌmicos mixtos
+3103,Fertilizantes fosf√°ticos
+3104,Fertilizantes pot√°sicos
+3105,Fertilizantes minerales o qu√≠micos mixtos
 3201,Extractos de bronceado
-3202,Extractos de bronceado sintÈtico
+3202,Extractos de bronceado sint√©tico
 3203,Tintes vegetales o animales
-3204,Materia para colorear sintÈtica
+3204,Materia para colorear sint√©tica
 3205,Pigmentos del lago
 3206,Otra materia para colorear
 3207,Pigmentos preparados
@@ -386,15 +386,15 @@ reproducciÛn de hongos"
 3305,Productos para el cabello
 3306,Productos dentales
 3307,Productos de afeitar
-3401,JabÛn
+3401,Jab√≥n
 3402,Productos de limpieza
 3403,Productos lubricantes
 3404,Cemas
 3405,Esmaltes y cremas
 3406,Velas
 3407,Pastas y ceras
-3501,CaseÌna
-3502,ProteÌnas solubles en agua
+3501,Case√≠na
+3502,Prote√≠nas solubles en agua
 3503,Gelatina
 3504,Peptones
 3505,Dextrinas
@@ -405,77 +405,77 @@ reproducciÛn de hongos"
 3603,Fusibles detonadores
 3604,Fuegos artificiales
 3605,Partidos
-3606,Aleaciones pirofÛricas
-3701,Platos fotogr·ficos
-3702,Film fotogr·fico
-3703,Papel fotogr·fico
-3704,Material fotogr·fico expuesto no desarrollado
-3705,Material fotogr·fico expuesto desarrollado
-3706,"PelÌcula de imagen de movimiento, expuesta y desarrollada"
-3707,QuÌmicos fotogr·ficos
+3606,Aleaciones pirof√≥ricas
+3701,Platos fotogr√°ficos
+3702,Film fotogr√°fico
+3703,Papel fotogr√°fico
+3704,Material fotogr√°fico expuesto no desarrollado
+3705,Material fotogr√°fico expuesto desarrollado
+3706,"Pel√≠cula de imagen de movimiento, expuesta y desarrollada"
+3707,Qu√≠micos fotogr√°ficos
 3801,Grafito artificial
-3802,CarbÛn activado
+3802,Carb√≥n activado
 3803,Aceite alto
 3804,Lyes de pulpa de madera
 3805,Trementina
 3806,Colofonia
-3807,"Alquitr·n de madera, aceites y tono"
+3807,"Alquitr√°n de madera, aceites y tono"
 3808,Pesticidas
-3809,TeÒido agentes de acabado
+3809,Te√±ido agentes de acabado
 3810,Preparaciones de decapado en metal
 3811,Antidetonante
 3812,Aceleradores de goma preparados
 3813,Preparaciones de extintores de incendios
-3814,Solventes compuestos org·nicos
-3815,ReacciÛn y productos catalÌticos
+3814,Solventes compuestos org√°nicos
+3815,Reacci√≥n y productos catal√≠ticos
 3816,Cementos refractarios
 3817,Alquilbencenos y alquilnaftalenos
 3818,Disc Chemicals for Electronics
-3819,LÌquido de frenos hidr·ulico
+3819,L√≠quido de frenos hidr√°ulico
 3820,Anticongelante
 3821,Preparaciones de cultura de microorganismo
 3822,Reactivos de laboratorio
-3823,"ÕÅcidos grasos industriales, aceites y alcoholes"
-3901,PolÌmeros de etileno
-3902,PolÌmeros de propileno
-3903,PolÌmeros de estireno
-3904,PolÌmeros de cloruro de vinilo
-3905,Otros polÌmeros de vinilo
-3906,PolÌmeros acrÌlicos
+3823,"√ç¬Åcidos grasos industriales, aceites y alcoholes"
+3901,Pol√≠meros de etileno
+3902,Pol√≠meros de propileno
+3903,Pol√≠meros de estireno
+3904,Pol√≠meros de cloruro de vinilo
+3905,Otros pol√≠meros de vinilo
+3906,Pol√≠meros acr√≠licos
 3907,Poliacetales
 3908,Poliamidas
 3909,Amino-resinas
 3910,Silicona
-3911,Resinas de petrÛleo
+3911,Resinas de petr√≥leo
 3912,Celulosa
-3913,PolÌmeros naturales
-3914,Exchangadores de iones de polÌmero
-3915,Pl·stico de chatarra
+3913,Pol√≠meros naturales
+3914,Exchangadores de iones de pol√≠mero
+3915,Pl√°stico de chatarra
 3916,Monofilamento
-3917,TuberÌas de pl·stico
-3918,Cubiertos de pl·stico
-3919,Pl·sticos autoadhesivos
-3920,L·mina de pl·stico crudo
-3921,Otras l·minas de pl·stico
-3922,Cuencas de lavado de pl·stico
-3923,Tapas de pl·stico
-3924,ArtÌculos para el hogar de pl·stico
-3925,Materiales de construcciÛn de pl·stico
-3926,Otros productos de pl·stico
+3917,Tuber√≠as de pl√°stico
+3918,Cubiertos de pl√°stico
+3919,Pl√°sticos autoadhesivos
+3920,L√°mina de pl√°stico crudo
+3921,Otras l√°minas de pl√°stico
+3922,Cuencas de lavado de pl√°stico
+3923,Tapas de pl√°stico
+3924,Art√≠culos para el hogar de pl√°stico
+3925,Materiales de construcci√≥n de pl√°stico
+3926,Otros productos de pl√°stico
 4001,Caucho
-4002,Caucho sintÈtico
+4002,Caucho sint√©tico
 4003,Goma recuperada
 4004,Goma de chatarra
 4005,Caucho no vulcanizado
 4006,Productos de caucho no vulcanizados
 4007,Hilo de goma
-4008,S·banas de goma
-4009,TuberÌas de goma
-4010,PaÒuelo de goma
-4011,Neum·ticos de goma
-4012,Neum·ticos de goma usados
+4008,S√°banas de goma
+4009,Tuber√≠as de goma
+4010,Pa√±uelo de goma
+4011,Neum√°ticos de goma
+4012,Neum√°ticos de goma usados
 4013,Tubos internos de goma
-4014,Productos de caucho farmacÈutico
+4014,Productos de caucho farmac√©utico
 4015,Ropa de goma
 4016,Otros productos de goma
 4017,Goma dura
@@ -489,26 +489,26 @@ reproducciÛn de hongos"
 4108,Cuero de gamuza
 4109,Charol
 4110,Desechos de cuero
-4111,S·banas de cuero
-4201,TalabarterÌa
+4111,S√°banas de cuero
+4201,Talabarter√≠a
 4202,Troncos y casos
 4203,Ropa de cuero
-4205,Otros artÌculos de cuero
-4206,ArtÌculo
+4205,Otros art√≠culos de cuero
+4206,Art√≠culo
 4301,Pieles crudas
 4302,Pieles de piel bronceadas
 4303,Ropa de piel
 4304,Pelaje artificial
 4401,Madera de combustible
-4402,CarbÛn de madera
+4402,Carb√≥n de madera
 4403,Madera rugosa
 4404,Estacas de madera
 4405,Lana de madera
-4406,VÌnculo ferroviario
+4406,V√≠nculo ferroviario
 4407,Madera aserrada
-4408,S·banas de chapa
+4408,S√°banas de chapa
 4409,Madera con forma
-4410,Tabla de partÌculas
+4410,Tabla de part√≠culas
 4411,Tablero de fibra de madera
 4412,Madera contrachapada
 4413,Madera densificada
@@ -516,33 +516,33 @@ reproducciÛn de hongos"
 4415,Cajas de madera
 4416,Barriles de madera
 4417,Manijas de herramientas de madera
-4418,CarpinterÌa de madera
+4418,Carpinter√≠a de madera
 4419,Utensilios de cocina de madera
 4420,Adornos de madera
-4421,Otros artÌculos de madera
+4421,Otros art√≠culos de madera
 4501,Corcho crudo
 4502,Corcho debacked
-4503,ArtÌculos de corcho natural
+4503,Art√≠culos de corcho natural
 4504,Corcho aglomerado
 4601,Productos de trenza
-4602,CesterÌa
-4701,Pulpa de madera mec·nica
-4702,DisoluciÛn de grados de carpinterÌa quÌmica
-4703,Sulfato de leÒa quÌmica
-4704,P·jaro carpinterÌa de sulfito
-4705,CarpinterÌa semi quÌmica
+4602,Cester√≠a
+4701,Pulpa de madera mec√°nica
+4702,Disoluci√≥n de grados de carpinter√≠a qu√≠mica
+4703,Sulfato de le√±a qu√≠mica
+4704,P√°jaro carpinter√≠a de sulfito
+4705,Carpinter√≠a semi qu√≠mica
 4706,Pulpa de papel recuperada
 4707,Papel recuperado
 4801,Papel prensa
 4802,Papel sin recubrimiento
-4803,PaÒuelo de papel
+4803,Pa√±uelo de papel
 4804,Papel kraft
 4805,Otro papel sin recubrimiento
 4806,Pergamino
 4807,Papel compuesto
 4808,Papel corrugado
-4809,Papel carbÛn
-4810,Papel recubierto de caolÌn
+4809,Papel carb√≥n
+4810,Papel recubierto de caol√≠n
 4811,Papel de fibras de celulosa
 4812,Bloques de filtro de pulpa de papel
 4813,Papel para cigarrillos
@@ -556,13 +556,13 @@ reproducciÛn de hongos"
 4822,Carrete de papel
 4823,Papel con forma
 4901,Folletos
-4902,PeriÛdicos
-4903,Libros ilustrados para niÒos
+4902,Peri√≥dicos
+4903,Libros ilustrados para ni√±os
 4904,Partitura
 4905,Mapas
-4906,Planes arquitectÛnicos
-4907,"Documentos de tÌtulo (bonos, etc.) y sellos no utilizados"
-4908,CalcomanÌas
+4906,Planes arquitect√≥nicos
+4907,"Documentos de t√≠tulo (bonos, etc.) y sellos no utilizados"
+4908,Calcoman√≠as
 4909,Tarjetas postales
 4910,Calendario
 4911,Otro material impreso
@@ -585,20 +585,20 @@ reproducciÛn de hongos"
 5111,Tela de lana o cabello de animal cardado
 5112,Tela de lana o cabello animal
 5113,Tela de crin de caballo
-5201,AlgodÛn en bruto
-5202,Desperdicio de algodÛn
-5203,AlgodÛn preparado
-5204,Hilo de costura de algodÛn
-5205,Hilo de algodÛn puro no minorista
-5206,Hilo de algodÛn mixto sin retraso
-5207,Hilo de algodÛn minorista
-5208,AlgodÛn tejido puro claro
-5209,AlgodÛn tejido puro pesado
-5210,AlgodÛn tejido mixto ligero
-5211,AlgodÛn tejido mixto pesado
-5212,Otras telas de algodÛn
+5201,Algod√≥n en bruto
+5202,Desperdicio de algod√≥n
+5203,Algod√≥n preparado
+5204,Hilo de costura de algod√≥n
+5205,Hilo de algod√≥n puro no minorista
+5206,Hilo de algod√≥n mixto sin retraso
+5207,Hilo de algod√≥n minorista
+5208,Algod√≥n tejido puro claro
+5209,Algod√≥n tejido puro pesado
+5210,Algod√≥n tejido mixto ligero
+5211,Algod√≥n tejido mixto pesado
+5212,Otras telas de algod√≥n
 5301,Fibras de lino
-5302,Fibras de c·Òamo
+5302,Fibras de c√°√±amo
 5303,Yute y otras fibras textiles
 5305,Coco y otras fibras vegetales
 5306,Hilo de lino
@@ -608,38 +608,38 @@ reproducciÛn de hongos"
 5310,Tela tejida de yute
 5311,Otras fibras de vegetales tela
 5401,Hilo de coser de filamento artificial
-5402,Hilo de filamento sintÈtico sin retraso
+5402,Hilo de filamento sint√©tico sin retraso
 5403,Hilo de filamento artificial sin retraso
-5404,Monofilamento sintÈtico
+5404,Monofilamento sint√©tico
 5405,Monofilamento artificial
 5406,Hilo de filamento artificial minorista
-5407,Tela tejida de hilo de filamento sintÈtico
+5407,Tela tejida de hilo de filamento sint√©tico
 5408,Tela tejida de hilo de filamento artificial
-5501,Remolque de filamento sintÈtico
+5501,Remolque de filamento sint√©tico
 5502,Remolque de filamento artificial
-5503,Fibras b·sicas sintÈticas sin procesar
-5504,Fibras b·sicas artificiales sin procesar
+5503,Fibras b√°sicas sint√©ticas sin procesar
+5504,Fibras b√°sicas artificiales sin procesar
 5505,Residuos de fibras artificiales
-5506,Fibras b·sicas sintÈticas procesadas
-5507,Fibras b·sicas artificiales procesadas
+5506,Fibras b√°sicas sint√©ticas procesadas
+5507,Fibras b√°sicas artificiales procesadas
 5508,Hilo de costura de fibras artificiales no retrasadas
-5509,Fibras b·sicas sintÈticas sin retraso hilo
-5510,Fibras de elementos b·sicos no retrasos hilo
+5509,Fibras b√°sicas sint√©ticas sin retraso hilo
+5510,Fibras de elementos b√°sicos no retrasos hilo
 5511,Hilo
-5512,Telas sintÈticas
-5513,Telas de algodÛn sintÈticas ligeras
-5514,Telas de algodÛn sintÈticas pesadas
-5515,Otras telas sintÈticas
-5516,Tela tejida de fibras b·sicas sintÈticas
+5512,Telas sint√©ticas
+5513,Telas de algod√≥n sint√©ticas ligeras
+5514,Telas de algod√≥n sint√©ticas pesadas
+5515,Otras telas sint√©ticas
+5516,Tela tejida de fibras b√°sicas sint√©ticas
 5601,Guata
-5602,SintiÛ
+5602,Sinti√≥
 5603,Textiles no tejidos
 5604,Textiles de goma
-5605,Hilo met·lico
+5605,Hilo met√°lico
 5606,Hilo de gimp
 5607,Cuerda y cuerda
 5608,Red
-5609,Otros artÌculos de hilo y cuerda
+5609,Otros art√≠culos de hilo y cuerda
 5701,Alfombras anudadas
 5702,Alfombras tejidas a mano
 5703,Alfombras con mechones
@@ -653,20 +653,20 @@ reproducciÛn de hongos"
 5806,Tela tejida estrecha
 5807,Etiquetas
 5808,Adornos ornamentales
-5809,Tela met·lica
+5809,Tela met√°lica
 5810,Bordado
 5811,Textiles acolchados
 5901,Tela textil recubierta de goma
 5902,Tela de poliamida
-5903,Tela textil recubierta de pl·stico
-5904,LinÛleo
+5903,Tela textil recubierta de pl√°stico
+5904,Lin√≥leo
 5905,Cubiertas de paredes textiles
 5906,Tela textil de goma
 5907,Tela textil recubierta
 5908,Mechas textiles
-5909,Textiles de tuberÌa de manguera
+5909,Textiles de tuber√≠a de manguera
 5910,Textiles de cinta transportadora
-5911,Textiles para usos tÈcnicos
+5911,Textiles para usos t√©cnicos
 6001,Tela
 6002,Tela de punto de goma ligera
 6101,Tejer abrigos para hombres
@@ -678,7 +678,7 @@ reproducciÛn de hongos"
 6107,Tejer ropa interior para hombres
 6108,Tejer ropa interior para mujeres
 6109,Camisetas de punto
-6110,SuÈteres de punto
+6110,Su√©teres de punto
 6111,Prendas de tejidos de tejido
 6112,Ropa de punto activo
 6113,Prendas de tela impregnada
@@ -694,11 +694,11 @@ reproducciÛn de hongos"
 6206,Camisas para mujeres no unidas
 6207,Ropa interior de hombre no unida
 6208,Ropa interior de mujer sin una
-6209,Prendas de bebÈs no unidas
+6209,Prendas de beb√©s no unidas
 6210,Prendas de tela de fieltro o recubierto
 6211,Desgaste activo no unido
 6212,Otras ropa interior de mujeres
-6213,PaÒuelos
+6213,Pa√±uelos
 6214,Bufandas
 6215,Corbatas del cuello
 6216,Guantes no unidos
@@ -709,7 +709,7 @@ reproducciÛn de hongos"
 6304,Colchas
 6305,Bolsas de embalaje
 6306,"Toldos, carpas y velas"
-6307,Otros artÌculos de tela
+6307,Otros art√≠culos de tela
 6308,Juegos de costura envasados
 6309,Ropa usada
 6310,Restos textiles
@@ -729,39 +729,39 @@ reproducciÛn de hongos"
 6601,Paraguas
 6602,Bastones
 6603,Accesorios paraguas y para caminar
-6701,Pieles y plumas de p·jaros
-6702,VegetaciÛn artificial
+6701,Pieles y plumas de p√°jaros
+6702,Vegetaci√≥n artificial
 6703,Cabello procesado
 6704,Cabello falso
 6801,Curbstones
-6802,ConstrucciÛn de piedra
+6802,Construcci√≥n de piedra
 6803,Pizarra
 6804,Frases
 6805,Polvo abrasivo
 6806,Lana mineral de roca
 6807,Asfalto
 6808,Fibra de verduras
-6809,ArtÌculos de yeso
-6810,ArtÌculos de cemento
-6811,ArtÌculos de cemento de asbesto
+6809,Art√≠culos de yeso
+6810,Art√≠culos de cemento
+6811,Art√≠culos de cemento de asbesto
 6812,Fibras de asbesto
-6813,Material de fricciÛn
+6813,Material de fricci√≥n
 6814,Mica
-6815,Otros artÌculos de piedra
+6815,Otros art√≠culos de piedra
 6901,Ladrillos
 6902,Ladrillos refractarios
-6903,Cer·mica refractaria
-6904,Ladrillos de cer·mica
+6903,Cer√°mica refractaria
+6904,Ladrillos de cer√°mica
 6905,Tejas
-6906,TuberÌas de cer·mica
-6907,Cer·mica sin esmaltar
-6908,Cer·mica acristalada
-6909,Laboratorio de cer·mica
-6910,Cer·mica de baÒo
+6906,Tuber√≠as de cer√°mica
+6907,Cer√°mica sin esmaltar
+6908,Cer√°mica acristalada
+6909,Laboratorio de cer√°mica
+6910,Cer√°mica de ba√±o
 6911,Vajilla de porcelana
-6912,Vajilla de cer·mica
-6913,Cer·mica ornamental
-6914,Otros artÌculos de cer·mica
+6912,Vajilla de cer√°mica
+6913,Cer√°mica ornamental
+6914,Otros art√≠culos de cer√°mica
 7001,Restos de vidrio
 7002,Bolas de vidrio
 7003,Vidrio fundido o enrollado
@@ -773,18 +773,18 @@ reproducciÛn de hongos"
 7009,Espejos de vidrio
 7010,Botellas de vidrio
 7011,Bulbos de vidrio
-7013,CristalerÌa decorativa interior
-7014,CristalerÌa de seÒalizaciÛn
+7013,Cristaler√≠a decorativa interior
+7014,Cristaler√≠a de se√±alizaci√≥n
 7015,Gafas y vidrio de reloj
 7016,Ladrillos de vidrio
-7017,CristalerÌa de laboratorio
+7017,Cristaler√≠a de laboratorio
 7018,Cuentas de vidrio
 7019,Fibras de vidrio
-7020,Otros artÌculos de vidrio
+7020,Otros art√≠culos de vidrio
 7101,Perlas
 7102,Diamantes
 7103,Piedras preciosas
-7104,Joyas reconstruidas sintÈticas
+7104,Joyas reconstruidas sint√©ticas
 7105,Polvo de piedra precioso
 7106,Plata
 7107,Metales vestidos de plata
@@ -793,11 +793,11 @@ reproducciÛn de hongos"
 7110,Platino
 7111,Metales vestidos de platino
 7112,Restos de metal precioso
-7113,JoyerÌa
+7113,Joyer√≠a
 7114,Productos vestidos de metal
 7115,Otros productos de metales preciosos
 7116,Productos de perlas
-7117,JoyerÌa de imitaciÛn
+7117,Joyer√≠a de imitaci√≥n
 7118,Moneda
 7201,Arrabio
 7202,Ferroalloys
@@ -828,29 +828,29 @@ reproducciÛn de hongos"
 7227,Barras de acero
 7228,Otras barras de acero
 7229,Alambre de acero
-7301,AcumulaciÛn de hoja de hierro
+7301,Acumulaci√≥n de hoja de hierro
 7302,Productos ferroviarios de hierro
-7303,TuberÌas de hierro fundido
-7304,TuberÌas de hierro
-7305,Otras grandes tuberÌas de hierro
-7306,Otras pequeÒas tuberÌas de hierro
-7307,Accesorios de tuberÌa de hierro
+7303,Tuber√≠as de hierro fundido
+7304,Tuber√≠as de hierro
+7305,Otras grandes tuber√≠as de hierro
+7306,Otras peque√±as tuber√≠as de hierro
+7307,Accesorios de tuber√≠a de hierro
 7308,Estructuras de hierro
 7309,Grandes recipientes de hierro
-7310,PequeÒos recipientes de hierro
+7310,Peque√±os recipientes de hierro
 7311,Contenedores de gas de hierro
 7312,Alambre de hierro varado
 7313,Alambre de espino
 7314,Tela de hierro
 7315,Cadenas de hierro
 7316,Anclajes de hierro
-7317,UÒas de hierro
+7317,U√±as de hierro
 7318,Sujetadores de hierro
 7319,Agujas de costura de hierro
 7320,Resortes de hierro
 7321,Estufas de hierro
 7322,Radiadores de hierro
-7323,ArtÌculos para el hogar de hierro
+7323,Art√≠culos para el hogar de hierro
 7324,Tocador de hierro
 7325,Otros productos de hierro fundido
 7326,Otros productos de hierro
@@ -865,19 +865,19 @@ reproducciÛn de hongos"
 7409,Recubrimiento de cobre
 7410,Hoja de cobre
 7411,Tubos de cobre
-7412,Accesorios de tuberÌa de cobre
+7412,Accesorios de tuber√≠a de cobre
 7413,Alambre de cobre varado
 7415,Sujetadores de cobre
-7418,ArtÌculos para el hogar de cobre
+7418,Art√≠culos para el hogar de cobre
 7419,Otros productos de cobre
-7501,Mattes de nÌquel
-7502,NÌquel crudo
-7503,NÌquel
-7504,Polvo de nÌquel
-7505,Barras de nÌquel
-7506,Hojas de nÌquel
-7507,TuberÌas de nÌquel
-7508,Otros productos de nÌquel
+7501,Mattes de n√≠quel
+7502,N√≠quel crudo
+7503,N√≠quel
+7504,Polvo de n√≠quel
+7505,Barras de n√≠quel
+7506,Hojas de n√≠quel
+7507,Tuber√≠as de n√≠quel
+7508,Otros productos de n√≠quel
 7601,Aluminio crudo
 7602,Aluminio de chatarra
 7603,Polvo de aluminio
@@ -885,14 +885,14 @@ reproducciÛn de hongos"
 7605,Alambre de aluminio
 7606,Revestimiento de aluminio
 7607,Papel de aluminio
-7608,TuberÌas de aluminio
-7609,Accesorios de tuberÌa de aluminio
+7608,Tuber√≠as de aluminio
+7609,Accesorios de tuber√≠a de aluminio
 7610,Estructuras de aluminio
 7611,Recipientes de aluminio grandes
 7612,Latas de aluminio
 7613,Contenedores de gas de aluminio
 7614,Alambre de aluminio varado
-7615,ArtÌculos para el hogar de aluminio
+7615,Art√≠culos para el hogar de aluminio
 7616,Otros productos de aluminio
 7801,Plomo en bruto
 7802,Plomo de chatarra
@@ -902,15 +902,15 @@ reproducciÛn de hongos"
 7902,Desecho
 7903,Polvo de zinc
 7904,Barras de zinc
-7905,S·banas de zinc
+7905,S√°banas de zinc
 7907,Otros productos de zinc
 8001,Lata cruda
 8002,Lata de chatarra
 8003,Barras de lata
-8007,Otros productos de estaÒo
+8007,Otros productos de esta√±o
 8101,Tungsteno
 8102,Molibdeno
-8103,T·ntalo
+8103,T√°ntalo
 8104,Magnesio
 8105,Cobalto
 8106,Bismuto
@@ -921,7 +921,7 @@ reproducciÛn de hongos"
 8111,Manganeso
 8112,Otros metales
 8113,Cermetos
-8201,Herramientas de jardÌn
+8201,Herramientas de jard√≠n
 8202,Sierras manuales
 8203,Herramientas manuales
 8204,Llaves
@@ -930,7 +930,7 @@ reproducciÛn de hongos"
 8207,Piezas de herramientas intercambiables
 8208,Cuchillas de corte
 8209,Placas de herramientas
-8210,Herramientas manuales de cocciÛn
+8210,Herramientas manuales de cocci√≥n
 8211,Cuchillos
 8212,Hojas de afeitar
 8213,Tijeras
@@ -949,213 +949,213 @@ reproducciÛn de hongos"
 8311,Productos de soldadura de metal recubiertos
 8401,Reactores nucleares
 8402,Calderas de vapor
-8403,Calderas de calefacciÛn central
+8403,Calderas de calefacci√≥n central
 8404,Plantas calderas
 8405,Generadores de agua y gas
 8406,Turbinas de vapor
 8407,Motores de encendido chispa
-8408,Motores de combustiÛn
+8408,Motores de combusti√≥n
 8409,Partes del motor
-8410,Turbinas hidr·ulicas
+8410,Turbinas hidr√°ulicas
 8411,Turbinas de gas
 8412,Otros motores
-8413,Bombas lÌquidas
+8413,Bombas l√≠quidas
 8414,Bombas de aire
 8415,Acondicionadores de aire
-8416,Hornos de combustible lÌquido
+8416,Hornos de combustible l√≠quido
 8417,Hornos industriales
 8418,Refrigeradores
-8419,Otra maquinaria de calefacciÛn
-8420,M·quinas rodantes
+8419,Otra maquinaria de calefacci√≥n
+8420,M√°quinas rodantes
 8421,Centrifugadoras
-8422,M·quinas de lavado y embotellado
+8422,M√°quinas de lavado y embotellado
 8423,Escamas
-8424,M·quinas de dispersiÛn de lÌquidos
+8424,M√°quinas de dispersi√≥n de l√≠quidos
 8425,Sistemas de polea
-8426,Gr˙as
+8426,Gr√∫as
 8427,Bifurcos
-8428,Maquinaria de elevaciÛn
-8429,Grandes vehÌculos de construcciÛn
-8430,Otros vehÌculos de construcciÛn
-8431,Maquinaria de excavaciÛn
-8432,Maquinaria de preparaciÛn del suelo
+8428,Maquinaria de elevaci√≥n
+8429,Grandes veh√≠culos de construcci√≥n
+8430,Otros veh√≠culos de construcci√≥n
+8431,Maquinaria de excavaci√≥n
+8432,Maquinaria de preparaci√≥n del suelo
 8433,Cosecha de maquinaria
 8434,Maquinaria lechera
 8435,Maquinaria presionadora de frutas
-8436,Otra maquinaria agrÌcola
+8436,Otra maquinaria agr√≠cola
 8437,Maquinaria
-8438,Maquinaria de preparaciÛn de alimentos industriales
-8439,M·quinas de fabricaciÛn de papel
-8440,M·quinas de uniÛn a libros
+8438,Maquinaria de preparaci√≥n de alimentos industriales
+8439,M√°quinas de fabricaci√≥n de papel
+8440,M√°quinas de uni√≥n a libros
 8441,Otra maquinaria de papel
-8442,Maquinaria de producciÛn impresa
+8442,Maquinaria de producci√≥n impresa
 8443,Impresoras industriales
 8444,Maquinaria textil artificial
 8445,Maquinaria de fibra textil
 8446,Telares
-8447,M·quinas de tejido
-8448,Accesorios de la m·quina de tejer
+8447,M√°quinas de tejido
+8448,Accesorios de la m√°quina de tejer
 8449,Maquinaria
 8450,Lavadoras para el hogar
-8451,M·quinas de procesamiento textil
-8452,M·quinas de coser
+8451,M√°quinas de procesamiento textil
+8452,M√°quinas de coser
 8453,Maquinaria de cuero
-8454,M·quinas de fundiciÛn
-8455,F·bricas de metal
-8456,Maquinaria de eliminaciÛn no mec·nica
-8457,M·quinas de transferencia de metal
+8454,M√°quinas de fundici√≥n
+8455,F√°bricas de metal
+8456,Maquinaria de eliminaci√≥n no mec√°nica
+8457,M√°quinas de transferencia de metal
 8458,Tornos de metal
-8459,M·quinas de perforaciÛn
-8460,M·quinas de acabado de metal
-8461,M·quinas de metal
+8459,M√°quinas de perforaci√≥n
+8460,M√°quinas de acabado de metal
+8461,M√°quinas de metal
 8462,Forjado
-8463,Otra maquinaria de eliminaciÛn no met·lica
-8464,M·quinas de trabajo de piedra
-8465,M·quinas de carpinterÌa
-8466,Piezas de la m·quina de metalurgia
+8463,Otra maquinaria de eliminaci√≥n no met√°lica
+8464,M√°quinas de trabajo de piedra
+8465,M√°quinas de carpinter√≠a
+8466,Piezas de la m√°quina de metalurgia
 8467,Herramientas para el trabajo del motor
 8468,Maquinaria de soldadura y soldadura
-8469,M·quinas de escribir
+8469,M√°quinas de escribir
 8470,Calculador
 8471,Ordenadores
-8472,Otras m·quinas de oficina
-8473,Piezas de m·quina de oficina
-8474,M·quinas de procesamiento de piedra
-8475,M·quinas de trabajo de vidrio
-8476,M·quinas expendedoras
+8472,Otras m√°quinas de oficina
+8473,Piezas de m√°quina de oficina
+8474,M√°quinas de procesamiento de piedra
+8475,M√°quinas de trabajo de vidrio
+8476,M√°quinas expendedoras
 8477,Maquinaria de trabajo de goma
-8478,M·quinas de procesamiento de tabaco
+8478,M√°quinas de procesamiento de tabaco
 8479,Maquinaria que tiene funciones individuales
 8480,Moldes de metal
-8481,V·lvulas
+8481,V√°lvulas
 8482,Rodamientos de bolas
-8483,TransmisiÛn
+8483,Transmisi√≥n
 8484,Juntas
-8485,HÈlices de botes
+8485,H√©lices de botes
 8501,Motor electrico
-8502,Juegos de generaciÛn elÈctrica
-8503,Piezas de motor elÈctrico
-8504,Transformadores elÈctricos
-8505,Electroim·n
-8506,BaterÌas
-8507,BaterÌas elÈctricas
+8502,Juegos de generaci√≥n el√©ctrica
+8503,Piezas de motor el√©ctrico
+8504,Transformadores el√©ctricos
+8505,Electroim√°n
+8506,Bater√≠as
+8507,Bater√≠as el√©ctricas
 8508,Aspiradoras
-8509,Otros artÌculos para el hogar elÈctrico domÈstico
+8509,Otros art√≠culos para el hogar el√©ctrico dom√©stico
 8510,Recortadores de cabello
-8511,Igniciones elÈctricas
-8512,Equipo de iluminaciÛn y seÒalizaciÛn elÈctrica
-8513,IluminaciÛn port·til
-8514,Hornos elÈctricos
-8515,Equipo de soldadura elÈctrica
-8516,Calentadores elÈctricos
-8517,TelÈfono
-8518,MicrÛfonos y auriculares
-8519,Equipo de grabaciÛn de sonido
-8520,M·quinas de dictado
-8521,Equipo de grabaciÛn de video
-8522,Accesorios de grabaciÛn de audio y video
+8511,Igniciones el√©ctricas
+8512,Equipo de iluminaci√≥n y se√±alizaci√≥n el√©ctrica
+8513,Iluminaci√≥n port√°til
+8514,Hornos el√©ctricos
+8515,Equipo de soldadura el√©ctrica
+8516,Calentadores el√©ctricos
+8517,Tel√©fono
+8518,Micr√≥fonos y auriculares
+8519,Equipo de grabaci√≥n de sonido
+8520,M√°quinas de dictado
+8521,Equipo de grabaci√≥n de video
+8522,Accesorios de grabaci√≥n de audio y video
 8523,Medios de audio en blanco
 8524,Grabaciones de sonido
-8525,Equipo de transmisiÛn
-8526,Equipo de navegaciÛn
+8525,Equipo de transmisi√≥n
+8526,Equipo de navegaci√≥n
 8527,Receptores de radio
 8528,Pantallas de video
-8529,Accesorios de transmisiÛn
-8530,SeÒales de tr·fico
+8529,Accesorios de transmisi√≥n
+8530,Se√±ales de tr√°fico
 8531,Alarma de audio
-8532,Condensadores elÈctricos
-8533,Resistencias elÈctricas
+8532,Condensadores el√©ctricos
+8533,Resistencias el√©ctricas
 8534,Placas de circuito impreso
-8535,Equipo de protecciÛn de alto voltaje
-8536,Equipo de protecciÛn de bajo voltaje
-8537,Tableros de control elÈctrico
-8538,Accesorios de energÌa elÈctrica
-8539,Filamento elÈctrico
-8540,Tubos de c·todo
+8535,Equipo de protecci√≥n de alto voltaje
+8536,Equipo de protecci√≥n de bajo voltaje
+8537,Tableros de control el√©ctrico
+8538,Accesorios de energ√≠a el√©ctrica
+8539,Filamento el√©ctrico
+8540,Tubos de c√°todo
 8541,Dispositivos semiconductores
 8542,Circuitos integrados
-8543,Otra maquinaria elÈctrica
+8543,Otra maquinaria el√©ctrica
 8544,Cable aislado
-8545,ElectrÛnica a base de carbono
-8546,Aisladores elÈctricos
+8545,Electr√≥nica a base de carbono
+8546,Aisladores el√©ctricos
 8547,Accesorios aislantes de metal
-8548,Partes elÈctricas
-8601,Locomotoras elÈctricas
+8548,Partes el√©ctricas
+8601,Locomotoras el√©ctricas
 8602,Otras locomotoras
 8603,Transporte ferroviario autopropulsado
-8604,VehÌculos de mantenimiento ferroviario
+8604,Veh√≠culos de mantenimiento ferroviario
 8605,Pasajeros ferroviarios
 8606,Autos de carga de ferrocarril
 8607,Piezas de locomotoras
-8608,Accesorios de vÌa ferroviaria
+8608,Accesorios de v√≠a ferroviaria
 8609,Contenedores de carga ferroviaria
 8701,Tractores
-8702,Autob˙s
+8702,Autob√∫s
 8703,Coches
 8704,Camiones de entrega
-8705,VehÌculos de motor de propÛsito especial
-8706,VehÌculo de motor (8701 a 8705) Chasis equipado con motor
-8707,Cuerpos de vehÌculos (incluidos taxis) para los vehÌculos de motor (8701 a 8705)
-8708,VehÌculos de motor; Piezas y accesorios (8701 a 8705)
+8705,Veh√≠culos de motor de prop√≥sito especial
+8706,Veh√≠culo de motor (8701 a 8705) Chasis equipado con motor
+8707,Cuerpos de veh√≠culos (incluidos taxis) para los veh√≠culos de motor (8701 a 8705)
+8708,Veh√≠culos de motor; Piezas y accesorios (8701 a 8705)
 8709,Camiones de trabajo
-8710,VehÌculos blindados
+8710,Veh√≠culos blindados
 8711,Motocicletas
 8712,Bicicletas
 8713,Silla de ruedas
-8714,Piezas de vehÌculo bi-rueda
-8715,Carruajes para bebÈs
+8714,Piezas de veh√≠culo bi-rueda
+8715,Carruajes para beb√©s
 8716,Remolques
-8801,Aeronaves sin propulsiÛn motorizada
-8802,"Aviones, helicÛpteros y/o naves espaciales"
+8801,Aeronaves sin propulsi√≥n motorizada
+8802,"Aviones, helic√≥pteros y/o naves espaciales"
 8803,Piezas de aviones
-8804,ParacaÌdas
+8804,Paraca√≠das
 8805,Equipo de lanzamiento de aviones
 8901,Barcos de pasajeros y de carga
 8902,Barcos de pesca
 8903,Botes recreativos
 8904,Remolcador
-8905,Barcos para propÛsitos especiales
+8905,Barcos para prop√≥sitos especiales
 8906,Otros buques marinos
 8907,Otras estructuras flotantes
-9001,Fibras Ûpticas
+9001,Fibras √≥pticas
 9002,Espejos y lentes
 9003,Marcos de gafas
 9004,Gafas
 9005,Binoculares y telescopios
-9006,C·maras
-9007,C·maras de vÌdeo
+9006,C√°maras
+9007,C√°maras de v√≠deo
 9008,Proyectores de imagen
 9009,Fotocopiadores
 9010,Equipo de laboratorio de fotos
 9011,Microscopios
-9012,Microscopios no Ûpticos
+9012,Microscopios no √≥pticos
 9013,LCDS
-9014,Br˙julas
-9015,Equipo de topografÌa
+9014,Br√∫julas
+9015,Equipo de topograf√≠a
 9016,Saldos
-9017,Herramientas de redacciÛn
+9017,Herramientas de redacci√≥n
 9018,Instrumentos medicos
-9019,ElectrodomÈsticos terapÈuticos
-9020,ElectrodomÈsticos de respiraciÛn
-9021,Aparatos ortopÈdicos
+9019,Electrodom√©sticos terap√©uticos
+9020,Electrodom√©sticos de respiraci√≥n
+9021,Aparatos ortop√©dicos
 9022,Equipo de rayos X
 9023,Modelos instructivos
-9024,M·quinas de prueba de tracciÛn
-9025,HidrÛmetros
-9026,Instrumentos de mediciÛn de gas y flujo lÌquido
-9027,Instrumentos de an·lisis quÌmico
-9028,Medidores de servicios p˙blicos
-9029,Contadores de revoluciÛn
+9024,M√°quinas de prueba de tracci√≥n
+9025,Hidr√≥metros
+9026,Instrumentos de medici√≥n de gas y flujo l√≠quido
+9027,Instrumentos de an√°lisis qu√≠mico
+9028,Medidores de servicios p√∫blicos
+9029,Contadores de revoluci√≥n
 9030,Osciloscopios
-9031,Otros instrumentos de mediciÛn
+9031,Otros instrumentos de medici√≥n
 9032,Termostatos
-9033,Piezas de instrumentos optoelÈctricos
+9033,Piezas de instrumentos optoel√©ctricos
 9101,Relojes de metales preciosos
 9102,Relojes de metal base
 9103,Relojes con movimientos de reloj
 9104,Relojes del tablero
 9105,Otros relojes
-9106,Instrumentos de grabaciÛn de tiempo
+9106,Instrumentos de grabaci√≥n de tiempo
 9107,Interruptores de tiempo
 9108,Ver movimientos
 9109,Movimientos de reloj
@@ -1167,8 +1167,8 @@ reproducciÛn de hongos"
 9201,Pianos
 9202,Instrumentos de cuerda
 9205,Instrumentos de viento
-9206,PercusiÛn
-9207,Instrumentos musicales elÈctricos
+9206,Percusi√≥n
+9207,Instrumentos musicales el√©ctricos
 9208,Otros instrumentos musicales
 9209,Partes de instrumentos musicales
 9301,Armas militares
@@ -1176,13 +1176,13 @@ reproducciÛn de hongos"
 9303,Otras armas de fuego
 9304,"Pistolas de primavera, aire y gas"
 9305,Piezas y accesorios de armas
-9306,MuniciÛn explosiva
+9306,Munici√≥n explosiva
 9307,Armas y accesorios con copa
 9401,Asientos
-9402,Muebles mÈdicos
+9402,Muebles m√©dicos
 9403,Otros muebles
 9404,Colchones
-9405,Artefactos de iluminaciÛn
+9405,Artefactos de iluminaci√≥n
 9406,Edificios prefabricados
 9503,Otros juguetes
 9504,Juegos de video y cartas
@@ -1198,19 +1198,19 @@ reproducciÛn de hongos"
 9606,Botones
 9607,Cremalleras
 9608,Plumas
-9609,L·pices y crayones
+9609,L√°pices y crayones
 9610,Pizarra
 9611,Sellos de goma
 9612,Cintas de tinta
 9613,Encendedores
-9614,TuberÌas de fumar
+9614,Tuber√≠as de fumar
 9615,Peines
 9616,Rociadores
 9617,Dosis de vacuna
-9618,ManiquÌes
+9618,Maniqu√≠es
 9701,Pinturas
 9702,Impresiones Originales
 9703,Esculturas
 9704,Sellos de ingreso
-9705,ArtÌculos de coleccionista
+9705,Art√≠culos de coleccionista
 9706,Antiguedades

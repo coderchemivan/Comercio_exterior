@@ -43,7 +43,7 @@ class MysqlDB():
 
     def crear_tabla_secciones(self):
         cur = self.conn.cursor()
-        cur.execute("CREATE TABLE if not EXISTS sections (id INT AUTO_INCREMENT PRIMARY KEY, chapters VARCHAR(20))")
+        cur.execute("CREATE TABLE if not EXISTS sections_ (id INT AUTO_INCREMENT PRIMARY KEY, chapters VARCHAR(20))")
         cur.execute('''
                         INSERT INTO sections (chapters) VALUES
                         ('1-5'),
