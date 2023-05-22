@@ -27,7 +27,7 @@ app.config.suppress_callback_exceptions = True
 def filtros():
     """:return: A Div containing controls for graphs.
     """
-    regionsList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=2,region='America')
+    regionsList = Data('world_trade_',fuente_datos='mysql').obtaincountriesProperties(nivel=2,region='America')
     regionsList.remove('SE')
     regionsList = [region if len(region) < 20 else region[:10] + '...' for region in regionsList]
     #productsList = [product if len(product) < 15 else product[:10] + '...' for product in productsList]
@@ -202,9 +202,9 @@ def define_imp_exp(imp_exp_,region_selected,clickCP_status):
     [Input('region_select', 'value')])
 def store_data(selected_region):
     if selected_region !='Mundo':
-        df_inicial_ = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021],region=selected_region).read_data()
+        df_inicial_ = Data('world_trade_',fuente_datos='mysql',year=[2015,2016,2017,2018,2019,2020,2021],region=selected_region).read_data()
     else:
-        df_inicial_ = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()
+        df_inicial_ = Data('world_trade_',fuente_datos='mysql',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()
     data = df_inicial_.to_json(orient='split')
     return data
 
@@ -213,11 +213,11 @@ def store_data(selected_region):
               [Input('region_select','value')])
 def paises_por_region(region_select):
     if region_select == 'Mundo':
-        countriesList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=3)
+        countriesList = Data('world_trade_',fuente_datos='mysql').obtaincountriesProperties(nivel=3)
         countriesList.remove('Antarctica')
         countriesList.remove('World')
     else:
-        countriesList = Data('world_trade',fuente_datos='csv').obtaincountriesProperties(nivel=1,region=region_select)
+        countriesList = Data('world_trade_',fuente_datos='mysql').obtaincountriesProperties(nivel=1,region=region_select)
     try:
         countriesList.remove('Mexico')
     except:pass
@@ -250,7 +250,6 @@ def paises_por_region(region_select):
                 )
 def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country_select,year_slider,imp_exp_):
     df_inicial = pd.read_json(data_df, orient='split')
-    print(df_inicial)
     if region_select !='Mundo':
         df_inicial_ = df_inicial[df_inicial['region']==region_select]
     imp_exp = data_graphs_settings['imp_exp']

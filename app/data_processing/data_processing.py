@@ -38,7 +38,7 @@ class Data():
         return table
 
     def read_data(self):
-        world_trade = self.get_table('world_trade')
+        world_trade = self.get_table('world_trade_')
         #aplicando filtros
         world_trade = world_trade[world_trade['year'].isin(self.year)] if self.year!= None  else world_trade
         world_trade = world_trade[world_trade['imp_exp'] == self.imp_exp] if self.imp_exp!= None  else world_trade
@@ -68,7 +68,6 @@ class Data():
         df = df[df['porcentaje'] > 2]
         df['tradevalue'] = df['tradevalue'].apply(lambda x:x/1000)
         df['tradevalue'] = df['tradevalue'].round(2)
-        print(df.shape)
         return df
 
     def obtaincountriesProperties(self,nivel=1,region='Todos'):

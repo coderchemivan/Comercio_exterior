@@ -1,89 +1,89 @@
 SA_4,sa4_description
-101,Caballos
-102,Bovino
-103,Cerdos
-104,Ovejas y cabras
-105,Aves de corral
-106,Otros animales
-201,Carne bovina
-202,Carne bovina congelada
-203,Carne de cerdo
-204,Carne de oveja y cabra
-205,Carne de caballo
-206,Desposape comestible
-207,Carne de ave
-208,Otra carne
-209,Grasa animal
-210,Carne conservada
-301,Pez vivo
-302,Pescado fresco sin relleno
-303,Pescado congelado sin relleno
-304,Filetes de pescado
-305,Pescado procesado
-306,Crust·ceos
-307,Moluscos
-401,Leche
-402,Leche concentrada
-403,Productos l·cteos fermentados
-404,Suero y otros productos l·cteos
-405,Manteca
-406,Queso
-407,Huevos
-408,Productos de huevo procesados
-409,Miel
-410,Otros productos animales comestibles
-501,Cabello humano
-502,Cabello
-504,”rganos de animales
-505,Plumas y pieles de p·jaros
-506,Huesos procesados
-507,Huesos crudos
-508,Coral y conchas
-510,Productos animales farmacÈuticos
-511,Otros productos animales no comestibles
-601,Bombillas y raÌces
-602,"Otras plantas vivas, esquejes y resbalones;
+0101,Caballos
+0102,Bovino
+0103,Cerdos
+0104,Ovejas y cabras
+0105,Aves de corral
+0106,Otros animales
+0201,Carne bovina
+0202,Carne bovina congelada
+0203,Carne de cerdo
+0204,Carne de oveja y cabra
+0205,Carne de caballo
+0206,Desposape comestible
+0207,Carne de ave
+0208,Otra carne
+0209,Grasa animal
+0210,Carne conservada
+0301,Pez vivo
+0302,Pescado fresco sin relleno
+0303,Pescado congelado sin relleno
+0304,Filetes de pescado
+0305,Pescado procesado
+0306,Crust·ceos
+0307,Moluscos
+0401,Leche
+0402,Leche concentrada
+0403,Productos l·cteos fermentados
+0404,Suero y otros productos l·cteos
+0405,Manteca
+0406,Queso
+0407,Huevos
+0408,Productos de huevo procesados
+0409,Miel
+0410,Otros productos animales comestibles
+0501,Cabello humano
+0502,Cabello
+0504,”rganos de animales
+0505,Plumas y pieles de p·jaros
+0506,Huesos procesados
+0507,Huesos crudos
+0508,Coral y conchas
+0510,Productos animales farmacÈuticos
+0511,Otros productos animales no comestibles
+0601,Bombillas y raÌces
+0602,"Otras plantas vivas, esquejes y resbalones;
 reproducciÛn de hongos"
-603,Cortar flores
-604,Follaje vegetal
-701,Patatas
-702,Tomates
-703,Cebollas
-704,Coles
-705,Lechuga
-706,Vegetales de raÌz
-707,Pepinos
-708,Legumbres
-709,Otras verduras
-710,Vegetales congelados
-711,Vegetales conservados
-712,Vegetales secos
-713,Legumbres secas
-714,Mandioca
-801,"Coconuts, nueces de Brasil y anacardos"
-802,Otras nueces
-803,Pl·tanos
-804,Frutas tropicales
-805,Agrios
-806,Uvas
-807,Melones
-808,Manzanas y peras
-809,Frutas con picaduras
-810,Otras frutas
-811,Frutas y nueces congeladas
-812,Frutas y nueces conservadas
-813,Frutas secas
-814,C·scaras de cÌtricos y melÛn
-901,CafÈ
-902,TÈ
-903,CompaÒero
-904,Pimienta
-905,Vainilla
-906,Canela
-907,Clavos de olor
-908,"Nuez moscada, maza y cardamones"
-909,Semillas de especias
-910,Especias
+0603,Cortar flores
+0604,Follaje vegetal
+0701,Patatas
+0702,Tomates
+0703,Cebollas
+0704,Coles
+0705,Lechuga
+0706,Vegetales de raÌz
+0707,Pepinos
+0708,Legumbres
+0709,Otras verduras
+0710,Vegetales congelados
+0711,Vegetales conservados
+0712,Vegetales secos
+0713,Legumbres secas
+0714,Mandioca
+0801,"Coconuts, nueces de Brasil y anacardos"
+0802,Otras nueces
+0803,Pl·tanos
+0804,Frutas tropicales
+0805,Agrios
+0806,Uvas
+0807,Melones
+0808,Manzanas y peras
+0809,Frutas con picaduras
+0810,Otras frutas
+0811,Frutas y nueces congeladas
+0812,Frutas y nueces conservadas
+0813,Frutas secas
+0814,C·scaras de cÌtricos y melÛn
+0901,CafÈ
+0902,TÈ
+0903,CompaÒero
+0904,Pimienta
+0905,Vainilla
+0906,Canela
+0907,Clavos de olor
+0908,"Nuez moscada, maza y cardamones"
+0909,Semillas de especias
+0910,Especias
 1001,Trigo
 1002,Centeno
 1003,Cebada
@@ -137,7 +137,7 @@ reproducciÛn de hongos"
 1516,Otros aceites vegetales
 1517,Margarina
 1518,Grasas y aceites no comestibles
-1519,ÕÅcido este·rico
+1519,¡cido este·rico
 1520,Glicerol
 1521,Cemas
 1522,Residuos de grasa y aceite
@@ -266,10 +266,10 @@ reproducciÛn de hongos"
 2803,CarbÛn
 2804,HidrÛgeno
 2805,Metales alcalinos
-2806,ÕÅcido clorhÌdrico
-2807,ÕÅcido sulf˙rico
-2808,ÕÅcidos nÌtricos
-2809,ÕÅcido fosfÛrico
+2806,¡cido clorhÌdrico
+2807,¡cido sulf˙rico
+2808,¡cidos nÌtricos
+2809,¡cido fosfÛrico
 2810,Boro
 2811,Otros ·cidos inorg·nicos
 2812,H·vales
@@ -325,10 +325,10 @@ reproducciÛn de hongos"
 2912,AldehÌdos
 2913,Derivados de aldehÌdo
 2914,Cetonas y quinones
-2915,ÕÅcidos monocarboxÌlicos acÌclicos saturados
-2916,ÕÅcidos monocarboxÌlicos acÌclicos insaturados
-2917,ÕÅcidos policarboxÌlicos
-2918,ÕÅcidos carboxÌlicos
+2915,¡cidos monocarboxÌlicos acÌclicos saturados
+2916,¡cidos monocarboxÌlicos acÌclicos insaturados
+2917,¡cidos policarboxÌlicos
+2918,¡cidos carboxÌlicos
 2919,Õâsteres y sales fosfÛricas
 2920,Otros Èsteres
 2921,Compuestos de amina
@@ -344,7 +344,7 @@ reproducciÛn de hongos"
 2931,Otros compuestos organo-inorg·nicos
 2932,Compuestos heterocÌclicos de oxÌgeno
 2933,Compuestos heterocÌclicos de nitrÛgeno
-2934,ÕÅcidos nucleicos
+2934,¡cidos nucleicos
 2935,Sulfonamidas
 2936,Vitaminas
 2937,Hormonas
@@ -435,7 +435,7 @@ reproducciÛn de hongos"
 3820,Anticongelante
 3821,Preparaciones de cultura de microorganismo
 3822,Reactivos de laboratorio
-3823,"ÕÅcidos grasos industriales, aceites y alcoholes"
+3823,"¡cidos grasos industriales, aceites y alcoholes"
 3901,PolÌmeros de etileno
 3902,PolÌmeros de propileno
 3903,PolÌmeros de estireno
