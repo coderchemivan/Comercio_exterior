@@ -36,7 +36,6 @@ class Data():
         elif self.fuente_datos == 'csv':
             table = pd.read_csv('app/data/{}.csv'.format(table),encoding='latin-1')
         return table
-
     def read_data(self):
         world_trade = self.get_table('world_trade_')
         #aplicando filtros
