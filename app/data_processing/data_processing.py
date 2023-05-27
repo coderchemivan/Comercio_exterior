@@ -38,6 +38,7 @@ class Data():
         return table
     def read_data(self):
         world_trade = self.get_table('world_trade_')
+        print(world_trade.shape)
         #aplicando filtros
         world_trade = world_trade[world_trade['year'].isin(self.year)] if self.year!= None  else world_trade
         world_trade = world_trade[world_trade['imp_exp'] == self.imp_exp] if self.imp_exp!= None  else world_trade
@@ -378,5 +379,6 @@ class Data():
     #     fig.show()
 
 
+df = df_inicial_ = Data('world_trade_',fuente_datos='mysql',year=[2015,2016,2017,2018,2019,2021]).read_data()
 
-
+print(df.shape)
