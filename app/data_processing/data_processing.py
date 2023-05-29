@@ -1,9 +1,5 @@
 import pandas as pd
-import numpy as np
 import mysql.connector 
-import plotly.express as px
-import json
-from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 class Data():
     def __init__(self,table_name=None,fuente_datos='csv',reporting_country=None,region=None,partner_code = None,year=None,period=None,section=None,SA_4=None,imp_exp=None):
@@ -25,20 +21,31 @@ class Data():
                                        port='3306'
                                        )
 
+    def excute_query(self,query):
+        self.inicar_mysql_connection()
+        cur = self.conn.cursor()
+        cur.execute(query)
+        rows = cur.fetchall()
+        df = pd.DataFrame(rows,columns=[x[0] for x in cur.description])
+        cur.close()
+        return df
+
+    def clean_query(self,df):
+        df['sum_tradevalue'] = df.groupby(['year', 'imp_exp', 'SA_4'])['tradevalue'].transform('sum')
+        df['porcentaje'] = (df['tradevalue'] / df['sum_tradevalue']) * 100
+        df['porcentaje'] = df['porcentaje'].apply(lambda x: round(x, 2))
+        df = df[df['porcentaje'] > 2]
+        return df
+
     def get_table(self,table):
         if self.fuente_datos == 'mysql':
-            self.inicar_mysql_connection()
-            cur = self.conn.cursor()
-            cur.execute('SELECT*FROM {}'.format(table))
-            rows = cur.fetchall()
-            table = pd.DataFrame(rows,columns=[x[0] for x in cur.description])
-            cur.close()
+            table = self.excute_query('SELECT * FROM {}'.format(table))
+
         elif self.fuente_datos == 'csv':
             table = pd.read_csv('app/data/{}.csv'.format(table),encoding='latin-1')
         return table
     def read_data(self):
         world_trade = self.get_table('world_trade_')
-        print(world_trade.shape)
         #aplicando filtros
         world_trade = world_trade[world_trade['year'].isin(self.year)] if self.year!= None  else world_trade
         world_trade = world_trade[world_trade['imp_exp'] == self.imp_exp] if self.imp_exp!= None  else world_trade
@@ -69,6 +76,48 @@ class Data():
         df['tradevalue'] = df['tradevalue'].apply(lambda x:x/1000)
         df['tradevalue'] = df['tradevalue'].round(2)
         return df
+
+
+    # Crea una función auxiliar para formatear correctamente los valores en el f-string
+    def format_value(self,value):
+        if isinstance(value, str):
+            return f"'{value}'"
+        elif isinstance(value, list):
+            return ', '.join(str(val) for val in value)
+        else:
+            return str(value)
+
+    def build_query(self,input_dict,max_year = True):
+        # Construye la parte del WHERE de la consulta basado en los valores del diccionario
+        where_clause = "WHERE WT.partner_code <> 0"
+        for key, value in input_dict.items():
+            if value!= None:
+                if key == 'year_list':
+                    if max_year:
+                        max_year_value = int(self.format_value(self.excute_query('SELECT MAX(year) FROM world_trade_').iloc[0, 0]))
+                        where_clause += f" AND WT.year IN {max_year_value-1,max_year_value}"
+                    else:
+                        where_clause += f" AND WT.year IN ({self.format_value(value)})"
+                elif key == 'region':
+                    where_clause += f" AND C.region IN ({self.format_value(value)})"
+                else:
+                    where_clause += f" AND WT.{key} = {self.format_value(value)}"
+
+        # Crea la consulta final usando f-string y la cláusula WHERE generada
+        query = f"""
+        SELECT 
+            WT.year, WT.SA_4, S.sa4_description, WT.section, Se.description, WT.imp_exp, WT.partner_code,C.iso_3, C.name, C.region, CEILING(WT.tradevalue/1000) AS tradevalue
+        FROM world_trade_ as WT
+        LEFT JOIN countries as C 
+            ON WT.partner_code = C.partner_code
+        LEFT JOIN sa4 as S
+            ON WT.SA_4 = S.SA_4
+        LEFT JOIN sections_ as Se
+            ON WT.section = Se.section
+        {where_clause}
+        """
+        return query
+    
 
     def obtaincountriesProperties(self,nivel=1,region='Todos'):
         df = self.get_table('countries')
@@ -122,6 +171,8 @@ class Data():
         #dar formato de $ a columna de tradevalue en millones
         
         return df
+
+
 
 #c = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()
 # c = Data('world_trade',fuente_datos='csv',year=[2015,2016,2017,2018,2019,2020,2021])
@@ -206,7 +257,7 @@ class Data():
     #     df['tradevalue'] = df['tradevalue'].round(2)
     #     #eliminar registros con tradevalue < 0
     #     df = df[df['tradevalue'] > 0]
-    #     #if self.region != 'Mundo':
+    #     #if self.region != 'Mudata = df.to_json(orient='split')ndo':
     #     #    df = df[df['region']==self.region]
     #     print(df.shape)
     #     return df
@@ -278,7 +329,7 @@ class Data():
     #                     )
     #     fig.show()
     # def grafica_destino_origen(self,df,periodo=None,imp_exp=None):
-    #     imp_exp = 'Orígenes' if imp_exp == 1 else 'Destinos'
+    #     imp_exp = 'Orígenes' idata = df.to_json(orient='split')f imp_exp == 1 else 'Destinos'
     #     df = df.groupby(['region','name','iso_3'],as_index=False)['tradevalue'].sum()
     #     total = df['tradevalue'].sum()
     #     df['porcentaje'] = df.groupby(['name'],group_keys=False)['tradevalue'].apply(lambda x: (x/total)*100)
@@ -328,7 +379,7 @@ class Data():
     #                             scope = scope_,
     #                             labels={'aumento_disminucion':'Aumento/disminucion'},
     #                             title='Cambio en el valor de importaciones del {} al {}'.format(periodo[0],periodo[1])
-    #                       )
+    #                       )data = df.to_json(orient='split')
     #     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})                                
     #     fig.show()
     # def ITrade_pricnipalesSocios(self):
@@ -379,6 +430,3 @@ class Data():
     #     fig.show()
 
 
-df = df_inicial_ = Data('world_trade_',fuente_datos='mysql',year=[2015,2016,2017,2018,2019,2021]).read_data()
-
-print(df.shape)

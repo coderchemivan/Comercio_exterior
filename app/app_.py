@@ -189,12 +189,15 @@ app.layout = html.Div([
     Output('store-graphs_selections', 'data'),
     Input('imp-exp-toggle-switch', 'value'),
     Input('region_select', 'value'),
-    Input('imp-exp-pais', 'clickData'),)
-def define_imp_exp(imp_exp_,region_selected,clickCP_status):
+    Input('imp-exp-pais', 'clickData'),
+    Input('year-slider','value'),)
+def define_imp_exp(imp_exp_,region_selected,clickCP_status,year):
     imp_exp = 1 if imp_exp_ else 2
     data = {}
     data['clickDataCP']=True if clickCP_status is not None else True
-    data['imp_exp'] = imp_exp 
+    data['imp_exp'] = imp_exp
+    data['region'] = region_selected
+    data['year'] = year
     return data
     
 @app.callback(
@@ -202,9 +205,21 @@ def define_imp_exp(imp_exp_,region_selected,clickCP_status):
     [Input('region_select', 'value')])
 def store_data(selected_region):
     if selected_region !='Mundo':
-        df_inicial_ = Data('world_trade_',fuente_datos='mysql',year=[2015,2016,2017,2018,2019,2020,2021],region=selected_region).read_data()
+        region = selected_region
     else:
-        df_inicial_ = Data('world_trade_',fuente_datos='mysql',year=[2015,2016,2017,2018,2019,2020,2021]).read_data()
+        region = None
+        
+    input_dict = {
+        'partner_code': None,
+        'year_list': [],
+        'sa_4': None,
+        'imp_exp': None,
+        'region':region
+        }
+
+    query = Data().build_query(input_dict,max_year=True) 
+    df_inicial_ = Data().excute_query(query)
+    df_inicial_ = Data().clean_query(df_inicial_)
     data = df_inicial_.to_json(orient='split')
     return data
 
@@ -249,7 +264,19 @@ def paises_por_region(region_select):
                 Input('imp-exp-toggle-switch', 'value'),
                 )
 def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country_select,year_slider,imp_exp_):
-    df_inicial = pd.read_json(data_df, orient='split')
+    input_dict = {
+        'partner_code': None,
+        'year_list': [year_slider[0]-1,year_slider[0]],
+        'sa_4': None,
+        'imp_exp': None,
+        'region':region_select if region_select!='Mundo' else None
+        }
+    query = Data().build_query(input_dict,max_year=False)
+    print (query)
+    df_inicial = Data().excute_query(query)
+    df_inicial = Data().clean_query(df_inicial)
+    print(df_inicial.head())
+    #df_inicial = pd.read_json(data_df, orient='split')
     if region_select !='Mundo':
         df_inicial_ = df_inicial[df_inicial['region']==region_select]
     imp_exp = data_graphs_settings['imp_exp']
@@ -306,8 +333,19 @@ def update_treemap(data_df,data_graphs_settings,clickData1,region_select,country
                 )
 def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_region,country_select,year_slider,import_btn):
     imp_exp = data_graphs_settings['imp_exp']
+    input_dict = {
+        'partner_code': None,
+        'year_list': [year_slider[0]-1,year_slider[0]],
+        'sa_4': None,
+        'imp_exp': None,
+        'region':selected_region
+        }
+    query = Data().build_query(input_dict,max_year=False) 
+    df_inicial = Data().excute_query(query)
+    df_inicial_co = Data().clean_query(df_inicial)   
     df_inicial = pd.read_json(data_df, orient='split')
-
+    #print(df_inicial.head())
+    #print(df_inicial_co.head())
     df = df_inicial.copy()
     # try: #Si se selecciona un producto
     #     if product_select != None and len(product_select) > 0:
@@ -363,7 +401,6 @@ def crear_graficas(data_df,data_graphs_settings,clickData1,clickData2,selected_r
     df_aux2 = Data().cambio_porcentualImpExp(df,pais_producto='producto',lista_columnas=['year','imp_exp',column],columna=column,year=selected_year,imp_exp=imp_exp)
     df_var_producto = df_aux2.sort_values(by='tradevalue',ascending=False).head(10)
     df_var_producto = df_var_producto.sort_values(by='tradevalue',ascending=True)
-    print(df_var_producto)
     fig2 = px.bar(df_var_producto,
                 x='tradevalue',
                 y=column,
